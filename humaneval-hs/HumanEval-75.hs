@@ -31,6 +31,13 @@
 
 -- Haskell Implementation:
 
--- ???
-is_multiply_prime :: ???
-is_multiply_prime = ???
+-- Write a function that returns true if the given number is the multiplication of 3 prime numbers
+-- and false otherwise.
+-- Knowing that (a) is less then 100.
+-- Example:
+-- is_multiply_prime 30 == True
+-- 30 = 2 * 3 * 5
+
+is_multiply_prime :: Int -> Bool
+is_multiply_prime a = let is_prime n = null [i | i <- [2..(n-1)], n `mod` i == 0]
+                      in or [is_prime i && is_prime j && is_prime k && i * j * k == a | i <- [2..100], j <- [2..100], k <- [2..100]]

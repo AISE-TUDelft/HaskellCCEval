@@ -23,6 +23,12 @@
 
 -- Haskell Implementation:
 
--- ???
-count_upper :: ???
-count_upper = ???
+-- Given a string s, count the number of uppercase vowels in even indices.
+--
+-- For example:
+-- count_upper "aBCdEf" returns 1
+-- count_upper "abcdefg" returns 0
+-- count_upper "dBBE" returns 0
+
+count_upper :: String -> Int
+count_upper s = length [i | i <- [0,2..(length s - 1)], s !! i `elem` "AEIOU"]

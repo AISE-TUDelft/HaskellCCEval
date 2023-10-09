@@ -16,6 +16,8 @@
 
 -- Haskell Implementation:
 
--- ???
-starts_one_ends :: ???
-starts_one_ends = ???
+-- Given a positive integer n, return the count of the numbers of n-digit
+-- positive integers that start or end with 1.
+
+starts_one_ends :: Int -> Int
+starts_one_ends n = if n == 1 then 1 else 18 * (10 ^ (n - 2))
