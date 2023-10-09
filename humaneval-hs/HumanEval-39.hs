@@ -40,6 +40,22 @@
 
 -- Haskell Implementation:
 
--- ???
-prime_fib :: ???
-prime_fib = ???
+-- prime_fib returns n-th number that is a Fibonacci number and it's also prime.
+-- >>> prime_fib 1
+-- 2
+-- >>> prime_fib 2
+-- 3
+-- >>> prime_fib 3
+-- 5
+-- >>> prime_fib 4
+-- 13
+-- >>> prime_fib 5
+-- 89
+prime_fib :: Int -> Int
+prime_fib n = head $ drop (n - 1) $ filter isPrime $ map fib [1..]
+  where
+    fib 1 = 2
+    fib 2 = 3
+    fib n = fib (n - 1) + fib (n - 2)
+
+    isPrime p = p > 1 && all (\k -> p `mod` k /= 0) [2..(p - 1)]

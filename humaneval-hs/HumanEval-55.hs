@@ -24,6 +24,15 @@
 
 -- Haskell Implementation:
 
--- ???
-fib :: ???
-fib = ???
+-- Return n-th Fibonacci number.
+-- >>> fib 10
+-- 55
+-- >>> fib 1
+-- 1
+-- >>> fib 8
+-- 21
+fib :: Int -> Int
+fib n = fib' n 0 1
+  where
+    fib' 0 a b = a
+    fib' n a b = fib' (n - 1) b (a + b)

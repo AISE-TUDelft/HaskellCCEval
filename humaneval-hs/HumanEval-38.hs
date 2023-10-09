@@ -26,6 +26,13 @@
 
 -- Haskell Implementation:
 
--- ???
-encode_cyclic :: ???
-encode_cyclic = ???
+-- returns encoded string by cycling groups of three characters.
+encode_cyclic :: String -> String
+encode_cyclic = concatMap (\x -> if length x == 3 then tail x ++ [head x] else x) . chunksOf 3
+  where
+    chunksOf _ [] = []
+    chunksOf n xs = take n xs : chunksOf n (drop n xs)
+
+-- takes as input string encoded with encode_cyclic function. Returns decoded string.
+decode_cyclic :: String -> String
+decode_cyclic = encode_cyclic . encode_cyclic

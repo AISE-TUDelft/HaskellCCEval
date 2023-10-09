@@ -21,7 +21,21 @@
 
 
 -- Haskell Implementation:
+import Data.List (sort)
 
--- ???
-sort_third :: ???
-sort_third = ???
+-- This function takes a list l and returns a list l' such that
+-- l' is identical to l in the indicies that are not divisible by three, while its values at the indicies that are divisible by three are equal
+-- to the values of the corresponding indicies of l, but sorted.
+-- >>> sort_third [1,2,3]
+-- [1,2,3]
+-- >>> sort_third [5,6,3,4,8,9,2]
+-- [2,6,3,4,8,9,5]
+sort_third :: [Int] -> [Int]
+sort_third xs = replaceEveryThird xs (sort $ everyThird xs)
+  where
+    everyThird [] = []
+    everyThird (x:xs) = x : everyThird (drop 2 xs)
+
+    replaceEveryThird [] _ = []
+    replaceEveryThird xs [] = xs
+    replaceEveryThird (x:xs) (y:ys) = y : (take 2 xs ++ replaceEveryThird (drop 2 xs) ys)
