@@ -8,9 +8,9 @@
 -- def median(l: list):
 --     """Return median of elements in the list l.
 --     >>> median([3, 1, 2, 4, 5])
---     3
+--     3.0
 --     >>> median([-10, 4, 6, 1000, 10, 20])
---     15.0
+--     8.0
 --     """
 --     l = sorted(l)
 --     if len(l) % 2 == 1:
@@ -21,7 +21,15 @@
 
 
 -- Haskell Implementation:
+import Data.List (sort)
 
--- ???
-median :: ???
-median = ???
+-- Return median of elements in the list l.
+-- >>> median [3,1,2,4,5]
+-- 3.0
+-- >>> median [-10,4,6,1000,10,20]
+-- 8.0
+median :: [Int] -> Double
+median xs = if odd len then fromIntegral (sorted !! (len `div` 2)) else (fromIntegral (sorted !! (len `div` 2 - 1)) + fromIntegral (sorted !! (len `div` 2))) / 2
+  where
+    sorted = sort xs
+    len = length sorted

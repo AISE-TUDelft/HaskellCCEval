@@ -29,6 +29,11 @@
 
 -- Haskell Implementation:
 
--- ???
-largest_prime_factor :: ???
-largest_prime_factor = ???
+-- Return the largest prime factor of n. Assume n > 1 and is not a prime.
+-- >>> largest_prime_factor 13195
+-- 29
+-- >>> largest_prime_factor 2048
+-- 2
+largest_prime_factor :: Int -> Int
+largest_prime_factor n = maximum $ filter (\x -> n `mod` x == 0) $ filter is_prime [2..n]
+  where is_prime k = null [x | x <- [2..k-1], k `mod` x == 0]
