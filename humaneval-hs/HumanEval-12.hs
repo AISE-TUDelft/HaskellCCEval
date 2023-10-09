@@ -27,7 +27,18 @@
 
 
 -- Haskell Implementation:
+import Data.List
+import Data.Ord
 
--- ???
-longest :: ???
-longest = ???
+-- Out of list of strings, return the longest one. Return the first one in case of multiple
+-- strings of the same length. Return Nothing in case the input list is empty.
+-- >>> longest []
+-- Nothing
+-- >>> longest ["a", "b", "c"]
+-- Just "a"
+-- >>> longest ["a", "bb", "ccc"]
+-- Just "ccc"
+longest :: [String] -> Maybe String
+longest strings = case strings of
+    [] -> Nothing
+    _ -> Just $ maximumBy (comparing length) $ reverse strings

@@ -21,6 +21,8 @@
 
 -- Haskell Implementation:
 
--- ???
-all_prefixes :: ???
-all_prefixes = ???
+-- Return list of all prefixes from shortest to longest of the input string
+-- >>> all_prefixes "abc"
+-- ["a", "ab", "abc"]
+all_prefixes :: String  -> [String]
+all_prefixes string = [take (i+1) string | i <- [0..length string - 1]]

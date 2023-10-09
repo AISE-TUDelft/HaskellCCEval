@@ -19,6 +19,6 @@
 
 -- Haskell Implementation:
 
--- ???
-concatenate :: ???
-concatenate = ???
+-- Concatenate list of strings into a single string
+concatenate :: [String] -> String
+concatenate strings = concat strings

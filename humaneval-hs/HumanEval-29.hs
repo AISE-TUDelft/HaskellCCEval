@@ -19,6 +19,12 @@
 
 -- Haskell Implementation:
 
--- ???
-filter_by_prefix :: ???
-filter_by_prefix = ???
+-- Filter an input list of strings only for ones that start with a given prefix.
+-- >>> filter_by_prefix [] "a"
+-- []
+-- >>> filter_by_prefix ["abc", "bcd", "cde", "array"] "a"
+-- ["abc", "array"]
+filter_by_prefix :: [String] -> String -> [String]
+filter_by_prefix strings prefix = [x | x <- strings, x `startsWith` prefix]
+    where startsWith :: String -> String -> Bool
+          startsWith string prefix = take (length prefix) string == prefix

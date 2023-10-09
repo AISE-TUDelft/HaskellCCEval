@@ -18,6 +18,6 @@
 
 -- Haskell Implementation:
 
--- ???
-strlen :: ???
-strlen = ???
+-- Return length of given string
+strlen :: String -> Int
+strlen string = length string

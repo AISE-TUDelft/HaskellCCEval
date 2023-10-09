@@ -18,6 +18,10 @@
 
 -- Haskell Implementation:
 
--- ???
-string_sequence :: ???
-string_sequence = ???
+-- Return a string containing space-delimited numbers starting from 0 upto n inclusive.
+-- >>> string_sequence 0
+-- '0'
+-- >>> string_sequence 5
+-- '0 1 2 3 4 5'
+string_sequence :: Int -> String
+string_sequence n = unwords [show x | x <- [0..n]]

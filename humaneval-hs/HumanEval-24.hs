@@ -18,6 +18,8 @@
 
 -- Haskell Implementation:
 
--- ???
-largest_divisor :: ???
-largest_divisor = ???
+-- For a given number n, find the largest number that divides n evenly, smaller than n
+-- >>> largest_divisor 15
+-- 5
+largest_divisor :: Int -> Int
+largest_divisor n = maximum [x | x <- [1..n-1], n `mod` x == 0]

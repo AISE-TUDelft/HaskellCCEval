@@ -18,6 +18,6 @@
 
 -- Haskell Implementation:
 
--- ???
-get_positive :: ???
-get_positive = ???
+-- Return only positive numbers in the list.
+get_positive :: [Int] -> [Int]
+get_positive l = [x | x <- l, x > 0]

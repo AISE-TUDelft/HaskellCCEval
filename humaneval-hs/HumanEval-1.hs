@@ -36,6 +36,22 @@
 
 -- Haskell Implementation:
 
--- ???
-separate_paren_groups :: ???
-separate_paren_groups = ???
+-- Input to this function is a string containing multiple groups of nested parentheses. Your goal is to
+-- separate those group into separate strings and return the list of those.
+-- Separate groups are balanced (each open brace is properly closed) and not nested within each other
+-- Ignore any spaces in the input string.
+-- >>> separate_paren_groups "( ) (( )) (( )( ))"
+-- ["()", "(())", "(()())"]
+separate_paren_groups :: String -> [String]
+separate_paren_groups paren_string = get_paren_groups paren_string 0 []
+    where
+        get_paren_groups :: String -> Int -> [String] -> [String]
+        get_paren_groups "" _ groups = groups
+        get_paren_groups ('(':cs) 0 groups = get_paren_groups cs 1 (groups ++ ["("])
+        get_paren_groups (c:cs) depth groups
+            | c == '(' || c == ')' = get_paren_groups cs (depth + (get_d c)) ((reverse . tail . reverse $ groups) ++ [(head $ reverse groups) ++ [c]])
+            | otherwise = get_paren_groups cs depth groups
+            where
+                get_d '(' = 1
+                get_d ')' = -1
+                get_d _ = 0

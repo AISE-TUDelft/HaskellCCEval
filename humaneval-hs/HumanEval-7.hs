@@ -18,7 +18,12 @@
 
 
 -- Haskell Implementation:
+import Data.List
 
--- ???
-filter_by_substring :: ???
-filter_by_substring = ???
+-- Filter an input list of strings only for ones that contain given substring
+-- >>> filter_by_substring [] "a"
+-- []
+-- >>> filter_by_substring ["abc", "bacd", "cde", "array"] "a"
+-- ["abc", "bacd", "array"]
+filter_by_substring :: [String] -> String -> [String]
+filter_by_substring strings substring = [x | x <- strings, substring `isInfixOf` x]

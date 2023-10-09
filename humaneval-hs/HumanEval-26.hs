@@ -20,6 +20,11 @@
 
 -- Haskell Implementation:
 
--- ???
-remove_duplicates :: ???
-remove_duplicates = ???
+-- From a list of integers, remove all elements that occur more than once.
+-- Keep order of elements left the same as in the input.
+-- >>> remove_duplicates [1, 2, 3, 2, 4]
+-- [1, 3, 4]
+remove_duplicates :: [Int] -> [Int]
+remove_duplicates numbers = [n | (n, c) <- counts, c <= 1]
+    where counts = [(n, count n numbers) | n <- numbers]
+          count n xs = length [x | x <- xs, x == n]
