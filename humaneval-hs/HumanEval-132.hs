@@ -40,6 +40,35 @@
 
 -- Haskell Implementation:
 
--- ???
-is_nested :: ???
-is_nested = ???
+    -- Manually translated from Python implementation above.
+
+    -- Tested the following cases:
+    -- >>> is_nested "[[]]"
+    -- True
+    -- >>> is_nested "[]]]]]]][[[[[]"
+    -- False
+    -- >>> is_nested "[][]"
+    -- False
+    -- >>> is_nested "[]"
+    -- False
+    -- >>> is_nested "[[][]]"
+    -- True
+    -- >>> is_nested "[[]][["
+    -- True
+
+is_nested :: String -> Bool
+is_nested string = is_nested' string 0 [] []
+    where
+        is_nested' :: String -> Int -> [Int] -> [Int] -> Bool
+        is_nested' ('[':cs) index opening_bracket_index closing_bracket_index = is_nested' cs (index + 1) (opening_bracket_index ++ [index]) closing_bracket_index
+        is_nested' (']':cs) index opening_bracket_index closing_bracket_index = is_nested' cs (index + 1) opening_bracket_index ([index] ++ closing_bracket_index)
+        is_nested' "" index opening_bracket_index closing_bracket_index
+            | index < 3 = False
+            | otherwise = is_nested'' opening_bracket_index closing_bracket_index 0
+                where
+                    is_nested'' :: [Int] -> [Int] -> Int -> Bool
+                    is_nested'' _ [] cnt = cnt >= 2
+                    is_nested'' [] _ cnt = cnt >= 2
+                    is_nested'' (o:os) (c:cs) cnt
+                        | o < c = is_nested'' os cs (cnt + 1)
+                        | otherwise = is_nested'' os (c:cs) cnt
