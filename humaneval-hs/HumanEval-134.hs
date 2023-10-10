@@ -28,5 +28,3 @@ import Data.Char (isLetter)
 check_if_last_char_is_a_letter :: String -> Bool
 check_if_last_char_is_a_letter [] = False
 check_if_last_char_is_a_letter txt = isLetter $ last txt
-
--- All example cases passed!

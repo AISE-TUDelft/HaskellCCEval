@@ -39,5 +39,3 @@ sum_squares_int lst = sum_squares' lst 0
   where
     sum_squares' [] acc = acc
     sum_squares' (x : xs) acc = sum_squares' xs (acc + x ^ 2)
-
--- All example cases passed!
