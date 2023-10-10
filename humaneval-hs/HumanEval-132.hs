@@ -64,11 +64,11 @@ is_nested string = is_nested' string 0 [] []
         is_nested' (']':cs) index opening_bracket_index closing_bracket_index = is_nested' cs (index + 1) opening_bracket_index ([index] ++ closing_bracket_index)
         is_nested' "" index opening_bracket_index closing_bracket_index
             | index < 3 = False
-            | otherwise = is_nested'' opening_bracket_index closing_bracket_index 0
+            | otherwise = is_nested'' opening_bracket_index closing_bracket_index 0 (length closing_bracket_index)
                 where
-                    is_nested'' :: [Int] -> [Int] -> Int -> Bool
-                    is_nested'' _ [] cnt = cnt >= 2
-                    is_nested'' [] _ cnt = cnt >= 2
-                    is_nested'' (o:os) (c:cs) cnt
-                        | o < c = is_nested'' os cs (cnt + 1)
-                        | otherwise = is_nested'' os (c:cs) cnt
+                    is_nested'' :: [Int] -> [Int] -> Int -> Int -> Bool
+                    is_nested'' _ [] cnt l = cnt >= 2
+                    is_nested'' [] _ cnt l = cnt >= 2
+                    is_nested'' (o:os) (c:cs) cnt l
+                        | o < c && cnt < l = is_nested'' os cs (cnt + 1) l
+                        | otherwise = is_nested'' os (c:cs) cnt l
