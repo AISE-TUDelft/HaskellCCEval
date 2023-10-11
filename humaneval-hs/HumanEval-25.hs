@@ -39,11 +39,11 @@
 -- Each of the factors should be listed number of times corresponding to how many times it appeares in factorization.
 -- Input number should be equal to the product of all factors
 -- >>> factorize 8
--- [2, 2, 2]
+-- [2,2,2]
 -- >>> factorize 25
--- [5, 5]
+-- [5,5]
 -- >>> factorize 70
--- [2, 5, 7]
+-- [2,5,7]
 factorize :: Int -> [Int]
 factorize n = factorize' n 2
     where
