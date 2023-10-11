@@ -31,6 +31,8 @@
 
 -- Haskell Implementation:
 
--- ???
-words_string :: ???
-words_string = ???
+-- takes a string s of words separated by commas or spaces and returns a list of the words.
+-- uses the map function to replace all commas in the input string with spaces. 
+-- then applies the words function to the resulting string to split it into a list of words.
+words_string :: String -> [String]
+words_string s = words $ map (\c -> if c == ',' then ' ' else c) s

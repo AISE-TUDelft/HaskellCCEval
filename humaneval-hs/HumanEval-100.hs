@@ -24,6 +24,8 @@
 
 -- Haskell Implementation:
 
--- ???
-make_a_pile :: ???
-make_a_pile = ???
+-- takes a positive integer n and returns a list of n integers representing the number of stones in each level of the pile.
+-- uses a list comprehension to generate the list of stones.
+-- For each level i from 0 to n-1, it computes the number of stones in that level as n + 2*i and adds it to the result list.
+make_a_pile :: Int -> [Int]
+make_a_pile n = [n + 2*i | i <- [0..n-1]]

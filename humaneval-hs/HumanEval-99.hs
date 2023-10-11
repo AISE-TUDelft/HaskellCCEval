@@ -47,7 +47,10 @@
 
 -- Haskell Implementation:
 
--- ???
+-- defines a function called closest_integer that takes a String argument and returns an Integer.
+-- First converts the input string to a Double using the read function and assigns it to the variable n. 
+-- It then rounds this number to the nearest integer using the round function and returns the result as an Integer.
+-- Values are automaticaly rounded away from 0.
 closest_integer :: String -> Integer
 closest_integer s = let n = read s :: Double
     in round n
