@@ -36,7 +36,7 @@
 -- '.|' - quater note, lasts one beat
 --
 -- >>> parse_music "o o| .| o| o| .| .| .| .| o o"
--- [4, 2, 1, 2, 2, 1, 1, 1, 1, 4, 4]
+-- [4,2,1,2,2,1,1,1,1,4,4]
 parse_music :: String -> [Int]
 parse_music music_string = [note_map x | x <- words music_string]
     where note_map "o" = 4

@@ -37,7 +37,7 @@
 -- E.g. (()()) has maximum two levels of nesting while ((())) has three.
 --
 -- >>> parse_nested_parens "(()()) ((())) () ((())()())"
--- [2, 3, 1, 3]
+-- [2,3,1,3]
 parse_nested_parens :: String -> [Int]
 parse_nested_parens paren_string = get_paren_depths paren_string 0 []
     where

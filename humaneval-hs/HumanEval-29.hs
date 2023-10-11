@@ -23,7 +23,7 @@
 -- >>> filter_by_prefix [] "a"
 -- []
 -- >>> filter_by_prefix ["abc", "bcd", "cde", "array"] "a"
--- ["abc", "array"]
+-- ["abc","array"]
 filter_by_prefix :: [String] -> String -> [String]
 filter_by_prefix strings prefix = [x | x <- strings, x `startsWith` prefix]
     where startsWith :: String -> String -> Bool

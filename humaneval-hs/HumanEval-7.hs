@@ -24,6 +24,6 @@ import Data.List
 -- >>> filter_by_substring [] "a"
 -- []
 -- >>> filter_by_substring ["abc", "bacd", "cde", "array"] "a"
--- ["abc", "bacd", "array"]
+-- ["abc","bacd","array"]
 filter_by_substring :: [String] -> String -> [String]
 filter_by_substring strings substring = [x | x <- strings, substring `isInfixOf` x]
