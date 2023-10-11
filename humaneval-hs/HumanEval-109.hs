@@ -48,6 +48,17 @@
 
 -- Haskell Implementation:
 
--- ???
-move_one_ball :: ???
-move_one_ball = ???
+--  takes an array arr of Orderable elements and determines if it is possible to get an array sorted in non-decreasing order 
+-- by performing right shift operations on the given array.
+-- first checks if the array is empty and returns True in that case. Otherwise, 
+-- it generates a list of all possible right shift amounts using the any function and a lambda expression. 
+-- For each possible shift amount i in the range [0..length arr - 1], it rotates the array arr by i positions using the rotate helper function, 
+-- and checks if the resulting array is equal to the sorted array using the sort function. 
+-- If any of the rotated arrays are equal to the sorted array, the function returns True. Otherwise, it returns False.
+import Data.List (sort)
+
+move_one_ball :: Ord a => [a] -> Bool
+move_one_ball [] = True
+move_one_ball arr = any (\i -> rotate i arr == sort arr) [0..length arr - 1]
+  where
+    rotate n xs = drop n xs ++ take n xs

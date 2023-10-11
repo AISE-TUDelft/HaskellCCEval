@@ -44,6 +44,16 @@
 
 -- Haskell Implementation:
 
--- ???
-even_odd_palindrome :: ???
-even_odd_palindrome = ???
+-- takes a positive integer n and returns a tuple that has the number of even and odd integer palindromes that fall within the range(1, n), 
+-- inclusive.
+-- uses list comprehensions to generate two lists of palindromes: one for even numbers and one for odd numbers. 
+-- It checks if each number in the range [1..n] is a palindrome using the isPalindrome helper function, 
+-- which converts the number to a string and checks if it is equal to its reverse. 
+-- It then filters the resulting list of palindromes to include only even or odd numbers using the even and odd functions. 
+-- Finally, it computes the length of each list to get the number of even and odd palindromes.
+even_odd_palindrome :: Int -> (Int, Int)
+even_odd_palindrome n = (evenCount, oddCount)
+  where
+    isPalindrome x = show x == reverse (show x)
+    evenCount = length [x | x <- [1..n], isPalindrome x, even x]
+    oddCount = length [x | x <- [1..n], isPalindrome x, odd x]

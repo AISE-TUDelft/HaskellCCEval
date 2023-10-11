@@ -49,7 +49,26 @@
 
 
 -- Haskell Implementation:
+-- takes a list of integers xs, sorts the integers that are between 1 and 9 inclusive, 
+-- reverses the resulting array, 
+-- and then replaces each digit by its corresponding name from "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
+-- first filters out any elements that are not between 1 and 9 using the filter function and the isDigit helper function. 
+-- It then sorts the resulting list using the sort function, reverses it using the reverse function, 
+-- and maps the toWord helper function over the reversed list to convert each digit to its corresponding word.
 
--- ???
-by_length :: ???
-by_length = ???
+import Data.List (sort)
+
+by_length :: [Int] -> [String]
+by_length xs = map toWord $ filter isDigit $ reverse $ sort xs
+  where
+    isDigit x = x >= 1 && x <= 9
+    toWord x = case x of
+      1 -> "One"
+      2 -> "Two"
+      3 -> "Three"
+      4 -> "Four"
+      5 -> "Five"
+      6 -> "Six"
+      7 -> "Seven"
+      8 -> "Eight"
+      9 -> "Nine"

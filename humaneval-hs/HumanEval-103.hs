@@ -26,6 +26,15 @@
 
 -- Haskell Implementation:
 
--- ???
-rounded_avg :: ???
-rounded_avg = ???
+-- takes two positive integers n and m and returns the rounded average of the integers from n through m (including n and m) as a binary string. 
+-- If n is greater than m, the function returns -1.
+-- first checks if m is less than n. If so, it returns -1. Otherwise, it computes the average of n and m using the formula (n + m) / 2. 
+-- It then rounds this value to the nearest integer using the round function and converts it to a binary string using the showIntAtBase function.
+import Data.Char (intToDigit)
+import Numeric (showIntAtBase)
+
+rounded_avg :: Int -> Int -> Either Int String
+rounded_avg n m
+  | m < n     = Left (-1)
+  | otherwise = let avg = round $ fromIntegral (n + m) / 2
+                in Right $ "0b" ++ Numeric.showIntAtBase 2 Data.Char.intToDigit avg ""

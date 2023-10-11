@@ -34,6 +34,17 @@
 
 -- Haskell Implementation:
 
--- ???
-exchange :: ???
-exchange = ???
+-- takes two lists of integers lst1 and lst2, 
+-- and determines whether it is possible to perform an exchange of elements between them to make lst1 a list of only even numbers. 
+-- If it is possible to exchange elements between the lst1 and lst2 to make all the elements of lst1 to be even, it returns "YES". 
+-- Otherwise, it returns "NO".
+-- first computes the number of even elements in lst2 and odd elements in lst1 using the filter function and the even and odd predicates. 
+-- It then checks if the number of even elements in lst2 is greater than or equal to the number of odd elements in lst1. 
+-- If so, it returns "YES". Otherwise, it returns "NO".
+exchange :: [Int] -> [Int] -> String
+exchange lst1 lst2
+  | evenCount >= oddCount = "YES"
+  | otherwise = "NO"
+  where
+    evenCount = length $ filter even lst2
+    oddCount = length $ filter odd lst1
