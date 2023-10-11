@@ -49,12 +49,26 @@
 
 
 -- Haskell Implementation:
--- takes a list of integers xs, sorts the integers that are between 1 and 9 inclusive, 
--- reverses the resulting array, 
--- and then replaces each digit by its corresponding name from "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
--- first filters out any elements that are not between 1 and 9 using the filter function and the isDigit helper function. 
--- It then sorts the resulting list using the sort function, reverses it using the reverse function, 
--- and maps the toWord helper function over the reversed list to convert each digit to its corresponding word.
+
+-- Given an array of integers, sort the integers that are between 1 and 9 inclusive,
+-- reverse the resulting array, and then replace each digit by its corresponding name from
+-- "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine".
+-- 
+-- For example:
+--   arr = [2, 1, 1, 4, 5, 8, 2, 3]   
+--         -> sort arr -> [1, 1, 2, 2, 3, 4, 5, 8] 
+--         -> reverse arr -> [8, 5, 4, 3, 2, 2, 1, 1]
+--   return ["Eight","Five","Four","Three","Two","Two","One","One"]
+--     
+--   If the array is empty, return an empty array:
+--   arr = []
+--   return []
+--     
+--   If the array has any strange number ignore it:
+--   arr = [1, -1 , 55] 
+--         -> sort arr -> [-1, 1, 55]
+--         -> reverse arr -> [55, 1, -1]
+--   return = ['One']
 
 import Data.List (sort)
 

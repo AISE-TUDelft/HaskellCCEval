@@ -24,3 +24,14 @@
 -- ???
 sort_array :: ???
 sort_array = ???
+
+
+-- partly working, only equal numbers are not properly added
+import Data.List (sortOn)
+import Data.Char (intToDigit)
+import Numeric (showIntAtBase)
+
+sort_array :: [Int] -> [Int]
+sort_array arr = sortOn (\x -> (popCount x, x)) arr
+  where
+    popCount x = length $ filter (== '1') $ showIntAtBase 2 intToDigit (abs x) ""

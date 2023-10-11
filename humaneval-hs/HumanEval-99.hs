@@ -47,10 +47,21 @@
 
 -- Haskell Implementation:
 
--- defines a function called closest_integer that takes a String argument and returns an Integer.
--- First converts the input string to a Double using the read function and assigns it to the variable n. 
--- It then rounds this number to the nearest integer using the round function and returns the result as an Integer.
--- Values are automaticaly rounded away from 0.
+-- Create a function that takes a value (string) representing a number
+-- and returns the closest integer to it. If the number is equidistant
+-- from two integers, round it away from zero.
+-- 
+-- Examples
+-- >>> closest_integer "10"
+-- 10
+-- >>> closest_integer "15.3"
+-- 15
+-- 
+-- Note:
+-- Rounding away from zero means that if the given number is equidistant
+-- from two integers, the one you should return is the one that is the
+-- farthest from zero. For example closest_integer("14.5") should
+-- return 15 and closest_integer("-14.5") should return -15.
 closest_integer :: String -> Integer
 closest_integer s = let n = read s :: Double
     in round n

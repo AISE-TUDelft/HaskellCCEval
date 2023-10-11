@@ -25,10 +25,13 @@
 
 -- Haskell Implementation:
 
--- takes two positive integers x and y and returns the biggest even integer number that is in the range [x, y] inclusive. 
--- If there's no such number, the function returns -1.
--- uses pattern matching to define four cases based on the input values. If x is greater than y, the function returns -1. 
--- If y is even, the function returns y. If x is equal to y, the function returns -1. Otherwise, the function returns y - 1.
+-- This function takes two positive numbers x and y and returns the
+-- biggest even integer number that is in the range [x, y] inclusive. If 
+-- there's no such number, then the function should return -1.
+-- 
+-- For example:
+-- choose_num 12 15 = 14
+-- choose_num 13 12 = -1
 choose_num :: Int -> Int -> Int
 choose_num x y
   | x > y          = -1
