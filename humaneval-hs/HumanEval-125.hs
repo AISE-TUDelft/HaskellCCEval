@@ -38,4 +38,4 @@ split_words :: String -> Either Int [String]
 split_words txt
   | ' ' `elem` txt = Right $ words txt
   | ',' `elem` txt = Right $ words $ map (\c -> if c == ',' then ' ' else c) txt
-  | otherwise = Left $ length $ filter (\c -> isLower c && ord c `mod` 2 == 0) txt
+  | otherwise = Left $ length $ filter (\c -> isLower c && even (ord c)) txt

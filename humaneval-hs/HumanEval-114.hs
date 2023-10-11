@@ -34,7 +34,6 @@
 -- minSubArraySum [2, 3, 4, 1, 2, 4] == 1
 -- minSubArraySum [-1, -2, -3] == -6
 minSubArraySum :: [Int] -> Int
-minSubArraySum nums = if min_sum == 0 then minimum nums else min_sum
-  where
-    (min_sum, _) = foldl f (0, 0) nums
-    f (s, min_s) num = let s' = min (s + num) 0 in (s', max min_s s')
+minSubArraySum [x] = x
+minSubArraySum (x:xs) = minimum [n, n + x, x]
+  where n = minSubArraySum xs
