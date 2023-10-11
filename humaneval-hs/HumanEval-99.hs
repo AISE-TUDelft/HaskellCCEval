@@ -48,5 +48,9 @@
 -- Haskell Implementation:
 
 -- ???
-closest_integer :: ???
-closest_integer = ???
+closest_integer :: String -> Integer
+closest_integer s = let n = read s :: Double
+                        m = round n
+    in if abs (n - fromIntegral m) == 0.5
+        then if n > 0 then m + 1 else m - 1
+            else m
