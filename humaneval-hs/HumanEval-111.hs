@@ -35,6 +35,21 @@
 
 -- Haskell Implementation:
 
--- ???
-histogram :: ???
-histogram = ???
+-- Given a string representing a space separated lowercase letters, return a dictionary
+-- of the letter with the most repetition and containing the corresponding count.
+-- If several letters have the same occurrence, return all of them.
+--     
+-- Example:
+-- histogram "a b c" == [('a',1),('b',1),('c',1)]
+-- histogram "a b b a" == [('a',2),('b',2)]
+-- histogram "a b c a b" == [('a',2),('b',2)]
+-- histogram "b b b b a" == [('b',4)]
+-- histogram("") == []
+
+import Data.List (sort, group)
+
+histogram :: String -> [(Char, Int)]
+histogram str = [(c, n) | (n, c) <- freqs, n == maxFreq]
+  where
+    freqs = [(length g, head g) | g <- group $ sort str, head g /= ' ']
+    maxFreq = maximum $ map fst freqs

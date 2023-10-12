@@ -28,6 +28,18 @@
 
 -- Haskell Implementation:
 
--- ???
-digits :: ???
-digits = ???
+-- Given a positive integer n, return the product of the odd digits.
+-- Return 0 if all digits are even.
+-- For example:
+-- digits 1  == 1
+-- digits 4  == 0
+-- digits 235 == 15
+digits :: Int -> Int
+digits n = if odd_count == 0 then 0 else product
+  where
+    (product, odd_count) = foldr f (1, 0) (show n)
+    f digit (acc, count)
+      | even int_digit = (acc, count)
+      | otherwise = (acc * int_digit, count + 1)
+      where
+        int_digit = read [digit] :: Int

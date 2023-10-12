@@ -38,6 +38,24 @@
 
 -- Haskell Implementation:
 
--- ???
-match_parens :: ???
-match_parens = ???
+-- You are given a list of two strings, both strings consist of open
+-- parentheses '(' or close parentheses ')' only.
+-- Your job is to check if it is possible to concatenate the two strings in
+-- some order, that the resulting string will be good.
+-- A string S is considered to be good if and only if all parentheses in S
+-- are balanced. For example: the string '(())()' is good, while the string
+-- '())' is not.
+-- Return 'Yes' if there's a way to make a good string, and return 'No' otherwise.
+-- 
+-- Examples:
+-- match_parens ["()(", ")"] == "Yes"
+-- match_parens [")", ")"] == "No"
+match_parens :: [String] -> String
+match_parens [s1, s2] = if check (s1 ++ s2) || check (s2 ++ s1) then "Yes" else "No"
+  where
+    check s = go s 0
+    go [] n = n == 0
+    go ('(':xs) n = go xs (n+1)
+    go (')':xs) n = n > 0 && go xs (n-1)
+    go (_:xs) n = go xs n
+matchParens _ = "No"

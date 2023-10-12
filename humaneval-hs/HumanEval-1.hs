@@ -41,7 +41,7 @@
 -- Separate groups are balanced (each open brace is properly closed) and not nested within each other
 -- Ignore any spaces in the input string.
 -- >>> separate_paren_groups "( ) (( )) (( )( ))"
--- ["()", "(())", "(()())"]
+-- ["()","(())","(()())"]
 separate_paren_groups :: String -> [String]
 separate_paren_groups paren_string = get_paren_groups paren_string 0 []
     where
