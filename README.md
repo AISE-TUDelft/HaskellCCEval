@@ -38,6 +38,26 @@ Clone the repository:
 git clone https://github.com/ML4SE2023/G7-UniXcoder.git
 ```
 
+Download [Poetry](https://python-poetry.org):
+
+```sh
+curl -sSL https://install.python-poetry.org | python3 -
+```
+
+Set up the virtual environment (Python 3.8):
+
+```sh
+poetry env use python3.8
+```
+
+Install the dependencies:
+
+```sh
+poetry install
+```
+
+> Note: for details, please refer to `pyproject.toml`.
+
 Full instructions will follow later.
 
 
