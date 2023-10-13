@@ -1,8 +1,8 @@
 [tool.poetry]
-name = "models"
+name = "Haskell Code Completion"
 version = "0.1.0"
-description = "Models"
-authors = ["TU Delft ML4SE Group 7"]
+description = "Attempt to improve LLM-based code completion for functional programming languages with a specific focus on Haskell."
+authors = ["TU Delft ML4SE Group 7: Philippe de Bekker, Tim van Dam, Frank van der Heijden, Berend Nieuwschepen & Marc Otten"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
