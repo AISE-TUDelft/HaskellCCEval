@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "models"
+version = "0.1.0"
+description = "Models"
+authors = ["TU Delft ML4SE Group 7"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.8, <3.9"
+datasets = "^2.14.5"
+
+[tool.poetry.group.dev.dependencies]
+pylint = "^2.12.2"
+mllint = "^0.12.2"
+dslinter = "^2.0.9"
+isort = "^5.12.0"
+bandit = "^1.7.5"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
