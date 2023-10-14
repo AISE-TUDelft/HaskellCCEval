@@ -26,7 +26,7 @@
 import Crypto.Hash.MD5 qualified as MD5
 import Data.ByteString.Base16 (encode)
 import Data.ByteString.Char8 (pack, unpack)
-import Data.Maybe (fromMaybe)
+import Data.Maybe
 
 -- Build depends on: base >= 4.7 && < 5, base16-bytestring, bytestring, cryptohash-md5
 
