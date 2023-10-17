@@ -63,7 +63,7 @@ def create_unixcoder_dev(test):
     We create a dev.txt that is used to compute loss, and a dev.json that has some test cases for computing the accuracy
     """
     # dev.txt
-    with open(os.path.join(dirname, './finetuning/unixcoder/dev.txt'), 'w') as f:
+    with open(os.path.join(dirname, './finetuning/unixcoder/data/dev.txt'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.txt"):
             if 'full_code' not in sample or sample['full_code'] is None:
                 continue
@@ -71,7 +71,7 @@ def create_unixcoder_dev(test):
             f.write(full_code + '\n')
 
     # dev.json
-    with open(os.path.join(dirname, './finetuning/unixcoder/dev.json'), 'w') as f:
+    with open(os.path.join(dirname, './finetuning/unixcoder/data/dev.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.json"):
             if 'full_code' not in sample or sample['full_code'] is None:
                 continue
