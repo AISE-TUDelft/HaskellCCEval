@@ -65,12 +65,16 @@ def create_unixcoder_dev(test):
     # dev.txt
     with open(os.path.join(dirname, './finetuning/unixcoder/dev.txt'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.txt"):
+            if 'full_code' not in sample or sample['full_code'] is None:
+                continue
             full_code = preprocess_unixcoder(sample['full_code'])
             f.write(full_code + '\n')
 
     # dev.json
     with open(os.path.join(dirname, './finetuning/unixcoder/dev.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.json"):
+            if 'full_code' not in sample or sample['full_code'] is None:
+                continue
             full_code = preprocess_unixcoder(sample['full_code'])
             space_split = full_code.split(' ')
             split_indices = [i for i in range(1, len(space_split) - 1) if not space_split[i:].strip().startswith('<EOL>')]
