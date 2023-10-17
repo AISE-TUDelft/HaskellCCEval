@@ -7,7 +7,7 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-cpu=12G
+#SBATCH --mem-per-cpu=32G
 #SBATCH --output=/scratch/tovandam/finetune-unixcoder-haskell-%j.out
 
 module load 2022r2
