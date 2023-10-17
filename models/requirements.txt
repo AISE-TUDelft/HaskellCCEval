@@ -1,1 +1,14 @@
 datasets
+torch
+fuzzywuzzy
+transformers
+os
+random
+argparse
+re
+json
+tqdm
+logging
+numpy
+pickle
+gc
