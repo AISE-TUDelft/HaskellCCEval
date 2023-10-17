@@ -1,29 +1,29 @@
 #!/bin/bash
 #
-#SBATCH --job-name="codegpt codesearchnet finetune"
+#SBATCH --job-name="codegpt haskell finetune"
 #SBATCH --account=research-eemcs-st
 #SBATCH --partition=gpu
 #SBATCH --time=119:59:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-cpu=12G
-#SBATCH --output=/scratch/tovandam/codegpt/finetune-%j.log
+#SBATCH --mem-per-cpu=32G
+#SBATCH --output=~/haskell/models/finetuning/codegpt/output/finetune-%j.log
 
 module load 2022r2
 module load openmpi
 module load py-torch
 module load python/3.8.12
 module load py-pip
-#python -m pip install --user -r /home/tovandam/msr/codegpt/requirements.txt
+#python -m pip install --user -r ~/haskell/models/requirements.txt
 
-python -u /scratch/tovandam/codegpt/run_lm.py \
+python -u ~/haskell/models/finetuning/codegpt/run_lm.py \
 	--do_train \
-	--data_dir /scratch/tovandam/codegpt/data/codesearchnet \
-	--output_dir /scratch/tovandam/codegpt/output \
+	--data_dir ~/haskell/models/finetuning/data \
+	--output_dir ~/haskell/models/finetuning/codegpt/output \
 	--langs python \
 	--overwrite_output_dir \
-	--log_file /scratch/tovandam/codegpt/output/finetune-1.log \
+	--log_file ~/haskell/models/finetuning/codegpt/output/finetune-1.log \
   --model_type=gpt2 \
   --pretrain_dir=AISE-TUDelft/CodeGPT-Multilingual \
   --not_pretrain \

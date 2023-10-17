@@ -7,22 +7,22 @@
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-cpu=12G
-#SBATCH --output=/scratch/tovandam/finetune-unixcoder-haskell-%j.out
+#SBATCH --mem-per-cpu=32G
+#SBATCH --output=~/unixcoder-haskell/models/finetuning/unixcoder/output/finetune-unixcoder-haskell-%j.out
 
 module load 2022r2
 module load openmpi
 module load py-torch
 module load python/3.8.12
 module load py-pip
-#python -m pip install --user -r /home/tovandam/msr/unixcoder/requirements.txt
+#python -m pip install --user -r ~/haskell/models/requirements.txt
 
-python -u ~/unixcoder-haskell/run.py \
+python -u ~/haskell/models/finetuning/unixcoder/run.py \
 	--do_train \
 	--do_eval \
 	--model_name_or_path microsoft/unixcoder-base \
-	--train_filename ~/unixcoder-haskell/models/finetuning/unixcoder/data/train.txt \
-	--dev_filename ~/unixcoder-haskell/models/finetuning/unixcoder/data/test.json \
+	--train_filename ~/haskell/models/finetuning/data/train.txt \
+	--dev_filename ~/haskell/models/finetuning/data/dev.json \
   --output_dir ~/unixcoder-haskell/models/finetuning/unixcoder/output \
   --max_source_length 936 \
   --max_target_length 64 \
