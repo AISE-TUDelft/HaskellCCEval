@@ -78,6 +78,8 @@ def create_unixcoder_dev(test):
             full_code = preprocess_unixcoder(sample['full_code'])
             space_split = full_code.split(' ')
             split_indices = [i for i in range(1, len(space_split) - 1) if not " ".join(space_split[i:]).strip().startswith('<EOL>')]
+            if len(split_indices) == 0:
+                continue
             split_index = random.choice(split_indices)
             model_input = ' '.join(space_split[:split_index])
             model_output = ' '.join(space_split[split_index:]).split('<EOL>')[0]
