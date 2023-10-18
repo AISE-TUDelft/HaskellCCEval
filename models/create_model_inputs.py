@@ -17,7 +17,6 @@ def main():
     """
     parser = ArgumentParser()
     parser.add_argument('-s', '--seed', type=int, default=42)
-    parser.add_argument('-m', '--model', type=str, choices=['unixcoder', 'codegpt'], required=True)
     parser.add_argument('-t', '--test-ratio', type=float, default=0.2)
     args = parser.parse_args()
 
@@ -26,7 +25,8 @@ def main():
     haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
     # TODO: Possibly discard data with "n_ast_errors > 0", 700k / 3.2m
 
-    train, test = load_data(haskell_dataset, args.seed, args.test_ratio)
+    filtered_dataset = filter_dataset(haskell_dataset)
+    train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
 
     create_train(train)
     # we use the test set as validation set just to get some accuracy numbers during training, to ensure our code is functional
@@ -38,7 +38,44 @@ def main():
 # TODO: Load the models
 # TODO: Evaluate the models
 
-def load_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
+def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
+    """
+    Filters the given dataset using numerous criteria to ensure the data is of high quality.
+
+    Args:
+    - haskell_dataset: A Dataset or DatasetDict object containing the dataset to be filtered.
+
+    Returns:
+    - The filtered dataset.
+    """
+    MINIMUM_SIZE = 75
+    MINIMUM_LOC = 2
+
+    def sample_filter(sample):
+        if 'full_code' not in sample or sample['full_code'] is None:
+            return False
+
+        if 'full_size' not in sample or sample['full_size'] is None or sample['full_size'] < MINIMUM_SIZE:
+            return False
+
+        if 'is_commented' not in sample or not sample['is_commented']:
+            return False
+
+        if 'is_signatured' not in sample or not sample['is_signatured']:
+            return False
+
+        if 'n_ast_errors' not in sample or sample['n_ast_errors'] > 0:
+            return False
+
+        if 'loc' not in sample or sample['loc'] is None or sample['loc'] < MINIMUM_LOC:
+            return False
+
+        return True
+
+    return haskell_dataset.filter(sample_filter)
+
+
+def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
     """
     Splits the given dataset into training and testing sets based on the given test ratio and seed.
 
@@ -85,8 +122,6 @@ def create_train(train) -> None:
     """
     with open(os.path.join(__DIRNAME, './finetuning/data/train.txt'), 'w') as f:
         for sample in tqdm(train, desc="Writing train.txt"):
-            if 'full_code' not in sample or sample['full_code'] is None:
-                continue
             full_code = preprocess_input(sample['full_code'])
             f.write(full_code + '\n')
 
@@ -105,16 +140,12 @@ def create_dev(test) -> None:
     # dev.txt
     with open(os.path.join(__DIRNAME, './finetuning/data/dev.txt'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.txt"):
-            if 'full_code' not in sample or sample['full_code'] is None:
-                continue
             full_code = preprocess_input(sample['full_code'])
             f.write(full_code + '\n')
 
     # dev.json
     with open(os.path.join(__DIRNAME, './finetuning/data/dev.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.json"):
-            if 'full_code' not in sample or sample['full_code'] is None:
-                continue
             full_code = preprocess_input(sample['full_code'])
             space_split = full_code.split(' ')
             split_indices = [i for i in range(1, len(
