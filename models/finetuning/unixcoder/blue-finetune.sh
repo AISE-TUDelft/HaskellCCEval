@@ -3,12 +3,12 @@
 #SBATCH --job-name="UniXcoder x Haskell"
 #SBATCH --account=research-eemcs-st
 #SBATCH --partition=gpu
-#SBATCH --time=119:59:00
+#SBATCH --time=27:30:00
 #SBATCH --ntasks=1
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
-#SBATCH --mem-per-cpu=32G
-#SBATCH --output=~/unixcoder-haskell/models/finetuning/unixcoder/output/finetune-unixcoder-haskell-%j.out
+#SBATCH --mem-per-cpu=16G
+#SBATCH --output=/home/tovandam/haskell/models/finetuning/unixcoder/output/finetune-unixcoder-haskell-%j.out
 
 module load 2022r2
 module load openmpi
@@ -23,7 +23,7 @@ python -u ~/haskell/models/finetuning/unixcoder/run.py \
 	--model_name_or_path microsoft/unixcoder-base \
 	--train_filename ~/haskell/models/finetuning/data/train.txt \
 	--dev_filename ~/haskell/models/finetuning/data/dev.json \
-  --output_dir ~/unixcoder-haskell/models/finetuning/unixcoder/output \
+  --output_dir ~/haskell/models/finetuning/unixcoder/output \
   --max_source_length 936 \
   --max_target_length 64 \
   --beam_size 3 \

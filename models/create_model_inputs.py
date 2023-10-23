@@ -143,9 +143,14 @@ def create_dev(test) -> None:
             full_code = preprocess_input(sample['full_code'])
             f.write(full_code + '\n')
 
+    # dev json takes much longer. so we only take a small sample
+    DEV_JSON_SIZE = 0.2
+
     # dev.json
     with open(os.path.join(__DIRNAME, './finetuning/data/dev.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.json"):
+            if random.random() > DEV_JSON_SIZE:
+                continue
             full_code = preprocess_input(sample['full_code'])
             space_split = full_code.split(' ')
             split_indices = [i for i in range(1, len(

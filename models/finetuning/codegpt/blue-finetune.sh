@@ -1,6 +1,6 @@
 #!/bin/bash
 #
-#SBATCH --job-name="codegpt haskell finetune"
+#SBATCH --job-name="CodeGPT haskell finetune"
 #SBATCH --account=research-eemcs-st
 #SBATCH --partition=gpu
 #SBATCH --time=119:59:00
@@ -8,7 +8,7 @@
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-cpu=32G
-#SBATCH --output=~/haskell/models/finetuning/codegpt/output/finetune-%j.log
+#SBATCH --output=/home/tovandam/haskell/models/finetuning/codegpt/output/finetune-%j.log
 
 module load 2022r2
 module load openmpi
