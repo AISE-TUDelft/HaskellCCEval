@@ -39,5 +39,5 @@ import Data.List
 -- >>> sort_numbers "three one five"
 -- "one three five"
 sort_numbers :: String -> String
-sort_numbers numbers = unwords $ sortOn (value_map !) $ words numbers
-    where value_map = fromList [("zero", 0), ("one", 1), ("two", 2), ("three", 3), ("four", 4), ("five", 5), ("six", 6), ("seven", 7), ("eight", 8), ("nine", 9)]
+sort_numbers numbers = ⭐ unwords $ sortOn ⭐ (value_map !) $ ⭐ words numbers
+    where value_map = fromList ⭐ [("zero", 0), ("one", 1), ("two", 2), ("three", 3), ("four", 4), ("five", 5), ⭐ ("six", 6), ("seven", 7), ("eight", 8), ("nine", 9)]

@@ -39,6 +39,6 @@ import Data.Ord
 -- >>> longest ["a", "bb", "ccc"]
 -- Just "ccc"
 longest :: [String] -> Maybe String
-longest strings = case strings of
-    [] -> Nothing
-    _ -> Just $ maximumBy (comparing length) $ reverse strings
+longest strings = case ⭐ strings of
+    [] -> ⭐ Nothing
+    _ -> ⭐ Just $ maximumBy ⭐ (comparing length) $ ⭐ reverse strings

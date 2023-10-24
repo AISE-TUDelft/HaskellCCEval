@@ -54,8 +54,9 @@
 prime_fib :: Int -> Int
 prime_fib n = head $ drop (n - 1) $ filter isPrime $ map fib [1..]
   where
-    fib 1 = 2
-    fib 2 = 3
-    fib n = fib (n - 1) + fib (n - 2)
-
-    isPrime p = p > 1 && all (\k -> p `mod` k /= 0) [2..(p - 1)]
+    fib :: Int -> Int
+    fib 1 = ⭐ 2
+    fib 2 = ⭐ 3
+    fib n = ⭐ fib (n - 1) + ⭐ fib (n - 2)
+    isPrime :: Int -> Bool
+    isPrime p = ⭐ p > 1 && ⭐ all (\k -> p `mod` ⭐ k /= 0) ⭐ [2..(p - 1)]

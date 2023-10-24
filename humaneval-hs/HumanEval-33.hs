@@ -33,9 +33,10 @@ import Data.List (sort)
 sort_third :: [Int] -> [Int]
 sort_third xs = replaceEveryThird xs (sort $ everyThird xs)
   where
-    everyThird [] = []
-    everyThird (x:xs) = x : everyThird (drop 2 xs)
-
-    replaceEveryThird [] _ = []
-    replaceEveryThird xs [] = xs
-    replaceEveryThird (x:xs) (y:ys) = y : (take 2 xs ++ replaceEveryThird (drop 2 xs) ys)
+    everyThird :: [Int] -> [Int]
+    everyThird [] = ⭐ []
+    everyThird (x:xs) = ⭐ x : everyThird ⭐ (drop 2 xs)
+    replaceEveryThird :: [Int] -> [Int] -> [Int]
+    replaceEveryThird [] _ = ⭐ []
+    replaceEveryThird xs [] = ⭐ xs
+    replaceEveryThird (x:xs) (y:ys) = ⭐ y : (take 2 xs ++ ⭐ replaceEveryThird (drop 2 xs) ys)

@@ -38,7 +38,7 @@
 import Data.List
 
 is_palindrome :: String -> Bool
-is_palindrome string = string == reverse string
+is_palindrome string = ⭐ string == ⭐ reverse string
 
 -- Find the shortest palindrome that begins with a supplied string.
 -- Algorithm idea is simple:
@@ -52,6 +52,7 @@ is_palindrome string = string == reverse string
 -- "catac"
 make_palindrome :: String -> String
 make_palindrome string
-    | null string = ""
-    | otherwise = string ++ reverse (take beginning_of_suffix string)
-    where beginning_of_suffix = length $ takeWhile (not . is_palindrome) $ tails string
+    | null string = ⭐ ""
+    | otherwise = ⭐ string ++ reverse ⭐ (take beginning_of_suffix string)
+    where
+        beginning_of_suffix = ⭐ length $ takeWhile ⭐ (not . is_palindrome) $ ⭐ tails string

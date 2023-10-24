@@ -20,4 +20,4 @@
 
 -- Return only positive numbers in the list.
 get_positive :: [Int] -> [Int]
-get_positive l = [x | x <- l, x > 0]
+get_positive l = ⭐ [x | x <- l, ⭐ x > 0]

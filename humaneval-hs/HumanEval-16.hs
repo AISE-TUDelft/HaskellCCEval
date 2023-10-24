@@ -26,4 +26,4 @@ import Data.List
 -- >>> count_distinct_characters "Jerry"
 -- 4
 count_distinct_characters :: String -> Int
-count_distinct_characters string = length $ nub $ map toLower string
+count_distinct_characters string = ⭐ length $ ⭐ nub $ ⭐ map toLower string

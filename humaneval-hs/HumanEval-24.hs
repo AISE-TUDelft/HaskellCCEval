@@ -22,4 +22,4 @@
 -- >>> largest_divisor 15
 -- 5
 largest_divisor :: Int -> Int
-largest_divisor n = maximum [x | x <- [1..n-1], n `mod` x == 0]
+largest_divisor n = ⭐ maximum ⭐ [x | x <- ⭐ [1..n-1], ⭐ n `mod` x == ⭐ 0]

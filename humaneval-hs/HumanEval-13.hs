@@ -26,4 +26,4 @@
 -- >>> greatest_common_divisor 25 15
 -- 5
 greatest_common_divisor :: Int -> Int -> Int
-greatest_common_divisor a b = gcd a b
+greatest_common_divisor a b = ⭐ gcd ⭐ a b

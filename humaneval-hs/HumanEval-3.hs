@@ -36,4 +36,4 @@
 -- >>> below_zero [1, 2, -4, 5]
 -- True
 below_zero :: [Int] -> Bool
-below_zero operations = any (< 0) $ scanl (+) 0 operations
+below_zero operations = ⭐️ any (< 0) $ ⭐️ scanl (+) 0 operations

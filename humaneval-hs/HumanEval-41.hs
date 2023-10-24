@@ -33,4 +33,4 @@
 -- 
 -- This function outputs the number of such collisions.
 car_race_collision :: Int -> Int
-car_race_collision n = n^2
+car_race_collision n = ⭐ n^⭐2

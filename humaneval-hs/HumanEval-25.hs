@@ -47,7 +47,8 @@
 factorize :: Int -> [Int]
 factorize n = factorize' n 2
     where
+        factorize' :: Int -> Int -> [Int]
         factorize' n i
-            | i * i > n = [n]
-            | n `mod` i == 0 = i : factorize' (n `div` i) i
-            | otherwise = factorize' n (i + 1)
+            | i * i > n = ⭐ [n]
+            | n `mod` i == 0 = ⭐ i : ⭐ factorize' (n `div` i) i
+            | otherwise = ⭐ factorize' n ⭐ (i + 1)
