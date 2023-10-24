@@ -13,7 +13,7 @@ __DIRNAME = os.path.dirname(__file__)
 
 def main():
     """
-    Parses command line arguments, loads the dataset, splits it into train and test sets, and creates the train and dev inputs for the specified model. 
+    Parses command line arguments, loads the dataset, splits it into train and test sets, and creates the train and test inputs for the specified model.
     """
     parser = ArgumentParser()
     parser.add_argument('-s', '--seed', type=int, default=42)
@@ -24,7 +24,6 @@ def main():
     random.seed(args.seed)
 
     haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
-    # TODO: Possibly discard data with "n_ast_errors > 0", 700k / 3.2m
 
     filtered_dataset = filter_dataset(haskell_dataset)
     train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
@@ -127,7 +126,7 @@ def create_train(train) -> None:
 
 def create_test(test, test_json_ratio) -> None:
     """
-    We create a dev.txt that is used to compute loss, and a dev.json that has some test cases for computing the accuracy.
+    We create a test.txt that is used to compute loss, and a test.json that has some test cases for computing the accuracy.
 
     Args:
         train (list): A list of test samples based on 'full code' field entries.
@@ -136,17 +135,17 @@ def create_test(test, test_json_ratio) -> None:
         None
     """
 
-    # dev.txt
-    with open(os.path.join(__DIRNAME, './finetuning/data/dev.txt'), 'w') as f:
-        for sample in tqdm(test, desc="Writing dev.txt"):
+    # test.txt
+    with open(os.path.join(__DIRNAME, './finetuning/data/test.txt'), 'w') as f:
+        for sample in tqdm(test, desc="Writing test.txt"):
             full_code = preprocess_input(sample['full_code'])
             f.write(full_code + '\n')
 
-    # dev.json
-    with open(os.path.join(__DIRNAME, './finetuning/data/dev.json'), 'w') as f:
-        for sample in tqdm(test, desc="Writing dev.json"):
-            # dev json takes much longer. so we have the option to take only a small part if we want a preview during training
-            if random.random() >= 1 - test_json_ratio:
+    # test.json
+    with open(os.path.join(__DIRNAME, './finetuning/data/test.json'), 'w') as f:
+        for sample in tqdm(test, desc="Writing test.json"):
+            # test json takes much longer. so we have the option to take only a small part if we want a preview during training
+            if random.random() > test_json_ratio:
                 continue
 
             full_code = preprocess_input(sample['full_code'])
