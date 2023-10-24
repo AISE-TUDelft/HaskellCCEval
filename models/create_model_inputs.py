@@ -183,22 +183,6 @@ def create_test(test, test_json_ratio) -> None:
             def get_tokens_to_bol(l): # bol = beginning of line
                 return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '<s>', l[::-1]))[::-1]
 
-            def strip_words(s, words):
-                kek = True
-                while kek:
-                    kek = False
-
-                    for word in words:
-                        if s.startswith(word):
-                            s = s[len(word):]
-                            kek = True
-
-                        if s.endswith(word):
-                            s = s[:-len(word)]
-                            kek = True
-
-                return s
-
             split_indices = [
                 i
                 for i in range(len(code_tokens))
