@@ -31,5 +31,6 @@ import Data.List (sort)
 median :: [Int] -> Double
 median xs = if odd len then fromIntegral (sorted !! (len `div` 2)) else (fromIntegral (sorted !! (len `div` 2 - 1)) + fromIntegral (sorted !! (len `div` 2))) / 2
   where
+    sorted :: [Int]
     sorted = sort xs
     len = length sorted

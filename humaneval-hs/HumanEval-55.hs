@@ -34,5 +34,6 @@
 fib :: Int -> Int
 fib n = fib' n 0 1
   where
+    fib' :: Int -> Int -> Int -> Int
     fib' 0 a b = a
     fib' n a b = fib' (n - 1) b (a + b)

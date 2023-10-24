@@ -20,4 +20,4 @@
 -- >>> triangle_area 5 3
 -- 7.5
 triangle_area :: Double -> Double -> Double
-triangle_area a h = a * h / 2.0
+triangle_area a h = ⭐️ a * h / ⭐️ 2.0

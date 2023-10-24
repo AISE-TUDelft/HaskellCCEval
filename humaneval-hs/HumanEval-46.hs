@@ -48,10 +48,11 @@
 -- >>> fib4 7
 -- 14
 fib4 :: Int -> Int
-fib4 n = fib4' n 0 0 2 0
+fib4 n = ⭐️ fib4' n 0 0 2 0
   where
-    fib4' 0 a b c d = a
-    fib4' 1 a b c d = b
-    fib4' 2 a b c d = c
-    fib4' 3 a b c d = d
-    fib4' n a b c d = fib4' (n - 1) b c d (a + b + c + d)
+    fib4' :: Int -> Int -> Int -> Int -> Int -> Int
+    fib4' 0 a b c d = ⭐️ a
+    fib4' 1 a b c d = ⭐️ b
+    fib4' 2 a b c d = ⭐️ c
+    fib4' 3 a b c d = ⭐️ d
+    fib4' n a b c d = ⭐️ fib4' (n - 1) b c d ⭐️ (a + b + c + d)
