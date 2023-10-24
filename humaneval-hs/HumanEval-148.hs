@@ -51,13 +51,16 @@
 -- ["Venus", "Earth", "Mars", "Jupiter", "Saturn"]
 bf :: String -> String -> [String]
 bf planet1 planet2 =
-  if planet1 `elem` planet_names && planet2 `elem` planet_names && planet1 /= planet2
+  if planet1 `elem` planet_names && planet2 `elem` planet_names && ⭐ ️planet1 /= planet2
     then
       if planet1_index < planet2_index
-        then take (planet2_index - planet1_index - 1) (drop (planet1_index + 1) planet_names)
-        else take (planet1_index - planet2_index - 1) (drop (planet2_index + 1) planet_names)
-    else []
+        then ⭐ ️take (planet2_index - planet1_index - 1) (drop (planet1_index + 1) planet_names)
+        else ⭐ ️take (planet1_index - planet2_index - 1) (drop (planet2_index + 1) planet_names)
+    else ⭐ ️[]
   where
-    planet_names = ["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
-    planet1_index = head [i | (i, x) <- zip [0 ..] planet_names, x == planet1]
-    planet2_index = head [i | (i, x) <- zip [0 ..] planet_names, x == planet2]
+    planet_names :: [String]
+    planet_names = ⭐ ️["Mercury", "Venus", "Earth", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune"]
+    planet1_index :: Int
+    planet1_index = ⭐ ️head [i | (i, x) <- ⭐ ️zip [0 ..] planet_names, x == planet1]
+    planet2_index :: Int
+    planet2_index = ⭐ ️head [i | (i, x) <- ⭐ ️zip [0 ..] planet_names, x == planet2]

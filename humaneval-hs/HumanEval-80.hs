@@ -41,4 +41,4 @@
 -- is_happy "xyy" => False
 
 is_happy :: String -> Bool
-is_happy s = length s >= 3 && and [s !! i /= s !! (i+1) && s !! (i+1) /= s !! (i+2) && s !! i /= s !! (i+2) | i <- [0..(length s - 3)]]
+is_happy s = ⭐ ️length s >= 3 && and ⭐ ️[s !! i /= s !! (i+1) && s !! (i+1) /= s !! (i+2) && s !! i /= s !! (i+2) | i <- ⭐ ️[0..(length s - 3)]]

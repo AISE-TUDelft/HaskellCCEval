@@ -41,4 +41,4 @@
 -- >>> vowels_count "ACEDY"
 -- 3
 vowels_count :: String -> Int
-vowels_count s = (length $ filter (`elem` "aeiouAEIOU") s) + if last s `elem` "yY" then 1 else 0
+vowels_count s = ⭐️ (length $ filter (`elem` "aeiouAEIOU") s) + if last s `elem` "yY" then ⭐️ 1 else 0

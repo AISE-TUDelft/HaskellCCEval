@@ -31,4 +31,4 @@
 -- >>> even_odd_count 123
 -- (1, 2)
 even_odd_count :: Int -> (Int, Int)
-even_odd_count num = (length [i | i <- show (abs num), even (read [i] :: Int)], length [i | i <- show (abs num), odd (read [i] :: Int)])
+even_odd_count num = ⭐ ️(length [i | i <- ⭐ ️show (abs num), even (read [i] :: Int)], length [i | i <- ⭐ ️show (abs num), odd (read [i] :: Int)])

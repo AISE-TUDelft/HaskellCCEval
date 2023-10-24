@@ -39,5 +39,5 @@
 -- 30 = 2 * 3 * 5
 
 is_multiply_prime :: Int -> Bool
-is_multiply_prime a = let is_prime n = null [i | i <- [2..(n-1)], n `mod` i == 0]
-                      in or [is_prime i && is_prime j && is_prime k && i * j * k == a | i <- [2..100], j <- [2..100], k <- [2..100]]
+is_multiply_prime a = ⭐ ️let is_prime n = ⭐ ️null [i | i <- [2..(n-1)], n `mod` i == 0]
+                      in or [is_prime i && is_prime j && is_prime k && i * j * k == a | i <- [2..100], j <- ⭐ ️[2..100], k <- [2..100]]

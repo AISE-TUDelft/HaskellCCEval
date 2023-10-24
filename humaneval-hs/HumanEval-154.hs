@@ -41,6 +41,7 @@
 import Data.List
 
 cycpattern_check :: String -> String -> Bool
-cycpattern_check a b = any (`isInfixOf` a) (createRotations b)
+cycpattern_check a b = ⭐ ️any (`isInfixOf` a) (createRotations b)
   where
-    createRotations str = [drop i str ++ take i str | i <- [0 .. length str - 1]]
+    createRotations :: String -> [String]
+    createRotations str = ⭐ ️[drop i str ++ take i str | ⭐ ️i <- [0 .. length str - 1]]

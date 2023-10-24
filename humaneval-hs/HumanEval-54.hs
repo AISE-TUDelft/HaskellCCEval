@@ -42,4 +42,4 @@ import Data.List (nub, sort)
 -- >>> same_chars "eabcdzzzz" "dddzzzzzzzddddabc"
 -- False
 same_chars :: String -> String -> Bool
-same_chars s0 s1 = sort (nub s0) == sort (nub s1)
+same_chars s0 s1 = ⭐️ sort (nub s0) == ⭐️ sort (nub s1)

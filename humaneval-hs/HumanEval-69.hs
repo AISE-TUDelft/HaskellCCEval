@@ -40,6 +40,6 @@
 --     search [5, 5, 4, 4, 4] == -1
 
 search :: [Int] -> Int
-search lst = let frq = map (\x -> length (filter (== x) lst)) [0..(maximum lst)]
-             in if null [i | i <- [1..(length frq - 1)], frq !! i >= i] then -1 else maximum [i | i <- [1..(length frq - 1)], frq !! i >= i]
+search lst = ⭐ ️let frq = map (\x -> ⭐ ️length (filter (== x) lst)) [0..(maximum lst)]
+             in if null [i | i <- [1..(length frq - 1)], frq !! i >= i] ⭐ ️then -1 else maximum [i | i <- [1..(length frq - 1)], ⭐ ️frq !! i >= i]
              

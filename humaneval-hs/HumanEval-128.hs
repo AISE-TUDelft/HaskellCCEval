@@ -35,7 +35,8 @@
 -- >>> prod_signs [] == Nothing
 prod_signs :: [Int] -> Maybe Int
 prod_signs arr
-  | null arr = Nothing
-  | otherwise = Just $ prod * sum (map abs arr)
+  | null arr = ⭐ ️Nothing
+  | otherwise = ⭐ ️Just $ prod * sum (map abs arr)
   where
-    prod = if 0 `elem` arr then 0 else (-1) ^ length (filter (< 0) arr)
+    prod :: Int
+    prod = ⭐ ️if 0 `elem` arr then 0 else ⭐ ️(-1) ^ length (filter (< 0) arr)

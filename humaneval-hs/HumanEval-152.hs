@@ -40,4 +40,4 @@
 -- >>> compare' [0,5,0,0,0,4] [4,1,1,0,0,-2]
 -- [4,4,1,0,0,6]
 compare' :: [Int] -> [Int] -> [Int]
-compare' game guess = [abs (x - y) | (x, y) <- zip game guess]
+compare' game guess = ⭐ ️[abs (x - y) | ⭐ ️(x, y) <- ⭐ ️zip game guess]

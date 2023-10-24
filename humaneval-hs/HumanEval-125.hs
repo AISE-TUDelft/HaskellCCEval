@@ -36,6 +36,6 @@ import Data.Char
 
 split_words :: String -> Either Int [String]
 split_words txt
-  | ' ' `elem` txt = Right $ words txt
-  | ',' `elem` txt = Right $ words $ map (\c -> if c == ',' then ' ' else c) txt
-  | otherwise = Left $ length $ filter (\c -> isLower c && even (ord c)) txt
+  | ' ' `elem` txt = ⭐ ️Right $ words txt
+  | ',' `elem` txt = ⭐ ️Right $ words $ ⭐ ️map (\c -> if c == ',' then ' ' else c) txt
+  | otherwise = ⭐ ️Left $ length $ filter ⭐ ️(\c -> isLower c && even (ord c)) txt

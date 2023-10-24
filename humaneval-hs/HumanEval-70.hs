@@ -37,8 +37,8 @@ import Data.List
 -- strange_sort_list [] == []
 
 strange_sort_list :: [Int] -> [Int]
-strange_sort_list lst = let helper [] _ = []
-                            helper lst True = minimum lst : helper (delete (minimum lst) lst) False
-                            helper lst False = maximum lst : helper (delete (maximum lst) lst) True
-                        in helper lst True
+strange_sort_list lst = ⭐ ️let helper [] _ = []
+                            helper lst True = ⭐ ️minimum lst : helper (delete (minimum lst) lst) False
+                            helper lst False = ⭐ ️maximum lst : helper (delete (maximum lst) lst) True
+                        in ⭐ ️helper lst True
                         

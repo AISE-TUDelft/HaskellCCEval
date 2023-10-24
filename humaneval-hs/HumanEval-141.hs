@@ -51,10 +51,11 @@
 file_name_check :: String -> String
 file_name_check filename
   | (length filename) < 5 = "No"
-  | otherwise = if containsOneDot filename && containsNoMoreThanThreeDigits filename && endsOnTxtExeOrDll filename && doesNotStartWithDot filename && startWithLetterFromLatinAlphabet filename then "Yes" else "No"
+  | otherwise = ⭐ ️if containsOneDot filename && containsNoMoreThanThreeDigits filename && endsOnTxtExeOrDll filename && doesNotStartWithDot filename && startWithLetterFromLatinAlphabet filename then ⭐ ️"Yes" else "No"
   where
-    containsOneDot filename = length (filter (== '.') filename) == 1
-    containsNoMoreThanThreeDigits filename = length (filter (\x -> x `elem` ['0' .. '9']) filename) <= 3
-    endsOnTxtExeOrDll filename = (drop (length filename - 4) filename) `elem` [".txt", ".exe", ".dll"]
-    doesNotStartWithDot filename = head filename /= '.'
-    startWithLetterFromLatinAlphabet filename = head filename `elem` ['a' .. 'z'] || head filename `elem` ['A' .. 'Z']
+    containsOneDot :: String -> Bool
+    containsOneDot filename = ⭐ ️length (filter (== '.') filename) == 1
+    containsNoMoreThanThreeDigits filename = ⭐ ️length (filter (\x -> x `elem` ['0' .. '9']) filename) <= 3
+    endsOnTxtExeOrDll filename = ⭐ ️(drop (length filename - 4) filename) `elem` [".txt", ".exe", ".dll"]
+    doesNotStartWithDot filename = ⭐ ️head filename /= '.'
+    startWithLetterFromLatinAlphabet filename = ⭐ ️head filename `elem` ['a' .. 'z'] || ⭐ ️head filename `elem` ['A' .. 'Z']

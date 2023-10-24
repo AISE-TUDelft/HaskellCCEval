@@ -34,10 +34,11 @@
 -- >>> can_arrange [1,2,3]
 -- -1
 can_arrange :: [Int] -> Int
-can_arrange arr = can_arrange' arr 1 (-1)
+can_arrange arr = ⭐ ️can_arrange' arr 1 (-1)
   where
-    can_arrange' [] index res = res
-    can_arrange' (a : []) index res = res
+    can_arrange' :: [Int] -> Int -> Int -> Int
+    can_arrange' [] index res = ⭐ ️res
+    can_arrange' (a : []) index res = ⭐ ️res
     can_arrange' (a : b : xs) index res
-      | a >= b = can_arrange' (b : xs) (index + 1) index
-      | otherwise = can_arrange' (b : xs) (index + 1) res
+      | a >= b = ⭐ ️can_arrange' (b : xs) (index + 1) index
+      | otherwise = ⭐ ️can_arrange' (b : xs) (index + 1) res

@@ -33,4 +33,4 @@
 -- >>> generate_integers 10 14
 -- []
 generate_integers :: Int -> Int -> [Int]
-generate_integers a b = [i | i <- [max 2 (min a b) .. min 8 (max a b)], even i]
+generate_integers a b = ⭐ ️[i | i <- ⭐ ️[max 2 (min a b) .. min 8 (max a b)], even i]

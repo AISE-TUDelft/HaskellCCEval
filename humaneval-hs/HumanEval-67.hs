@@ -40,4 +40,4 @@ import Data.Char
 -- fruit_distribution "100 apples and 1 oranges" 120 -> 120 - 100 - 1 = 19
 
 fruit_distribution :: String -> Int -> Int
-fruit_distribution s n = n - sum (map read (words (filter (\x -> isDigit x || isSpace x) s)) :: [Int])
+fruit_distribution s n = ⭐ ️n - sum (map read (words (filter (\x -> ⭐ ️isDigit x || isSpace x) s)) :: [Int])

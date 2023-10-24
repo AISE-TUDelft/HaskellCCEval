@@ -34,4 +34,4 @@
 -- >>> x_or_y 15 8 5
 -- 5
 x_or_y :: Int -> Int -> Int -> Int
-x_or_y n x y = if n == 1 then y else if length [i | i <- [2 .. n - 1], n `mod` i == 0] > 0 then y else x
+x_or_y n x y = ⭐ ️if n == 1 then y else if length [i | ⭐ ️i <- [2 .. n - 1], n `mod` i == 0] > 0 then ⭐ ️y else x

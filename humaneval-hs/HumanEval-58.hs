@@ -31,4 +31,4 @@ import Data.List (sort, nub, intersect)
 -- >>> common [5,3,2,8] [3,2]
 -- [2,3]
 common :: [Int] -> [Int] -> [Int]
-common l1 l2 = sort $ nub $ l1 `intersect` l2
+common l1 l2 = ⭐️ sort $ nub $ l1 `intersect` l2
