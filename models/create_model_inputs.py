@@ -4,7 +4,7 @@ import random
 import re
 from argparse import ArgumentParser
 from typing import Tuple, Union
-
+from itertools import takewhile
 from datasets import Dataset, DatasetDict, load_dataset
 from tqdm import tqdm
 
@@ -18,6 +18,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-s', '--seed', type=int, default=42)
     parser.add_argument('-t', '--test-ratio', type=float, default=0.2)
+    parser.add_argument('-j', '--test-json-ratio', type=float, default=1)
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -29,9 +30,7 @@ def main():
     train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
 
     create_train(train)
-    # we use the test set as validation set just to get some accuracy numbers during training, to ensure our code is functional
-    # we do not make any changes based on this
-    create_dev(test)
+    create_test(test, args.test_json_ratio)
 
 
 # TODO: in another script:
@@ -126,7 +125,7 @@ def create_train(train) -> None:
             f.write(full_code + '\n')
 
 
-def create_dev(test) -> None:
+def create_test(test, test_json_ratio) -> None:
     """
     We create a dev.txt that is used to compute loss, and a dev.json that has some test cases for computing the accuracy.
 
@@ -143,24 +142,35 @@ def create_dev(test) -> None:
             full_code = preprocess_input(sample['full_code'])
             f.write(full_code + '\n')
 
-    # dev json takes much longer. so we only take a small sample
-    DEV_JSON_SIZE = 0.2
-
     # dev.json
     with open(os.path.join(__DIRNAME, './finetuning/data/dev.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing dev.json"):
-            if random.random() > DEV_JSON_SIZE:
+            # dev json takes much longer. so we have the option to take only a small part if we want a preview during training
+            if random.random() >= 1 - test_json_ratio:
                 continue
+
             full_code = preprocess_input(sample['full_code'])
             space_split = full_code.split(' ')
-            split_indices = [i for i in range(1, len(
-                space_split) - 1) if not ' '.join(space_split[i:]).strip().startswith('<EOL>')]
+
+            MIN_PREFIX_TOKENS = 5
+            MIN_SUFFIX_TOKENS = 2
+
+            split_indices = [
+                i
+                for i in range(5, len(space_split))
+                if len(space_split[:i]) >= MIN_PREFIX_TOKENS
+                   and len(list(takewhile(lambda x: x != '<EOL>', space_split[i:]))) >= MIN_SUFFIX_TOKENS
+            ]
+
             if len(split_indices) == 0:
                 continue
+
             split_index = random.choice(split_indices)
             model_input = ' '.join(space_split[:split_index])
             model_output = ' '.join(space_split[split_index:]).split('<EOL>')[0]
+
             obj = {"input": model_input, "gt": model_output}
+
             json.dump(obj, f)
             f.write('\n')
 
