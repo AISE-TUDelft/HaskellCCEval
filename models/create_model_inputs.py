@@ -28,7 +28,7 @@ def main():
     filtered_dataset = filter_dataset(haskell_dataset)
     train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
 
-    create_train(train)
+    # create_train(train)
     create_test(test, args.test_json_ratio)
 
 
@@ -149,24 +149,72 @@ def create_test(test, test_json_ratio) -> None:
                 continue
 
             full_code = preprocess_input(sample['full_code'])
-            space_split = full_code.split(' ')
+
+            def tokenize_code(s):
+                # make sure that special tokens are always their own tokens
+                parts = s.split(' ')
+                special_tokens = ['<s>', '</s>', '<EOL>']
+                for special_token in special_tokens:
+                    new_parts = []
+                    for part in parts:
+                        while special_token in part:
+                            i = part.index(special_token)
+                            if i > 0:
+                                new_parts.append(part[:i])
+                            new_parts.append(special_token)
+                            part = part[i + len(special_token):]
+                        if len(part) > 0:
+                            new_parts.append(part)
+                    parts = new_parts
+                return parts
+
+            code_tokens = tokenize_code(full_code)
 
             MIN_PREFIX_TOKENS = 5
-            MIN_SUFFIX_TOKENS = 2
+            MIN_PREFIX_LINE_TOKENS = 1
+            MIN_SUFFIX_LINE_TOKENS = 2
+
+            def get_non_empty_tokens(l):
+                return list(filter(lambda x: len(x) > 0, l))
+
+            def get_tokens_to_eol(l):
+                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '</s>', l))
+
+            def get_tokens_to_bol(l): # bol = beginning of line
+                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '<s>', l[::-1]))[::-1]
+
+            def strip_words(s, words):
+                kek = True
+                while kek:
+                    kek = False
+
+                    for word in words:
+                        if s.startswith(word):
+                            s = s[len(word):]
+                            kek = True
+
+                        if s.endswith(word):
+                            s = s[:-len(word)]
+                            kek = True
+
+                return s
 
             split_indices = [
                 i
-                for i in range(5, len(space_split))
-                if len(space_split[:i]) >= MIN_PREFIX_TOKENS
-                   and len(list(takewhile(lambda x: x != '<EOL>', space_split[i:]))) >= MIN_SUFFIX_TOKENS
+                for i in range(len(code_tokens))
+                if len(code_tokens[i - 1]) > 0
+                   and len(get_non_empty_tokens(code_tokens[:i])) >= MIN_PREFIX_TOKENS
+                   and len(get_tokens_to_bol(code_tokens[:i])) >= MIN_PREFIX_LINE_TOKENS
+                   and len(get_tokens_to_eol(code_tokens[i:])) >= MIN_SUFFIX_LINE_TOKENS
+                   and not (get_tokens_to_bol(code_tokens[:i])[:1] or [''])[0].startswith('--')
             ]
 
             if len(split_indices) == 0:
                 continue
 
             split_index = random.choice(split_indices)
-            model_input = ' '.join(space_split[:split_index])
-            model_output = ' '.join(space_split[split_index:]).split('<EOL>')[0]
+            model_input = ' '.join(code_tokens[:split_index])
+            model_output = ' '.join(code_tokens[split_index:]).split('<EOL>')[0]
 
             obj = {"input": model_input, "gt": model_output}
 
