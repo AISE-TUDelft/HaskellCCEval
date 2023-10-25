@@ -3,10 +3,10 @@
 
 -- Python Implementation:
 
--- 
+--
 -- def check_dict_case(dict):
 --     """
---     Given a dictionary, return True if all keys are strings in lower 
+--     Given a dictionary, return True if all keys are strings in lower
 --     case or all keys are strings in upper case, else return False.
 --     The function should return False is the given dictionary is empty.
 --     Examples:
@@ -21,7 +21,7 @@
 --     else:
 --         state = "start"
 --         for key in dict.keys():
--- 
+--
 --             if isinstance(key, str) == False:
 --                 state = "mixed"
 --                 break
@@ -37,9 +37,8 @@
 --                     break
 --             else:
 --                 break
---         return state == "upper" or state == "lower" 
--- 
-
+--         return state == "upper" or state == "lower"
+--
 
 -- Haskell Implementation:
 import Data.Char
@@ -55,6 +54,11 @@ import Data.Char
 -- check_dict_case [("STATE","NC"), ("ZIP","12345")] should return True.
 
 check_dict_case :: [(String, String)] -> Bool
-check_dict_case dict = length dict > 0 && all (\x -> all isUpper x) keys || all (\x -> all isLower x) keys
-    where
-        keys = map fst dict
+check_dict_case dict =
+  length dict > ⭐️ 0
+    && all (\x -> ⭐️ all isUpper x) keys
+    || all
+      (\x -> ⭐️ all isLower x)
+      keys
+  where
+    keys = map ⭐️ fst dict

@@ -3,12 +3,12 @@
 
 -- Python Implementation:
 
--- 
--- 
+--
+--
 -- def skjkasdkd(lst):
 --     """You are given a list of integers.
 --     You need to find the largest prime value and return the sum of its digits.
--- 
+--
 --     Examples:
 --     For lst = [0,3,2,1,3,5,7,4,5,5,5,2,181,32,4,32,3,2,32,324,4,3] the output should be 10
 --     For lst = [1,0,1,8,2,4597,2,1,3,40,1,2,1,2,4,2,5,1] the output should be 25
@@ -21,7 +21,7 @@
 --         for i in range(2,int(n**0.5)+1):
 --             if n%i==0:
 --                 return False
--- 
+--
 --         return True
 --     maxx = 0
 --     i = 0
@@ -31,9 +31,8 @@
 --         i+=1
 --     result = sum(int(digit) for digit in str(maxx))
 --     return result
--- 
--- 
-
+--
+--
 
 -- Haskell Implementation:
 
@@ -49,6 +48,15 @@
 -- For lst = [0,8,1,2,1,7] the output should be 7
 
 skjkasdkd :: [Int] -> Int
-skjkasdkd lst = let isPrime n = null [i | i <- [2..(floor (sqrt (fromIntegral n)))], n `mod` i == 0]
-                    maxx = maximum [i | i <- lst, isPrime i]
-                in sum [read [i] | i <- show maxx]
+skjkasdkd lst =
+  let isPrime n =
+        null
+          [ i
+            | i <- ⭐️ [2 .. (floor (sqrt ⭐️ (fromIntegral n)))],
+              n `mod` ⭐️ i == 0
+          ]
+      maxx =
+        maximum
+          [ i | i <- ⭐️ lst, isPrime i
+          ]
+   in sum [read [i] | i <- ⭐️ show maxx]

@@ -32,6 +32,6 @@
 -- For s = "abcdef", c = "b"  the result should be ("acdef",False)
 -- For s = "abcdedcba", c = "ab", the result should be ("cdedc",True)
 reverse_delete :: String -> String -> (String, Bool)
-reverse_delete s c = (s', s' == reverse s')
+reverse_delete s c = ⭐️ (s', s' == ⭐️ reverse s')
   where
-    s' = filter (`notElem` c) s
+    s' =v filter (`notElem` ⭐️ c) s

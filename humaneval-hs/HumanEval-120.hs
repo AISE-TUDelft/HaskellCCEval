@@ -64,4 +64,4 @@
 import Data.List (sort)
 
 maximumK :: [Int] -> Int -> [Int]
-maximumK arr k = reverse $ take k $ reverse $ sort arr
+maximumK arr k = ⭐️ reverse $ ⭐️ take k $ ⭐️ reverse $ ⭐️ sort arr
