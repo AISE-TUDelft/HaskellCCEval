@@ -122,14 +122,11 @@ m = torch.nn.LogSoftmax(dim=-1).to(device)
 zero = torch.cuda.LongTensor(1).fill_(0).to(device)
 
 
-def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Callable[[str, str], str]:
+def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str, str], str]:
     tokenizer = GPT2Tokenizer.from_pretrained(checkpoint_path_or_url, do_lower_case=False, sep_token='<EOL>',
                                               bos_token='<s>', eos_token='</s>', pad_token='<pad>',
                                               unk_token='<|UNKNOWN|>')
-    if is_java:
-        break_ids = [tokenizer.convert_tokens_to_ids('Ġ;'), tokenizer.convert_tokens_to_ids('Ġ}'), tokenizer.convert_tokens_to_ids('Ġ{'), tokenizer.sep_token_id]
-    else:
-        break_ids = [tokenizer.sep_token_id, tokenizer.eos_token]
+    break_ids = [tokenizer.sep_token_id, tokenizer.eos_token]
     model = GPT2LMHeadModel.from_pretrained(checkpoint_path_or_url)
     model.resize_token_embeddings(len(tokenizer))
     model.to(device)
@@ -154,9 +151,6 @@ def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Cal
         return codes.strip(" ")
 
     def codegpt_predict(left_context: str) -> str:
-        if not is_java:
-            # java version did not train on data with <EOL>
-            left_context = left_context.replace("\n", "<EOL>")
         input_size = 896
         predict_size = 128
         block_size = input_size + predict_size
@@ -164,9 +158,6 @@ def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Cal
         input = left_context
 
         tokens = tokenizer.encode(input)[-(input_size - 1):]
-        # print tokens as strings
-        # prepend with <s>
-        tokens = [tokenizer.bos_token_id] + tokens
         inputs = torch.tensor(tokens, device=device).unsqueeze(0)
         with torch.no_grad():
             beam_size = 3
@@ -202,10 +193,7 @@ def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Cal
                 for break_id in break_ids:
                     if break_id in t:
                         t = t[:t.index(break_id)]
-                if is_java:
-                    text = DecodeIds(t).strip("{").strip()
-                else:
-                    text = DecodeIds(t).strip("<EOL>").strip()
+                text = DecodeIds(t).strip("<EOL>").strip()
                 return text
         return ""
 

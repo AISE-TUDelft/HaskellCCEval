@@ -3,10 +3,11 @@ import os
 import random
 import re
 from argparse import ArgumentParser
-from typing import Tuple, Union
+from typing import Tuple, Union, List
 from itertools import takewhile
 from datasets import Dataset, DatasetDict, load_dataset
 from tqdm import tqdm
+from multiprocessing import Pool, Manager
 
 __DIRNAME = os.path.dirname(__file__)
 
@@ -25,11 +26,12 @@ def main():
 
     haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
 
-    filtered_dataset = filter_dataset(haskell_dataset)
-    train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
+    haskell_dataset = filter_dataset(haskell_dataset)
+    haskell_dataset = deduplicate_dataset(haskell_dataset)
+    train, test = split_data(haskell_dataset, args.seed, args.test_ratio)
 
-    create_train(train)
-    create_test(test, args.test_json_ratio)
+    # create_train(train)
+    # create_test(test, args.test_json_ratio)
 
 
 # TODO: in another script:
@@ -70,7 +72,57 @@ def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Datase
 
         return True
 
-    return haskell_dataset.filter(sample_filter)
+    return haskell_dataset.filter(sample_filter, desc="Filtering out low-quality samples")
+
+
+def tokenize_sample(sample) -> List[str]:
+    return sample['full_code'].split()
+
+
+def is_duplicate(seq1: List[str], seq2: List[str]) -> float:
+    return seq1 == seq2
+
+
+samples: List[str] = []
+
+
+def set_samples(_samples: List[str]):
+    global samples
+    samples = _samples
+
+
+def check_unique(i: int) -> bool:
+    seq1 = samples[i]
+
+    # only look ahead. this way, only the last duplicate is kept
+    for j in range(i + 1, len(samples)):
+        seq2 = samples[j]
+        if is_duplicate(seq1, seq2):
+            return False
+
+    return True
+
+
+def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
+    """
+    Deduplicates the given dataset by removing any duplicate entries.
+    Tokenizes every sample's 'full code' field and uses the resulting tokens to determine duplicates.
+    The last duplicate is kept as the only sample.
+
+    :param haskell_dataset:
+    :return:
+    """
+    dataset_size = len(haskell_dataset)
+
+    samples = [haskell_dataset[i] for i in range(dataset_size)]
+
+    with Pool(initializer=set_samples, initargs=(samples, )) as pool:
+        idx_is_unique = pool.map(check_unique, tqdm(range(dataset_size), desc="Checking uniqueness", total=dataset_size), chunksize=max(1, dataset_size // 100))
+
+    def sample_filter(_, idx):
+        return idx_is_unique[idx]
+
+    return haskell_dataset.filter(sample_filter, with_indices=True, desc="Filtering out duplicates")
 
 
 def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
