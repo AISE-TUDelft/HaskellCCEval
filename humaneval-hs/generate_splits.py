@@ -3,55 +3,86 @@ Generates one JSON file with input/outputs for line completion.
 The splits for the input/output are based on all the haskell files in this directory that contain "⭐️".
 The script splits on the "⭐️" symbol iff available in the line and takes max(x) of the splits and concatenates the output.    
 """
+import json
 import os
 import random
-
-files = {}
-io = {}
+from argparse import ArgumentParser
 
 
-def haskell_files_to_str(directory=os.path.dirname(os.path.realpath(__file__))):
-    # Read all .hs files and put them in a dictorionary with as key the filename and as value the content of the file as a string
-    for filename in os.listdir(directory):
-        if filename.endswith(".hs"):
-            with open(os.path.join(directory, filename), "r") as f:
-                files[int(filename.split("-")[1].split(".hs")[0])] = f.read()
+def main(split_symbol: str = "⭐️"):
+    parser = ArgumentParser()
+    parser.add_argument("--split_symbol", type=str, default="⭐️")
+    parser.add_argument("-i", "--input_dir", type=str, default=".")
+    parser.add_argument("-o", "--output_dir", type=str, default="./data")
+    parser.add_argument("-s", "--seed", type=int, default=42)
+    parser.add_argument("-m", "--max_splits", type=int, default=5)
+    args = parser.parse_args()
+
+    random.seed(args.seed)
+
+    if not os.path.exists(args.input_dir):
+        raise ValueError(f"Input directory {args.input_dir} does not exist.")
+
+    haskell_file_names = [
+        file_name
+        for file_name in os.listdir(args.input_dir)
+        if file_name.endswith(".hs")
+    ]
+
+    os.makedirs(args.output_dir, exist_ok=True)
+    output_path = os.path.join(args.output_dir, f"test-humaneval.json")
+
+    with open(output_path, "w") as f_out:
+        for haskell_file_name in haskell_file_names:
+            haskell_file_path = os.path.join(args.input_dir, haskell_file_name)
+
+            with open(haskell_file_path) as f_in:
+                haskell_file_content = f_in.read()
+
+            haskell_file_content = extract_haskell_implementation(haskell_file_content)
+
+            split_indices = [i for i in range(len(haskell_file_content)) if haskell_file_content.startswith(split_symbol, i)]
+            split_indices = random.sample(split_indices, min(args.max_splits, len(split_indices)))
+
+            for split_index in split_indices:
+                left = haskell_file_content[:split_index].rstrip()
+                right = haskell_file_content[split_index + len(split_symbol):].lstrip()
+
+                left = read_to_bol(left)
+                right = read_to_eol(right)
+
+                left, right = remove_split_symbols(left), remove_split_symbols(right)
+
+                obj = {"input": left, "gt": right}
+                json.dump(obj, f_out)
+                f_out.write("\n")
 
 
-def filter_haskell_implementation_from_files():
-    # Go through 'files' and update each key/value pair with a new value split on ("-- Haskell Implementation:")
-    for key, value in files.items():
-        files[key] = value.split("-- Haskell Implementation:")[1].strip()
+def extract_haskell_implementation(file_content: str):
+    return file_content.split("-- Haskell Implementation:")[1].strip()
 
 
-def split_on_split_symbol(split_symbol: str = "⭐️"):
-    for key, value in files.items():
-        io[key] = {}
-        i = 0
+def remove_split_symbols(text: str, split_symbol: str = "⭐️"):
+    splits = text.split(split_symbol)
+    for i in range(len(splits)):
+        if i > 0:
+            splits[i] = splits[i].lstrip()
+        if i < len(splits) - 1:
+            splits[i] = splits[i].rstrip()
+    return " ".join(splits)
 
-        # Read per line and split on the split_symbol
-        lines = value.split("\n")
-        for line in lines:
-            if (split_symbol not in line):
-                continue
 
-            splits = line.split(split_symbol)
+def read_to_bol(text: str):
+    line = text.split("<s>")[-1]
+    line = line.split("<EOL>")[-1]
+    return line
 
-            for j in range(len(splits)):
-                if (j >= len(splits) - 1):
-                    break
-                io[key][i] = {}
-                # TODO: Add context of previous lines to input
-                io[key][i]["input"] = splits[j].strip()
-                io[key][i]["output"] = "".join(splits[j+1:]).strip()
-                i += 1
 
-# TODO: Add function that writes to JSON file
+def read_to_eol(text: str):
+    line = text.split("</s>")[0]
+    line = line.split("<EOL>")[0]
+    return line
 
 
 if __name__ == "__main__":
-    haskell_files_to_str()
-    filter_haskell_implementation_from_files()
-    split_on_split_symbol()
-    print(files[4])
-    print(io[4])
+    main()
