@@ -7,7 +7,8 @@ from typing import Tuple, Union, List
 from itertools import takewhile
 from datasets import Dataset, DatasetDict, load_dataset
 from tqdm import tqdm
-from multiprocessing import Pool, Manager
+from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
+from fuzzywuzzy import fuzz
 
 __DIRNAME = os.path.dirname(__file__)
 
@@ -26,6 +27,7 @@ def main():
 
     haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
     original_dataset_size = len(haskell_dataset)
+    print(f"Loaded {original_dataset_size} samples")
 
     haskell_dataset = filter_dataset(haskell_dataset)
     filtered_dataset_size = len(haskell_dataset)
@@ -58,7 +60,9 @@ def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Datase
         if 'full_code' not in sample or sample['full_code'] is None:
             return False
 
-        if 'full_size' not in sample or sample['full_size'] is None or sample['full_size'] < MINIMUM_SIZE:
+        full_code = sample['full_code']
+
+        if len(full_code) < MINIMUM_SIZE:
             return False
 
         if 'is_commented' not in sample or not sample['is_commented']:
@@ -70,40 +74,15 @@ def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Datase
         if 'n_ast_errors' not in sample or sample['n_ast_errors'] > 0:
             return False
 
-        if 'loc' not in sample or sample['loc'] is None or sample['loc'] < MINIMUM_LOC:
+        full_code_lines = full_code.splitlines()
+        non_comment_loc = sum([len(line.strip()) > 0 and not line.strip().startswith('--') for line in full_code_lines])
+
+        if non_comment_loc < MINIMUM_LOC:
             return False
 
         return True
 
     return haskell_dataset.filter(sample_filter, desc="Filtering out low-quality samples")
-
-
-def tokenize_sample(sample) -> List[str]:
-    return sample['full_code'].split()
-
-
-def is_duplicate(seq1: List[str], seq2: List[str]) -> float:
-    return seq1 == seq2
-
-
-samples: List[str] = []
-
-
-def set_samples(_samples: List[str]):
-    global samples
-    samples = _samples
-
-
-def check_unique(i: int) -> bool:
-    seq1 = samples[i]
-
-    # only look ahead. this way, only the last duplicate is kept
-    for j in range(i + 1, len(samples)):
-        seq2 = samples[j]
-        if is_duplicate(seq1, seq2):
-            return False
-
-    return True
 
 
 def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
@@ -116,11 +95,26 @@ def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[D
     :return:
     """
     dataset_size = len(haskell_dataset)
+    known_samples = set()
+    idx_is_unique = [False] * dataset_size
 
-    samples = [haskell_dataset[i] for i in range(dataset_size)]
+    for i in tqdm(reversed(range(dataset_size)), desc="Finding duplicates", total=dataset_size):
+        full_code = ' '.join(haskell_dataset[i]['full_code'].split())
+        if full_code in known_samples:
+            continue
+        known_samples.add(full_code)
+        idx_is_unique[i] = True
 
-    with Pool(initializer=set_samples, initargs=(samples, )) as pool:
-        idx_is_unique = pool.map(check_unique, tqdm(range(dataset_size), desc="Checking uniqueness", total=dataset_size), chunksize=max(1, dataset_size // 100))
+    # idx_is_unique = [True] * dataset_size
+    # for i in tqdm(range(dataset_size), desc="Finding duplicates", total=dataset_size):
+    #     full_code = haskell_dataset[i]['full_code']
+    #
+    #     for j in range(i + 1, dataset_size):
+    #         other_full_code = haskell_dataset[j]['full_code']
+    #         bleu_score = sentence_bleu([full_code], other_full_code, smoothing_function=SmoothingFunction().method2)
+    #         if bleu_score > 0.75:
+    #             idx_is_unique[j] = False
+    #             break
 
     def sample_filter(_, idx):
         return idx_is_unique[idx]
@@ -229,14 +223,27 @@ def create_test(test, test_json_ratio) -> None:
             MIN_PREFIX_LINE_TOKENS = 1
             MIN_SUFFIX_LINE_TOKENS = 2
 
-            def get_non_empty_tokens(l):
-                return list(filter(lambda x: len(x) > 0, l))
+            def get_non_empty_tokens(tokens):
+                return list(filter(lambda x: len(x) > 0, tokens))
 
-            def get_tokens_to_eol(l):
-                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '</s>', l))
+            def get_tokens_to_eol(right_tokens):
+                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '</s>', right_tokens))
 
-            def get_tokens_to_bol(l): # bol = beginning of line
-                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '<s>', l[::-1]))[::-1]
+            def get_tokens_to_bol(left_tokens): # bol = beginning of line
+                return get_non_empty_tokens(takewhile(lambda x: x != '<EOL>' and x != '<s>', left_tokens[::-1]))[::-1]
+
+            def in_singleline_comment(left_tokens):
+                line_tokens = get_tokens_to_bol(left_tokens)
+                line = ' '.join(line_tokens)
+                return line.strip().startswith('--')
+
+            def in_multiline_comment(left_tokens):
+                txt = ' '.join(left_tokens)
+                comment_open_idx = txt.rfind('{-')
+                if comment_open_idx == -1:
+                    return False
+                comment_close_idx = txt.rfind('-}', comment_open_idx + 2)
+                return comment_close_idx == -1
 
             split_indices = [
                 i
@@ -245,7 +252,8 @@ def create_test(test, test_json_ratio) -> None:
                    and len(get_non_empty_tokens(code_tokens[:i])) >= MIN_PREFIX_TOKENS
                    and len(get_tokens_to_bol(code_tokens[:i])) >= MIN_PREFIX_LINE_TOKENS
                    and len(get_tokens_to_eol(code_tokens[i:])) >= MIN_SUFFIX_LINE_TOKENS
-                   and not (get_tokens_to_bol(code_tokens[:i])[:1] or [''])[0].startswith('--')
+                   and not in_singleline_comment(code_tokens[:i])
+                   and not in_multiline_comment(code_tokens[:i])
             ]
 
             if len(split_indices) == 0:
