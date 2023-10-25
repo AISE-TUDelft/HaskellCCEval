@@ -16,7 +16,7 @@ def main(split_symbol: str = "⭐"):
     parser.add_argument("-i", "--input_dir", type=str, default=".")
     parser.add_argument("-o", "--output_dir", type=str, default="./data")
     parser.add_argument("-s", "--seed", type=int, default=42)
-    parser.add_argument("-m", "--max_splits", type=int, default=4)
+    parser.add_argument("-m", "--max_splits", type=int, default=5)
     args = parser.parse_args()
 
     random.seed(args.seed)
