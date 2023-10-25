@@ -17,16 +17,26 @@ def main():
         raise ValueError("Test set must be a .json file.")
 
     models = []
+
     if "unixcoder-base" in args.models:
         from unixcoder_predict import unixcoder
         models.append(unixcoder)
+
     if "codegpt-base" in args.models:
         from codegpt_predict import codegpt
         models.append(codegpt)
 
-    with open(args.test_set) as f:
+    if "unixcoder-finetuned" in args.models:
+        from unixcoder_finetuned_predict import unixcoder_finetuned
+        models.append(unixcoder_finetuned)
+
+    if "codegpt-finetuned" in args.models:
+        from codegpt_finetuned_predict import codegpt_finetuned
+        models.append(codegpt_finetuned)
+
+    with open(args.test_set) as f_test:
         print("Loading test set... " + args.test_set)
-        for sample in f:
+        for sample in f_test:
             sample_obj = json.loads(sample)
 
             input = sample_obj["input"]
@@ -43,8 +53,9 @@ def main():
                 prediction = "" if len(prediction_lines) == 0 else prediction_lines[0]
 
                 sample_obj["prediction"] = prediction
-                with open(model["output_file"], "w") as f:
-                    f.write(json.dumps(sample_obj) + "\n")
+                with open(model["output_file"], "w") as f_out:
+                    json.dump(sample_obj, f_out)
+                    f_out.write("\n")
 
 
 if __name__ == "__main__":
