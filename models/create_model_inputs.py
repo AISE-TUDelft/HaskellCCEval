@@ -28,7 +28,7 @@ def main():
     filtered_dataset = filter_dataset(haskell_dataset)
     train, test = split_data(filtered_dataset, args.seed, args.test_ratio)
 
-    # create_train(train)
+    create_train(train)
     create_test(test, args.test_json_ratio)
 
 
@@ -198,7 +198,7 @@ def create_test(test, test_json_ratio) -> None:
 
             split_index = random.choice(split_indices)
             model_input = ' '.join(code_tokens[:split_index])
-            model_output = ' '.join(code_tokens[split_index:]).split('<EOL>')[0]
+            model_output = ' '.join(get_tokens_to_eol(code_tokens[split_index:]))
 
             obj = {"input": model_input, "gt": model_output}
 

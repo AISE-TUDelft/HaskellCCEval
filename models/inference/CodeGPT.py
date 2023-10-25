@@ -129,7 +129,7 @@ def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Cal
     if is_java:
         break_ids = [tokenizer.convert_tokens_to_ids('Ġ;'), tokenizer.convert_tokens_to_ids('Ġ}'), tokenizer.convert_tokens_to_ids('Ġ{'), tokenizer.sep_token_id]
     else:
-        break_ids = [tokenizer.sep_token_id]
+        break_ids = [tokenizer.sep_token_id, tokenizer.eos_token]
     model = GPT2LMHeadModel.from_pretrained(checkpoint_path_or_url)
     model.resize_token_embeddings(len(tokenizer))
     model.to(device)

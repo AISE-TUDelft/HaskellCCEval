@@ -7,7 +7,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-m', '--models', choices=["unixcoder_base", "codegpt_base", "unixcoder_finetuned", "codegpt_finetuned"], required=True, nargs="+")
     parser.add_argument('-t', '--test-set', required=True)
-    parser.add_argument('-o', '--output-folder', required=True, default="output")
+    parser.add_argument('-o', '--output-folder', default="output")
     args = parser.parse_args()
 
     models = []
