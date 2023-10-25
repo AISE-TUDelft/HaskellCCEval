@@ -17,7 +17,7 @@ module load python/3.8.12
 module load py-pip
 #python -m pip install --user -r ~/haskell/models/requirements.txt
 
-python -u ~/haskell/models/finetuning/unixcoder/run.py \
+python3 -u ~/haskell/models/finetuning/unixcoder/run.py \
 	--do_train \
 	--do_eval \
 	--model_name_or_path microsoft/unixcoder-base \

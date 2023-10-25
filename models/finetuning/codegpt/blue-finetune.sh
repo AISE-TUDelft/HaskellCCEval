@@ -17,15 +17,15 @@ module load python/3.8.12
 module load py-pip
 #python -m pip install --user -r ~/haskell/models/requirements.txt
 
-python -u ~/haskell/models/finetuning/codegpt/run_lm.py \
+python3 -u ~/haskell/models/finetuning/codegpt/run_lm.py \
 	--do_train \
 	--data_dir ~/haskell/models/finetuning/data \
 	--output_dir ~/haskell/models/finetuning/codegpt/output \
 	--langs python \
 	--overwrite_output_dir \
 	--log_file ~/haskell/models/finetuning/codegpt/output/finetune-1.log \
-  --model_type=gpt2 \
-  --pretrain_dir=AISE-TUDelft/CodeGPT-Multilingual \
+  --model_type gpt2 \
+  --pretrain_dir AISE-TUDelft/CodeGPT-Multilingual \
   --not_pretrain \
   --weight_decay 0.01 \
   --learning_rate 0.000137 \
@@ -33,6 +33,4 @@ python -u ~/haskell/models/finetuning/codegpt/run_lm.py \
   --per_gpu_eval_batch_size 2 \
   --num_train_epochs 10 \
   --evaluate_during_training \
-  --eval_line \
   --save_steps 30000
-

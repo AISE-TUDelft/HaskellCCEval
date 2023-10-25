@@ -150,8 +150,9 @@ def preprocess_input(text: str) -> str:
         str: The preprocessed text.
     """
     text = text.strip()
-    text = re.sub(r'\n+', '<EOL>', text)
-    text = '<s>' + text + '</s>'
+    # special tokens must be surrounded by spaces so we can detect them easily
+    text = re.sub(r'\n+', ' <EOL> ', text)
+    text = '<s> ' + text + ' </s>'
     return text
 
 
@@ -193,26 +194,7 @@ def create_test(test) -> None:
     with open(os.path.join(__DIRNAME, './finetuning/data/test.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing test.json"):
             full_code = preprocess_input(sample['full_code'])
-
-            def tokenize_code(s):
-                # make sure that special tokens are always their own tokens
-                parts = s.split(' ')
-                special_tokens = ['<s>', '</s>', '<EOL>']
-                for special_token in special_tokens:
-                    new_parts = []
-                    for part in parts:
-                        while special_token in part:
-                            i = part.index(special_token)
-                            if i > 0:
-                                new_parts.append(part[:i])
-                            new_parts.append(special_token)
-                            part = part[i + len(special_token):]
-                        if len(part) > 0:
-                            new_parts.append(part)
-                    parts = new_parts
-                return parts
-
-            code_tokens = tokenize_code(full_code)
+            code_tokens = full_code.split(' ')
 
             MIN_PREFIX_TOKENS = 5
             MIN_PREFIX_LINE_TOKENS = 1
@@ -255,8 +237,8 @@ def create_test(test) -> None:
                 continue
 
             split_index = random.choice(split_indices)
-            model_input = ' '.join(code_tokens[:split_index])
-            model_output = ' '.join(get_tokens_to_eol(code_tokens[split_index:]))
+            model_input = ' '.join(code_tokens[:split_index]).rstrip()
+            model_output = ' '.join(get_tokens_to_eol(code_tokens[split_index:])).lstrip()
 
             obj = {"input": model_input, "gt": model_output}
 
