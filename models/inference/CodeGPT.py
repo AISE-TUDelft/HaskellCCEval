@@ -169,7 +169,7 @@ def create_predict_fn(checkpoint_path_or_url: str, is_java: bool = False) -> Cal
         tokens = [tokenizer.bos_token_id] + tokens
         inputs = torch.tensor(tokens, device=device).unsqueeze(0)
         with torch.no_grad():
-            beam_size = 1
+            beam_size = 3
             outputs = model(inputs[:, :-1])[1]
             p = []
             for i in range(inputs.shape[0]):

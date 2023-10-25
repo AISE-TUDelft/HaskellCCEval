@@ -12,7 +12,7 @@ def generate(left_context: str) -> str:
         # raise Exception("Left context has 896 tokens -> increase max length")
         print("WARN: Left context has 896 tokens -> it has been truncated")
     source_ids = torch.tensor(tokens_ids).to(device)
-    prediction_ids = model.generate(source_ids, decoder_only=True, beam_size=1, max_length=128)
+    prediction_ids = model.generate(source_ids, decoder_only=True, beam_size=3, max_length=128)
     # TODO: Assert that it is not a truncated prediction
     predictions = model.decode(prediction_ids)
     if len(predictions) == 0 or len(predictions[0]) == 0:
