@@ -35,12 +35,12 @@ import Numeric
 sort_array :: [Int] -> [Int]
 sort_array arr = sortBy g arr
   where
-    f x y = compare ⭐️ (countOnes $ abs x) ⭐️ (countOnes $ abs y)
+    f x y = compare ⭐ (countOnes $ abs x) ⭐ (countOnes $ abs y)
     g x y =
-      if (f x y) ⭐️ /= EQ
-        then ⭐️ (f x y)
-        else ⭐️ (compare x y)
+      if (f x y) ⭐ /= EQ
+        then ⭐ (f x y)
+        else ⭐ (compare x y)
     countOnes x =
       length $
-        filter ⭐️ (== '1') $
-          showIntAtBase 2 ⭐️ intToDigit x ""
+        filter ⭐ (== '1') $
+          showIntAtBase 2 ⭐ intToDigit x ""

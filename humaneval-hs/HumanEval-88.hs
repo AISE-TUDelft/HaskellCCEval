@@ -48,12 +48,12 @@ import Data.List
 sort_array :: [Int] -> [Int]
 sort_array array =
   if length array == 0
-    then ⭐️ []
+    then ⭐ []
     else
       sortBy
         ( \x y ->
-            if (array !! 0 + array !! ⭐️ (length array - 1)) `mod` 2 == ⭐️ 0
-              then ⭐️ compare y x
-              else ⭐️ compare x y
+            if (array !! 0 + array !! ⭐ (length array - 1)) `mod` 2 == ⭐ 0
+              then ⭐ compare y x
+              else ⭐ compare x y
         )
         array

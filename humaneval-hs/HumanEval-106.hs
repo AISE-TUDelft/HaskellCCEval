@@ -37,8 +37,8 @@
 -- f 5 == [1,2,6,24,15]
 f :: Int -> [Int]
 f n =
-  [ if ⭐️ even i
-      then ⭐️ product [1 .. i]
-      else ⭐️ sum [1 .. i]
-    | i <- ⭐️ [1 .. n]
+  [ if ⭐ even i
+      then ⭐ product [1 .. i]
+      else ⭐ sum [1 .. i]
+    | i <- ⭐ [1 .. n]
   ]

@@ -27,4 +27,4 @@
 -- >>> below_threshold [1,20,4,10] 5
 -- False
 below_threshold :: [Int] -> Int -> Bool
-below_threshold numbers threshold = ⭐️ all (< threshold) numbers
+below_threshold numbers threshold = ⭐ all (< threshold) numbers

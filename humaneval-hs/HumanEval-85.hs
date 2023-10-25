@@ -25,6 +25,6 @@ add :: [Int] -> Int
 add lst =
   sum
     [ lst !! i
-      | i <- ⭐️ [1, 3 .. ⭐️ (length lst - 1)],
-        even ⭐️ (lst !! i)
+      | i <- ⭐ [1, 3 .. ⭐ (length lst - 1)],
+        even ⭐ (lst !! i)
     ]

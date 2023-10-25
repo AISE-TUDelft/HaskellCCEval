@@ -42,26 +42,26 @@ import Data.Maybe
 -- "tHKS KS C MGSSCGG"
 encode :: String -> String
 encode message =
-  let vowels = ⭐️ "aeiouAEIOU"
+  let vowels = ⭐ "aeiouAEIOU"
       vowels_replace =
         zip
           vowels
           ( map
-              (\x -> ⭐️ chr (ord x + 2))
+              (\x -> ⭐ chr (ord x + 2))
               vowels
           )
       message' =
         map
           ( \x ->
               if isUpper x
-                then ⭐️ toLower x
-                else ⭐️ toUpper x
+                then ⭐ toLower x
+                else ⭐ toUpper x
           )
           message
    in map
         ( \x ->
             if x `elem` vowels
-              then ⭐️ (fromJust (lookup x vowels_replace))
-              else ⭐️ x
+              then ⭐ (fromJust (lookup x vowels_replace))
+              else ⭐ x
         )
         message'

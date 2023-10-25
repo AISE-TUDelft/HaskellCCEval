@@ -50,7 +50,7 @@ any_int :: Float -> Float -> Float -> Bool
 any_int x y z =
   isInt x
     && isInt y
-    && isInt ⭐️ z
-    && (x + y == z || ⭐️ x + z == y || ⭐️ y + z == x)
+    && isInt ⭐ z
+    && (x + y == z || ⭐ x + z == y || ⭐ y + z == x)
   where
-    isInt a = a == ⭐️ fromInteger (round a)
+    isInt a = a == ⭐ fromInteger (round a)

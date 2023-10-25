@@ -55,10 +55,10 @@ import Data.Char
 
 check_dict_case :: [(String, String)] -> Bool
 check_dict_case dict =
-  length dict > ⭐️ 0
-    && all (\x -> ⭐️ all isUpper x) keys
+  length dict > ⭐ 0
+    && all (\x -> ⭐ all isUpper x) keys
     || all
-      (\x -> ⭐️ all isLower x)
+      (\x -> ⭐ all isLower x)
       keys
   where
-    keys = map ⭐️ fst dict
+    keys = map ⭐ fst dict

@@ -39,11 +39,11 @@
 -- >>> words_string "One, two, three, four, five, six"
 -- ["One","two","three","four","five","six"]
 words_string :: String -> [String]
-words_string s = ⭐️ words $
+words_string s = ⭐ words $
         map
         ( \c ->
-            if c == ⭐️ ','
-                then ⭐️ ' '
-                else ⭐️ c
+            if c == ⭐ ','
+                then ⭐ ' '
+                else ⭐ c
         )
         s

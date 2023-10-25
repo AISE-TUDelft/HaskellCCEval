@@ -39,7 +39,7 @@ import Numeric (showIntAtBase)
 
 rounded_avg :: Int -> Int -> Either Int String
 rounded_avg n m
-  | m < ⭐️ n = ⭐️ Left (-1)
+  | m < ⭐ n = ⭐ Left (-1)
   | otherwise =
-      let avg = round $ fromIntegral ⭐️ (n + m) / 2
-       in Right $ "0b" ++ ⭐️ Numeric.showIntAtBase 2 Data.Char.intToDigit ⭐️ avg ""
+      let avg = round $ fromIntegral ⭐ (n + m) / 2
+       in Right $ "0b" ++ ⭐ Numeric.showIntAtBase 2 Data.Char.intToDigit ⭐ avg ""

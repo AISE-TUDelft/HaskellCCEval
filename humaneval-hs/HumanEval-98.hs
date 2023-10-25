@@ -33,6 +33,6 @@ count_upper :: String -> Int
 count_upper s =
   length
     [ i
-      | i <- ⭐️ [0, 2 .. ⭐️ (length s - 1)],
-        s !! i `elem` ⭐️ "AEIOU"
+      | i <- ⭐ [0, 2 .. ⭐ (length s - 1)],
+        s !! i `elem` ⭐ "AEIOU"
     ]

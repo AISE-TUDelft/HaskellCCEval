@@ -68,20 +68,20 @@ import Data.Char (digitToInt)
 valid_date :: String -> Bool
 valid_date date = case splitDate date of
   Just (m, d, y) -> isValidDate m d y
-  _ -> ⭐️ False
+  _ -> ⭐ False
   where
     splitDate :: String -> Maybe (Int, Int, Int)
-    splitDate (m1 : m2 : '-' : ⭐️ d1 : d2 : '-' : ⭐️ y1 : y2 : y3 : y4 : []) =
+    splitDate (m1 : m2 : '-' : ⭐ d1 : d2 : '-' : ⭐ y1 : y2 : y3 : y4 : []) =
       Just
-        ( digitToInt m1 * 10 + ⭐️ digitToInt m2,
-          digitToInt d1 * 10 + ⭐️ digitToInt d2,
-          digitToInt y1 * ⭐️ 1000 + digitToInt y2 * 100 + ⭐️ digitToInt y3 * 10 + digitToInt y4
+        ( digitToInt m1 * 10 + ⭐ digitToInt m2,
+          digitToInt d1 * 10 + ⭐ digitToInt d2,
+          digitToInt y1 * ⭐ 1000 + digitToInt y2 * 100 + ⭐ digitToInt y3 * 10 + digitToInt y4
         )
     splitDate _ = Nothing
     isValidDate m d y =
-      m >= ⭐️ 1
-        && m <= ⭐️ 12
-        && ( m `elem` ⭐️ [1, 3, 5, 7, 8, 10, 12] && d ⭐️ >= 1 && d <= 31
-               || m `elem` ⭐️ [4, 6, 9, 11] && d ⭐️ >= 1 && d <= 30
-               || m == 2 && d ⭐️ >= 1 && d <= 29 && (y `mod` 4 /= ⭐️ 0 || y `mod` 100 == ⭐️ 0 && y `mod` ⭐️ 400 /= 0)
+      m >= ⭐ 1
+        && m <= ⭐ 12
+        && ( m `elem` ⭐ [1, 3, 5, 7, 8, 10, 12] && d ⭐ >= 1 && d <= 31
+               || m `elem` ⭐ [4, 6, 9, 11] && d ⭐ >= 1 && d <= 30
+               || m == 2 && d ⭐ >= 1 && d <= 29 && (y `mod` 4 /= ⭐ 0 || y `mod` 100 == ⭐ 0 && y `mod` ⭐ 400 /= 0)
            )

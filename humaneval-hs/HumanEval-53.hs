@@ -24,4 +24,4 @@
 -- >>> add 5 7
 -- 12
 add :: Int -> Int -> Int
-add = ⭐️ (+)
+add = ⭐ (+)

@@ -37,13 +37,13 @@ is_bored :: String -> Int
 is_bored s =
   sum
     [ 1
-      | sentence <- ⭐️ splitOnDelimiters s,
-        take 2 sentence == ⭐️ "I "
+      | sentence <- ⭐ splitOnDelimiters s,
+        take 2 sentence == ⭐ "I "
     ]
 
 -- Helper function to split the string based on delimiters '.', '!', and '?'
 splitOnDelimiters :: String -> [String]
-splitOnDelimiters [] = ⭐️ []
-splitOnDelimiters s = case break ⭐️ (`elem` ".?!") s of
-  (sentence, []) -> ⭐️ [sentence]
-  (sentence, (_ : rest)) -> sentence : ⭐️ splitOnDelimiters (dropWhile ⭐️ (`elem` " ") rest)
+splitOnDelimiters [] = ⭐ []
+splitOnDelimiters s = case break ⭐ (`elem` ".?!") s of
+  (sentence, []) -> ⭐ [sentence]
+  (sentence, (_ : rest)) -> sentence : ⭐ splitOnDelimiters (dropWhile ⭐ (`elem` " ") rest)

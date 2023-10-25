@@ -30,6 +30,6 @@
 -- >>> mean_absolute_deviation [1.0, 2.0, 3.0, 4.0]
 -- 1.0
 mean_absolute_deviation :: [Float] -> Float
-mean_absolute_deviation numbers = sum ⭐️ (map abs (map (\x -> ⭐️ x - mean) numbers)) / ⭐️ fromIntegral (length numbers)
+mean_absolute_deviation numbers = sum ⭐ (map abs (map (\x -> ⭐ x - mean) numbers)) / ⭐ fromIntegral (length numbers)
     where
-        mean = ⭐️ sum numbers / ⭐️ fromIntegral (length numbers)
+        mean = ⭐ sum numbers / ⭐ fromIntegral (length numbers)

@@ -35,9 +35,9 @@
 import Data.Char (digitToInt)
 
 count_nums :: [Int] -> Int
-count_nums arr = length $ filter ⭐️ (> 0) $ map digitsSum arr
+count_nums arr = length $ filter ⭐ (> 0) $ map digitsSum arr
   where
     digitsSum n =
-      if ⭐️ n < 0
-        then ⭐️ negate $ sum $ map digitToInt ⭐️ $ tail $ show n
-        else ⭐️ sum $ map digitToInt ⭐️ $ show n
+      if ⭐ n < 0
+        then ⭐ negate $ sum $ map digitToInt ⭐ $ tail $ show n
+        else ⭐ sum $ map digitToInt ⭐ $ show n

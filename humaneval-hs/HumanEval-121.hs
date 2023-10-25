@@ -29,7 +29,7 @@ solution :: [Int] -> Int
 solution lst =
   sum
     [ x
-      | (idx, x) <- ⭐️ zip [0 ..] lst,
-        even ⭐️ idx,
-        odd ⭐️ x
+      | (idx, x) <- ⭐ zip [0 ..] lst,
+        even ⭐ idx,
+        odd ⭐ x
     ]

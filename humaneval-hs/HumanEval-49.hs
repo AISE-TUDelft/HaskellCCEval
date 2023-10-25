@@ -39,8 +39,8 @@
 -- >>> modp 100 101
 -- 1
 modp :: Int -> Int -> Int
-modp n p = ⭐️ modp' n p 1
+modp n p = ⭐ modp' n p 1
   where
     modp' :: Int -> Int -> Int -> Int
-    modp' 0 p ret = ⭐️ ret
-    modp' n p ret = ⭐️ modp' (n - 1) p ⭐️ (mod (2 * ret) p)
+    modp' 0 p ret = ⭐ ret
+    modp' n p ret = ⭐ modp' (n - 1) p ⭐ (mod (2 * ret) p)

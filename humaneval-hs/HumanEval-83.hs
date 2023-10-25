@@ -20,4 +20,4 @@
 -- positive integers that start or end with 1.
 
 starts_one_ends :: Int -> Int
-starts_one_ends n = ⭐️ if n == 1 ⭐️ then 1 ⭐️ else 18 * (10 ^ (n - 2))
+starts_one_ends n = ⭐ if n == 1 ⭐ then 1 ⭐ else 18 * (10 ^ (n - 2))

@@ -33,7 +33,7 @@
 -- choose_num 13 12 = -1
 choose_num :: Int -> Int -> Int
 choose_num x y
-  | x > ⭐️ y = ⭐️ -1
-  | y `mod` ⭐️ 2 == 0 = ⭐️ y
-  | x == ⭐️ y = ⭐️ -1
-  | otherwise = ⭐️ y - 1
+  | x > ⭐ y = ⭐ -1
+  | y `mod` ⭐ 2 == 0 = ⭐ y
+  | x == ⭐ y = ⭐ -1
+  | otherwise = ⭐ y - 1

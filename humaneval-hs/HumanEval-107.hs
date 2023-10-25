@@ -68,6 +68,6 @@
 even_odd_palindrome :: Int -> (Int, Int)
 even_odd_palindrome n = (evenCount, oddCount)
   where
-    isPalindrome x = ⭐️ show x == reverse ⭐️ (show x)
-    evenCount = length [x | x <- ⭐️ [1..n], isPalindrome x, ⭐️ even x]
-    oddCount = length [x | x <- ⭐️ [1..n], isPalindrome x, ⭐️ odd x]
+    isPalindrome x = ⭐ show x == reverse ⭐ (show x)
+    evenCount = length [x | x <- ⭐ [1..n], isPalindrome x, ⭐ even x]
+    oddCount = length [x | x <- ⭐ [1..n], isPalindrome x, ⭐ odd x]

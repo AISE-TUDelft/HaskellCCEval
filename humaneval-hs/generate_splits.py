@@ -1,7 +1,7 @@
 """
 Generates one JSON file with input/outputs for line completion.
-The splits for the input/output are based on all the haskell files in this directory that contain "⭐️".
-The script splits on the "⭐️" symbol iff available in the line and takes max(x) of the splits and concatenates the output.    
+The splits for the input/output are based on all the haskell files in this directory that contain "⭐".
+The script splits on the "⭐" symbol iff available in the line and takes max(x) of the splits and concatenates the output.    
 """
 import json
 import os
@@ -10,13 +10,13 @@ from argparse import ArgumentParser
 import re
 
 
-def main(split_symbol: str = "⭐️"):
+def main(split_symbol: str = "⭐"):
     parser = ArgumentParser()
-    parser.add_argument("--split_symbol", type=str, default="⭐️")
+    parser.add_argument("--split_symbol", type=str, default="⭐")
     parser.add_argument("-i", "--input_dir", type=str, default=".")
     parser.add_argument("-o", "--output_dir", type=str, default="./data")
     parser.add_argument("-s", "--seed", type=int, default=42)
-    parser.add_argument("-m", "--max_splits", type=int, default=5)
+    parser.add_argument("-m", "--max_splits", type=int, default=4)
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -65,11 +65,11 @@ def extract_haskell_implementation(file_content: str):
 
 def add_special_tokens(file_content: str):
     file_content = "<s>" + file_content + "</s>"
-    file_content = re.sub(r"\n+", " <EOL> ", file_content)
+    file_content = re.sub(r"\n+", "<EOL>", file_content)
     return file_content
 
 
-def remove_split_symbols(text: str, split_symbol: str = "⭐️"):
+def remove_split_symbols(text: str, split_symbol: str = "⭐"):
     splits = text.split(split_symbol)
     for i in range(len(splits)):
         if i > 0:

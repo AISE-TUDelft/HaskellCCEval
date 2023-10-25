@@ -43,13 +43,13 @@
 count_up_to :: Int -> [Int]
 count_up_to n =
   [ i
-    | i <- ⭐️ [2 .. (n - 1)],
-      is_prime ⭐️ i
+    | i <- ⭐ [2 .. (n - 1)],
+      is_prime ⭐ i
   ]
   where
     is_prime n =
       null
         [ i
-          | i <- ⭐️ [2 .. ⭐️ (n - 1)],
-            n `mod` ⭐️ i == 0
+          | i <- ⭐ [2 .. ⭐ (n - 1)],
+            n `mod` ⭐ i == 0
         ]

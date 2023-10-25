@@ -50,13 +50,13 @@ import Data.List (group, sort)
 histogram :: String -> [(Char, Int)]
 histogram str =
   [ (c, n)
-    | (n, c) <- ⭐️ freqs,
-      n == ⭐️ maxFreq
+    | (n, c) <- ⭐ freqs,
+      n == ⭐ maxFreq
   ]
   where
     freqs =
       [ (length g, head g)
-        | g <- ⭐️ group $ sort str,
-          head g ⭐️ /= ' '
+        | g <- ⭐ group $ sort str,
+          head g ⭐ /= ' '
       ]
-    maxFreq = ⭐️ maximum $ ⭐️ map fst freqs
+    maxFreq = ⭐ maximum $ ⭐ map fst freqs

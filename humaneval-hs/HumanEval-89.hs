@@ -44,7 +44,7 @@ import Data.Char
 
 encrypt :: String -> String
 encrypt s =
-  let d = ⭐️ ['a' .. 'z']
-   in [ d !! ⭐️ ((fromEnum c - fromEnum 'a' + ⭐️ 2 * 2) `mod` ⭐️ 26)
-        | c <- ⭐️ s
+  let d = ⭐ ['a' .. 'z']
+   in [ d !! ⭐ ((fromEnum c - fromEnum 'a' + ⭐ 2 * 2) `mod` ⭐ 26)
+        | c <- ⭐ s
       ]

@@ -36,4 +36,4 @@
 --     1. 1 <= len(arr) <= 100
 --     2. 1 <= k <= len(arr)
 add_elements :: [Int] -> Int -> Int
-add_elements arr k = ⭐️ sum ⭐️ [x | x <- ⭐️ take k arr, ⭐️ length (show x) <= 2]
+add_elements arr k = ⭐ sum ⭐ [x | x <- ⭐ take k arr, ⭐ length (show x) <= 2]

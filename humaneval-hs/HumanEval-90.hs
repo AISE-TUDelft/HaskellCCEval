@@ -33,6 +33,6 @@ import Data.List
 
 next_smallest :: [Int] -> Maybe Int
 next_smallest lst =
-  if length ⭐️ (sort (nub lst)) < ⭐️ 2
-    then ⭐️ Nothing
-    else ⭐️ Just (sort (nub lst) !! 1)
+  if length ⭐ (sort (nub lst)) < ⭐ 2
+    then ⭐ Nothing
+    else ⭐ Just (sort (nub lst) !! 1)

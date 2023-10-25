@@ -40,6 +40,6 @@ import Data.Char (digitToInt)
 import Data.List (sort)
 
 unique_digits :: [Int] -> [Int]
-unique_digits x = ⭐️ sort $ filter
-      (all odd . ⭐️ map digitToInt . ⭐️ show)
+unique_digits x = ⭐ sort $ filter
+      (all odd . ⭐ map digitToInt . ⭐ show)
       x

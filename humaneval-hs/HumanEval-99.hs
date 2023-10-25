@@ -63,5 +63,5 @@
 -- farthest from zero. For example closest_integer("14.5") should
 -- return 15 and closest_integer("-14.5") should return -15.
 closest_integer :: String -> Integer
-closest_integer s = let n = ⭐️ read s ⭐️ :: Double
-    in round ⭐️ n
+closest_integer s = let n = ⭐ read s ⭐ :: Double
+    in round ⭐ n

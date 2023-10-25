@@ -38,10 +38,10 @@
 odd_count :: [String] -> [String]
 odd_count lst = map countOdd lst
   where
-    countOdd s = "the number of odd elements " ++ show n ++ "n the str" ++ ⭐️ show n ++ "ng " ++ show n ++ " of the " ++ ⭐️ show n ++ "nput."
+    countOdd s = "the number of odd elements " ++ show n ++ "n the str" ++ ⭐ show n ++ "ng " ++ show n ++ " of the " ++ ⭐ show n ++ "nput."
       where
         n =
           length $
-            filter ⭐️ odd $
-              map ⭐️ read $
-                map ⭐️ (: []) s
+            filter ⭐ odd $
+              map ⭐ read $
+                map ⭐ (: []) s

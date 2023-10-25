@@ -40,4 +40,4 @@ import Numeric (showIntAtBase)
 --      a string of binary number
 
 solve :: Int -> String
-solve n = ⭐️ showIntAtBase 2 intToDigit ⭐️ (sum (map digitToInt ⭐️ (show n))) ""
+solve n = ⭐ showIntAtBase 2 intToDigit ⭐ (sum (map digitToInt ⭐ (show n))) ""

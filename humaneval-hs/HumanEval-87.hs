@@ -52,13 +52,13 @@ get_row :: [[Int]] -> Int -> [(Int, Int)]
 get_row lst x =
   let coords =
         [ (i, j)
-          | i <- ⭐️ [0 .. (length lst - 1)],
-            j <- ⭐️ [0 .. (length (lst !! i) - 1)],
-            (lst !! i) !! j ⭐️ == x
+          | i <- ⭐ [0 .. (length lst - 1)],
+            j <- ⭐ [0 .. (length (lst !! i) - 1)],
+            (lst !! i) !! j ⭐ == x
         ]
    in sortBy
-        (\x y -> ⭐️ compare (fst x) (fst y))
+        (\x y -> ⭐ compare (fst x) (fst y))
         ( sortBy
-            (\x y -> ⭐️ compare (snd y) (snd x))
+            (\x y -> ⭐ compare (snd y) (snd x))
             coords
         )

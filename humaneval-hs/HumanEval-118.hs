@@ -46,12 +46,12 @@
 -- get_closest_vowel "quick" ==> ""
 -- get_closest_vowel "ab" ==> ""
 get_closest_vowel :: String -> String
-get_closest_vowel word = f (reverse ⭐️ word)
+get_closest_vowel word = f (reverse ⭐ word)
   where
     f (x : y : z : xs) =
-      if vowel y && consonant x && ⭐️ consonant z
-        then ⭐️ [y]
-        else ⭐️ f (y : z : xs)
-    f _ = ⭐️ ""
-    vowel x = ⭐️ x `elem` "aeiouAEIOU"
-    consonant = ⭐️ not . vowel
+      if vowel y && consonant x && ⭐ consonant z
+        then ⭐ [y]
+        else ⭐ f (y : z : xs)
+    f _ = ⭐ ""
+    vowel x = ⭐ x `elem` "aeiouAEIOU"
+    consonant = ⭐ not . vowel

@@ -32,8 +32,8 @@
 -- "12"
 circular_shift :: Int -> Int -> String
 circular_shift x shift
-  | shift > length s = ⭐️ reverse s
-  | otherwise = ⭐️ drop (length s - shift) s ++ ⭐️ take (length s - shift) s
+  | shift > length s = ⭐ reverse s
+  | otherwise = ⭐ drop (length s - shift) s ++ ⭐ take (length s - shift) s
   where 
     s :: String
-    s = ⭐️ show x
+    s = ⭐ show x

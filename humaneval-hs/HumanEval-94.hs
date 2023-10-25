@@ -52,11 +52,11 @@ skjkasdkd lst =
   let isPrime n =
         null
           [ i
-            | i <- ⭐️ [2 .. (floor (sqrt ⭐️ (fromIntegral n)))],
-              n `mod` ⭐️ i == 0
+            | i <- ⭐ [2 .. (floor (sqrt ⭐ (fromIntegral n)))],
+              n `mod` ⭐ i == 0
           ]
       maxx =
         maximum
-          [ i | i <- ⭐️ lst, isPrime i
+          [ i | i <- ⭐ lst, isPrime i
           ]
-   in sum [read [i] | i <- ⭐️ show maxx]
+   in sum [read [i] | i <- ⭐ show maxx]

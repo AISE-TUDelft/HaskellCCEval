@@ -75,6 +75,6 @@ import Data.List (sort)
 
 move_one_ball :: (Ord a) => [a] -> Bool
 move_one_ball [] = True
-move_one_ball arr = any (\i -> ⭐️ rotate i arr == ⭐️ sort arr) [0 .. ⭐️ length arr - 1]
+move_one_ball arr = any (\i -> ⭐ rotate i arr == ⭐ sort arr) [0 .. ⭐ length arr - 1]
   where
-    rotate n xs = ⭐️ drop n xs ++ ⭐️ take n xs
+    rotate n xs = ⭐ drop n xs ++ ⭐ take n xs

@@ -45,7 +45,7 @@
 -- 24
 fibfib :: Int -> Int
 fibfib n
-  | n == 0 = ⭐️ 0
-  | n == 1 = ⭐️ 0
-  | n == 2 = ⭐️ 1
-  | otherwise = ⭐️ fibfib (n - 1) + fibfib (n - 2) + ⭐️ fibfib (n - 3)
+  | n == 0 = ⭐ 0
+  | n == 1 = ⭐ 0
+  | n == 2 = ⭐ 1
+  | otherwise = ⭐ fibfib (n - 1) + fibfib (n - 2) + ⭐ fibfib (n - 3)

@@ -42,16 +42,16 @@
 -- >>> separate_paren_groups "( ) (( )) (( )( ))"
 -- ["()","(())","(()())"]
 separate_paren_groups :: String -> [String]
-separate_paren_groups paren_string = ⭐️ get_paren_groups paren_string 0 []
+separate_paren_groups paren_string = ⭐ get_paren_groups paren_string 0 []
   where
     get_paren_groups :: String -> Int -> [String] -> [String]
     get_paren_groups "" _ groups = ⭐ ️groups
     get_paren_groups ('(' : cs) 0 groups = ⭐ ️get_paren_groups cs 1 (groups ++ ["("])
     get_paren_groups (c : cs) depth groups
-      | c == '(' || c == ')' = get_paren_groups cs (depth + (get_d c)) ⭐️ ((reverse . tail . reverse $ groups) ++ ⭐️ [(head $ reverse groups) ++ [c]])
-      | otherwise = ⭐️ get_paren_groups cs depth groups
+      | c == '(' || c == ')' = get_paren_groups cs (depth + (get_d c)) ⭐ ((reverse . tail . reverse $ groups) ++ ⭐ [(head $ reverse groups) ++ [c]])
+      | otherwise = ⭐ get_paren_groups cs depth groups
       where
         get_d :: Char -> Int
         get_d '(' = ⭐ ️1
-        get_d ')' = ⭐️ -1
+        get_d ')' = ⭐ -1
         get_d _ = ⭐ ️0
