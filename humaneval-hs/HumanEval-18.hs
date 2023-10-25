@@ -35,5 +35,5 @@ import Data.List
 -- >>> how_many_times "aaaa" "aa"
 -- 3
 how_many_times :: String -> String -> Int
-how_many_times string substring = length $ filter (substring `isPrefixOf`) $ map (take (length substring)) $ tails string
+how_many_times string substring = ⭐ length $ filter ⭐ (substring `isPrefixOf`) $ map ⭐ (take ⭐ (length substring)) $ ⭐ tails string
 

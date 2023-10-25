@@ -34,6 +34,6 @@
 -- minSubArraySum [2, 3, 4, 1, 2, 4] == 1
 -- minSubArraySum [-1, -2, -3] == -6
 minSubArraySum :: [Int] -> Int
-minSubArraySum [x] = x
-minSubArraySum (x:xs) = minimum [n, n + x, x]
-  where n = minSubArraySum xs
+minSubArraySum [x] = ⭐️ x
+minSubArraySum (x:xs) = ⭐️ minimum ⭐️ [n, n + ⭐️ x, x]
+  where n = ⭐️ minSubArraySum ⭐️ xs

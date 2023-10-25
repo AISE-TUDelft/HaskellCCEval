@@ -34,4 +34,4 @@
 -- >>> rolling_max [1, 2, 3, 2, 3, 4, 2]
 -- [1,2,3,3,3,4,4]
 rolling_max :: [Int] -> [Int]
-rolling_max numbers = scanl1 max numbers
+rolling_max numbers = ⭐️ scanl1 ⭐️ max numbers

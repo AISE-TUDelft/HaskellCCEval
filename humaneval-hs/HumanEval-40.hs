@@ -48,7 +48,8 @@
 -- >>> triples_sum_to_zero [1]
 -- False
 triples_sum_to_zero :: [Int] -> Bool
-triples_sum_to_zero xs = any (\(a, b, c) -> a + b + c == 0) $ triples xs
+triples_sum_to_zero xs = ⭐ any (\(a, b, c) -> ⭐ a + b + c == 0) $ triples xs
   where
-    triples [] = []
-    triples (x:xs) = [(x, y, z) | y <- xs, z <- tail xs, y /= z] ++ triples xs
+    triples :: [Int] -> [(Int, Int, Int)]
+    triples [] = ⭐ []
+    triples (x:xs) = ⭐ [(x, y, z) | y <- xs, z <- ⭐ tail xs, ⭐ y /= z] ++ ⭐ triples xs

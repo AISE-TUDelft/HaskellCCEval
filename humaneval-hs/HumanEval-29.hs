@@ -25,6 +25,6 @@
 -- >>> filter_by_prefix ["abc", "bcd", "cde", "array"] "a"
 -- ["abc","array"]
 filter_by_prefix :: [String] -> String -> [String]
-filter_by_prefix strings prefix = [x | x <- strings, x `startsWith` prefix]
+filter_by_prefix strings prefix = ⭐ [x | x <- ⭐ strings, ⭐ x `startsWith` prefix]
     where startsWith :: String -> String -> Bool
-          startsWith string prefix = take (length prefix) string == prefix
+          startsWith string prefix = ⭐ take (length prefix) ⭐ string == prefix

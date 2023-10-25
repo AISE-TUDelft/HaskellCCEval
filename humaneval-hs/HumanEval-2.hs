@@ -28,4 +28,4 @@
 -- >>> truncate_number 3.5
 -- 0.5
 truncate_number :: Float -> Float
-truncate_number number = number - fromIntegral (floor number)
+truncate_number number = ⭐️ number - fromIntegral ⭐️ (floor number)

@@ -43,4 +43,4 @@ import Data.List
 -- >>> find_closest_elements [1.0, 2.0, 3.0, 4.0, 5.0, 2.0]
 -- (2.0,2.0)
 find_closest_elements :: [Float] -> (Float, Float)
-find_closest_elements numbers = head $ sortOn (\(x, y) -> abs (x - y)) [(x,y) | (x:ys) <- tails numbers, y <- ys]
+find_closest_elements numbers = ⭐ head $ sortOn ⭐ (\(x, y) -> ⭐ abs (x - y)) ⭐ [(x,y) | (x:ys) <- ⭐ tails numbers, y <- ys]

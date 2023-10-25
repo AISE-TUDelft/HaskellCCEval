@@ -24,4 +24,4 @@
 -- >>> string_sequence 5
 -- "0 1 2 3 4 5"
 string_sequence :: Int -> String
-string_sequence n = unwords [show x | x <- [0..n]]
+string_sequence n = ⭐ unwords ⭐ [show x | x <- ⭐ [0..n]]

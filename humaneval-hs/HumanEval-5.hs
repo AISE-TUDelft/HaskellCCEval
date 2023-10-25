@@ -36,4 +36,4 @@
 -- >>> intersperse [1, 2, 3] 4
 -- [1,4,2,4,3,4]
 intersperse :: [Int] -> Int -> [Int]
-intersperse numbers delimeter = concat [[x, delimeter] | x <- numbers]
+intersperse numbers delimeter = ⭐️ concat [[x, delimeter] | ⭐️ x <- numbers]

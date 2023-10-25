@@ -29,4 +29,4 @@
 -- >>> string_xor "010" "110"
 -- "100"
 string_xor :: String -> String -> String
-string_xor a b = [if x == y then '0' else '1' | (x, y) <- zip a b]
+string_xor a b = ⭐ [if x == y ⭐ then '0' else '1' | ⭐ (x, y) <- ⭐ zip a b]
