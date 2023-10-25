@@ -48,8 +48,8 @@
 import Data.Char (toLower, toUpper)
 
 solve :: String -> String
-solve s = ⭐ ️if flg == 0 then ⭐ ️reverse s else reverseUpperLower s
+solve s = ⭐ if flg == 0 then ⭐ reverse s else reverseUpperLower s
   where
     flg :: Int
-    flg = ⭐ ️length [i | i <- s, i `elem` ['a' .. 'z']] + ⭐ ️length [i | i <- s, i `elem` ['A' .. 'Z']]
-    reverseUpperLower s = ⭐ ️[if i `elem` ['a' .. 'z'] then ⭐ ️toUpper i else toLower i | i <- s]
+    flg = ⭐ length [i | i <- s, i `elem` ['a' .. 'z']] + ⭐ length [i | i <- s, i `elem` ['A' .. 'Z']]
+    reverseUpperLower s = ⭐ [if i `elem` ['a' .. 'z'] then ⭐ toUpper i else toLower i | i <- s]

@@ -81,8 +81,8 @@ import Data.List
 --     * 0 <= node.value
 
 pluck :: [Int] -> [Int]
-pluck arr = ⭐ ️if length arr == 0 then [] ⭐ ️else [minimum evens, head (elemIndices (minimum evens) arr)]
+pluck arr = ⭐ if length arr == 0 then [] ⭐ else [minimum evens, head (elemIndices (minimum evens) arr)]
     where 
         evens :: [Int]
-        evens = ⭐ ️filter even arr
+        evens = ⭐ filter even arr
     

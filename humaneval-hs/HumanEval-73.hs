@@ -35,4 +35,4 @@
 -- smallest_change [1, 2, 3, 2, 1] == 0
 
 smallest_change :: [Int] -> Int
-smallest_change arr = ⭐ ️length [i | i <- [0..(length arr `div` 2 - 1)], arr !! i /= arr !! ⭐ ️(length arr - i - 1)]
+smallest_change arr = ⭐ length [i | i <- [0..(length arr `div` 2 - 1)], arr !! i /= arr !! ⭐ (length arr - i - 1)]

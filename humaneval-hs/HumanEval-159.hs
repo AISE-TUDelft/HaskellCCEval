@@ -72,4 +72,4 @@
 --
 -- Have fun :)
 eat :: Int -> Int -> Int -> [Int]
-eat number need remaining = ⭐ ️if need <= remaining then ⭐ ️[number + need, remaining - need] else ⭐ ️[number + remaining, 0]
+eat number need remaining = ⭐ if need <= remaining then ⭐ [number + need, remaining - need] else ⭐ [number + remaining, 0]

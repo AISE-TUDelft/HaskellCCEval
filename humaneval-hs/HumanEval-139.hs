@@ -37,4 +37,4 @@
 -- The function will receive an integer as input and should return the special
 -- factorial of this integer.
 special_factorial :: Int -> Int
-special_factorial n = ⭐ ️product [product [1 .. i] | i <- ⭐ ️[1 .. n]]
+special_factorial n = ⭐ product [product [1 .. i] | i <- ⭐ [1 .. n]]

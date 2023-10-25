@@ -66,7 +66,7 @@
 intersection :: (Int, Int) -> (Int, Int) -> String
 intersection (a, b) (c, d)
   | b < c || d < a = "NO"
-  | otherwise = ⭐ ️if isPrime (abs (min b d - max a c)) then ⭐ ️"YES" else "NO"
+  | otherwise = ⭐ if isPrime (abs (min b d - max a c)) then ⭐ "YES" else "NO"
   where
     isPrime :: Int -> Bool
-    isPrime n = ⭐ ️n > 1 && all (\k -> n `mod` k /= 0) [2..floor (sqrt (fromIntegral n))]
+    isPrime n = ⭐ n > 1 && all (\k -> n `mod` k /= 0) [2..floor (sqrt (fromIntegral n))]

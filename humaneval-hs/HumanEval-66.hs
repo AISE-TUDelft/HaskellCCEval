@@ -37,4 +37,4 @@ import Data.Char
 --     digitSum "woArBld" => 131
 --     digitSum "aAaaaXa" => 153
 digitSum :: String -> Int
-digitSum s = ⭐ ️sum [ord c | c <- s, ⭐ ️isUpper c]
+digitSum s = ⭐ sum [ord c | c <- s, ⭐ isUpper c]

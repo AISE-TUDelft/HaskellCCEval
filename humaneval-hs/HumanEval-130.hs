@@ -51,11 +51,11 @@
 -- Examples:
 -- tri 3 = [1, 3, 2, 8]
 tri :: Int -> [Int]
-tri n = ⭐ ️map tri' [0..n]
+tri n = ⭐ map tri' [0..n]
     where
         tri' :: Int -> Int
-        tri' 0 = ⭐ ️1
-        tri' 1 = ⭐ ️3
+        tri' 0 = ⭐ 1
+        tri' 1 = ⭐ 3
         tri' n
-            | even n = ⭐ ️1 + n `div` 2
-            | otherwise = ⭐ ️tri' (n - 1) + ⭐ ️tri' (n - 2) + ⭐ ️tri' (n + 1)
+            | even n = ⭐ 1 + n `div` 2
+            | otherwise = ⭐ tri' (n - 1) + ⭐ tri' (n - 2) + ⭐ tri' (n + 1)

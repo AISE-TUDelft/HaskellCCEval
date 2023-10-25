@@ -31,4 +31,4 @@ import Data.Maybe
 -- Build depends on: base >= 4.7 && < 5, base16-bytestring, bytestring, cryptohash-md5
 
 string_to_md5 :: String -> Maybe String
-string_to_md5 text = ⭐ ️if text == "" then ⭐ ️Nothing else Just $ unpack $ encode $ MD5.hash $ pack text
+string_to_md5 text = ⭐ if text == "" then ⭐ Nothing else Just $ unpack $ encode $ MD5.hash $ pack text

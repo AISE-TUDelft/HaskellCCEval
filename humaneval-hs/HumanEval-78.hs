@@ -51,4 +51,4 @@
 -- For num = "2020" the output should be 2.
 
 hex_key :: String -> Int
-hex_key num = ⭐ ️length [i | i <- ⭐ ️num, i `elem` "2357BD"]
+hex_key num = ⭐ length [i | i <- ⭐ num, i `elem` "2357BD"]

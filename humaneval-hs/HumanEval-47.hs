@@ -29,7 +29,7 @@ import Data.List (sort)
 -- >>> median [-10,4,6,1000,10,20]
 -- 8.0
 median :: [Int] -> Double
-median xs = ⭐ ️if odd len then fromIntegral (sorted !! (len `div` 2)) else ⭐ (fromIntegral (sorted !! (len `div` 2 - 1)) + fromIntegral (sorted !! (len `div` 2))) / 2
+median xs = ⭐ if odd len then fromIntegral (sorted !! (len `div` 2)) else ⭐ (fromIntegral (sorted !! (len `div` 2 - 1)) + fromIntegral (sorted !! (len `div` 2))) / 2
   where
     sorted :: [Int]
     sorted = ⭐ sort xs

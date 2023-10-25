@@ -45,13 +45,13 @@ import Data.List
 import Data.Maybe
 
 simplify :: String -> String -> Bool
-simplify x n = ⭐ ️numerator / denominator == ⭐ ️fromIntegral (round (numerator / denominator))
+simplify x n = ⭐ numerator / denominator == ⭐ fromIntegral (round (numerator / denominator))
   where
     a, b, c, d :: Double
-    a = ⭐ ️read (take (fromJust (elemIndex '/' x)) x)
-    b = ⭐ ️read (drop (fromJust (elemIndex '/' x) + 1) x)
-    c = ⭐ ️read (take (fromJust (elemIndex '/' n)) n)
-    d = ⭐ ️read (drop (fromJust (elemIndex '/' n) + 1) n)
+    a = ⭐ read (take (fromJust (elemIndex '/' x)) x)
+    b = ⭐ read (drop (fromJust (elemIndex '/' x) + 1) x)
+    c = ⭐ read (take (fromJust (elemIndex '/' n)) n)
+    d = ⭐ read (drop (fromJust (elemIndex '/' n) + 1) n)
     numerator, denominator :: Double
-    numerator = ⭐ ️a * c
-    denominator = ⭐ ️b * d
+    numerator = ⭐ a * c
+    denominator = ⭐ b * d

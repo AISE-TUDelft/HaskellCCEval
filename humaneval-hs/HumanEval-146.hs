@@ -37,7 +37,7 @@
 import Data.List
 
 specialFilter :: [Int] -> Int
-specialFilter nums = ⭐ ️length $ filter greaterThanTenAndOddBorders nums
+specialFilter nums = ⭐ length $ filter greaterThanTenAndOddBorders nums
   where
     greaterThanTenAndOddBorders :: Int -> Bool
-    greaterThanTenAndOddBorders n = ⭐ ️n > 10 && odd (read [head (show n)] :: Int) && ⭐ ️odd (read [show n !! (length (show n) - 1)] :: Int)
+    greaterThanTenAndOddBorders n = ⭐ n > 10 && odd (read [head (show n)] :: Int) && ⭐ odd (read [show n !! (length (show n) - 1)] :: Int)

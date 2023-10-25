@@ -36,4 +36,4 @@ import Data.Char (intToDigit)
 -- decimal_to_binary 32   # returns "db100000db"
 
 decimal_to_binary :: Int -> String
-decimal_to_binary decimal = ⭐ ️"db" ++ showIntAtBase 2 intToDigit decimal "db"
+decimal_to_binary decimal = ⭐ "db" ++ showIntAtBase 2 intToDigit decimal "db"

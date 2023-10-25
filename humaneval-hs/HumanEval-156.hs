@@ -47,15 +47,15 @@
 import Data.Char (toLower)
 
 int_to_mini_roman :: Int -> String
-int_to_mini_roman number = ⭐ ️map toLower $ int_to_mini_roman' number num sym (length num - 1) ""
+int_to_mini_roman number = ⭐ map toLower $ int_to_mini_roman' number num sym (length num - 1) ""
   where
     num :: [Int]
     sym :: [String]
-    num = ⭐ ️[1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
-    sym = ⭐ ️["I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"]
+    num = ⭐ [1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000]
+    sym = ⭐ ["I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"]
     int_to_mini_roman' :: Int -> [Int] -> [String] -> Int -> String -> String
     int_to_mini_roman' number num sym index res
-      | index < 0 = ⭐ ️res
-      | number == 0 = ⭐ ️res
-      | num !! index <= number = ⭐ ️int_to_mini_roman' (number - num !! index) num sym index (res ++ sym !! index)
-      | otherwise = ⭐ ️int_to_mini_roman' number num sym (index - 1) res
+      | index < 0 = ⭐ res
+      | number == 0 = ⭐ res
+      | num !! index <= number = ⭐ int_to_mini_roman' (number - num !! index) num sym index (res ++ sym !! index)
+      | otherwise = ⭐ int_to_mini_roman' number num sym (index - 1) res

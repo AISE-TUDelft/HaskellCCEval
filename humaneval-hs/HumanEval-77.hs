@@ -36,5 +36,5 @@
 -- iscube 180 ==> False
 
 iscube :: Int -> Bool
-iscube a = let b = ⭐ ️abs a
-           in round ⭐ ️(fromIntegral b ** (1.0 / 3.0)) ^ 3 == b
+iscube a = let b = ⭐ abs a
+           in round ⭐ (fromIntegral b ** (1.0 / 3.0)) ^ 3 == b

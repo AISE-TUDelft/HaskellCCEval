@@ -42,7 +42,7 @@
 -- a = [1, 3, 7, 13, 21]
 -- The only valid triple is (1, 7, 13).
 get_max_triples :: Int -> Int
-get_max_triples n = ⭐ ️length $ filter (\(x, y, z) -> (x + y + z) `mod` 3 == 0) [(a !! i, a !! j, a !! k) | i <- ⭐ ️[0 .. n - 1], j <- ⭐ ️[i + 1 .. n - 1], k <- ⭐ ️[j + 1 .. n - 1]]
+get_max_triples n = ⭐ length $ filter (\(x, y, z) -> (x + y + z) `mod` 3 == 0) [(a !! i, a !! j, a !! k) | i <- ⭐ [0 .. n - 1], j <- ⭐ [i + 1 .. n - 1], k <- ⭐ [j + 1 .. n - 1]]
   where
     a :: [Int]
-    a = ⭐ ️[i * i - i + 1 | ⭐ ️i <- [1 .. n]]
+    a = ⭐ [i * i - i + 1 | ⭐ i <- [1 .. n]]

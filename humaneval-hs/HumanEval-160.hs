@@ -65,18 +65,18 @@ do_algebra :: [String] -> [Int] -> Int
 do_algebra operators operands = head (snd (foldl (\(operators, operands) operator -> applyOperator operator operators operands 0 (length operators)) (operators, operands) operator_order))
   where
     operator_order :: [String]
-    operator_order = ⭐ ️["**", "//", "*", "+", "-"]
+    operator_order = ⭐ ["**", "//", "*", "+", "-"]
     applyOperator operator operators operands index length
-      | index >= length = ⭐ ️(operators, operands)
-      | operator /= operators !! index = ⭐ ️applyOperator operator operators operands (index + 1) length
-      | otherwise = ⭐ ️applyOperator operator (newOperators) (newOperands) (index + 1) (length - 1)
+      | index >= length = ⭐ (operators, operands)
+      | operator /= operators !! index = ⭐ applyOperator operator operators operands (index + 1) length
+      | otherwise = ⭐ applyOperator operator (newOperators) (newOperands) (index + 1) (length - 1)
       where
         newOperands :: [Int]
-        newOperands = ⭐ ️take index operands ++ [newOperand] ++ (drop (index + 2) operands)
-        newOperand = ⭐ ️case operator of
-          "*" -> ⭐ ️operands !! index * operands !! (index + 1)
-          "//" -> ⭐ ️operands !! index `div` operands !! (index + 1)
-          "+" -> ⭐ ️operands !! index + operands !! (index + 1)
-          "-" -> ⭐ ️operands !! index - operands !! (index + 1)
-          _ -> ⭐ ️operands !! index ^ operands !! (index + 1)
-        newOperators = ⭐ ️take index operators ++ (drop (index + 1) operators)
+        newOperands = ⭐ take index operands ++ [newOperand] ++ (drop (index + 2) operands)
+        newOperand = ⭐ case operator of
+          "*" -> ⭐ operands !! index * operands !! (index + 1)
+          "//" -> ⭐ operands !! index `div` operands !! (index + 1)
+          "+" -> ⭐ operands !! index + operands !! (index + 1)
+          "-" -> ⭐ operands !! index - operands !! (index + 1)
+          _ -> ⭐ operands !! index ^ operands !! (index + 1)
+        newOperators = ⭐ take index operators ++ (drop (index + 1) operators)

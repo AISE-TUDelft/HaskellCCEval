@@ -48,4 +48,4 @@
 -- total_match ["4"] ["1", "2", "3", "4", "5"] == ["4"]
 
 total_match :: [String] -> [String] -> [String]
-total_match lst1 lst2 = ⭐ ️if sum (map length lst1) <= ⭐ ️sum (map length lst2) then ⭐ ️lst1 else lst2
+total_match lst1 lst2 = ⭐ if sum (map length lst1) <= ⭐ sum (map length lst2) then ⭐ lst1 else lst2

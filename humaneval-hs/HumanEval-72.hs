@@ -54,4 +54,4 @@
 -- 3 is less than the maximum possible weight, and it's balanced.
 
 will_it_fly :: [Int] -> Int -> Bool
-will_it_fly q w = ⭐ ️sum q <= w && q == ⭐ ️reverse q
+will_it_fly q w = ⭐ sum q <= w && q == ⭐ reverse q

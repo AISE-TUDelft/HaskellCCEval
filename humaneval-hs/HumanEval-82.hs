@@ -34,5 +34,5 @@
 -- prime_length "orange" == False
 
 prime_length :: String -> Bool
-prime_length string = let l = ⭐ ️length string
-                      in l /= 0 && l /= 1 && null [i | i <- ⭐ ️[2..(l-1)], l `mod` i == 0]
+prime_length string = let l = ⭐ length string
+                      in l /= 0 && l /= 1 && null [i | i <- ⭐ [2..(l-1)], l `mod` i == 0]
