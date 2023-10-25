@@ -25,18 +25,21 @@ def main():
     random.seed(args.seed)
 
     haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
+    original_dataset_size = len(haskell_dataset)
 
     haskell_dataset = filter_dataset(haskell_dataset)
+    filtered_dataset_size = len(haskell_dataset)
+    print(f"Filtered out {original_dataset_size - filtered_dataset_size} samples")
+
     haskell_dataset = deduplicate_dataset(haskell_dataset)
+    deduplicated_dataset_size = len(haskell_dataset)
+    print(f"Removed {filtered_dataset_size - deduplicated_dataset_size} duplicates")
+
     train, test = split_data(haskell_dataset, args.seed, args.test_ratio)
 
-    # create_train(train)
-    # create_test(test, args.test_json_ratio)
+    create_train(train)
+    create_test(test, args.test_json_ratio)
 
-
-# TODO: in another script:
-# TODO: Load the models
-# TODO: Evaluate the models
 
 def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
     """
