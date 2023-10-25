@@ -20,7 +20,6 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-s', '--seed', type=int, default=42)
     parser.add_argument('-t', '--test-ratio', type=float, default=0.2)
-    parser.add_argument('-j', '--test-json-ratio', type=float, default=1)
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -40,7 +39,7 @@ def main():
     train, test = split_data(haskell_dataset, args.seed, args.test_ratio)
 
     create_train(train)
-    create_test(test, args.test_json_ratio)
+    create_test(test)
 
 
 def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
@@ -173,7 +172,7 @@ def create_train(train) -> None:
             f.write(full_code + '\n')
 
 
-def create_test(test, test_json_ratio) -> None:
+def create_test(test) -> None:
     """
     We create a test.txt that is used to compute loss, and a test.json that has some test cases for computing the accuracy.
 
@@ -193,10 +192,6 @@ def create_test(test, test_json_ratio) -> None:
     # test.json
     with open(os.path.join(__DIRNAME, './finetuning/data/test.json'), 'w') as f:
         for sample in tqdm(test, desc="Writing test.json"):
-            # test json takes much longer. so we have the option to take only a small part if we want a preview during training
-            if random.random() > test_json_ratio:
-                continue
-
             full_code = preprocess_input(sample['full_code'])
 
             def tokenize_code(s):
