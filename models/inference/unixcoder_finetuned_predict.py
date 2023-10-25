@@ -21,9 +21,5 @@ def generate(left_context: str) -> str:
 
 
 unixcoder_finetuned = {
-    "name": "UniXcoder-Haskell",
-    "generate": generate,
-    "supports_left_context": True,
-    "supports_right_context": False,
-    "output_file": "../inference_output/unixcoder_finetuned/output.json"
+    "generate": generate
 }
