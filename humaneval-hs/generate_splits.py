@@ -7,6 +7,7 @@ import json
 import os
 import random
 from argparse import ArgumentParser
+import re
 
 
 def main(split_symbol: str = "⭐️"):
@@ -40,6 +41,7 @@ def main(split_symbol: str = "⭐️"):
                 haskell_file_content = f_in.read()
 
             haskell_file_content = extract_haskell_implementation(haskell_file_content)
+            haskell_file_content = add_special_tokens(haskell_file_content)
 
             split_indices = [i for i in range(len(haskell_file_content)) if haskell_file_content.startswith(split_symbol, i)]
             split_indices = random.sample(split_indices, min(args.max_splits, len(split_indices)))
@@ -48,7 +50,6 @@ def main(split_symbol: str = "⭐️"):
                 left = haskell_file_content[:split_index].rstrip()
                 right = haskell_file_content[split_index + len(split_symbol):].lstrip()
 
-                left = read_to_bol(left)
                 right = read_to_eol(right)
 
                 left, right = remove_split_symbols(left), remove_split_symbols(right)
@@ -62,6 +63,12 @@ def extract_haskell_implementation(file_content: str):
     return file_content.split("-- Haskell Implementation:")[1].strip()
 
 
+def add_special_tokens(file_content: str):
+    file_content = "<s>" + file_content + "</s>"
+    file_content = re.sub(r"\n+", " <EOL> ", file_content)
+    return file_content
+
+
 def remove_split_symbols(text: str, split_symbol: str = "⭐️"):
     splits = text.split(split_symbol)
     for i in range(len(splits)):
@@ -70,12 +77,6 @@ def remove_split_symbols(text: str, split_symbol: str = "⭐️"):
         if i < len(splits) - 1:
             splits[i] = splits[i].rstrip()
     return " ".join(splits)
-
-
-def read_to_bol(text: str):
-    line = text.split("<s>")[-1]
-    line = line.split("<EOL>")[-1]
-    return line
 
 
 def read_to_eol(text: str):
