@@ -33,7 +33,8 @@ def main():
     for name, generate in models:
         print(f'Running model {name}')
 
-        output_file_path = os.path.join(args.output_folder, f"{name}.json")
+        test_name = '.'.join(args.test_set.split('.')[:-1])
+        output_file_path = os.path.join(args.output_folder, f"{name}-{test_name}.json")
         with open(args.test_set) as f_test, \
              open(output_file_path, "w") as f_out:
             for sample in f_test:
