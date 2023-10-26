@@ -152,7 +152,7 @@ def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str, str], str]:
 
     def codegpt_predict(left_context: str) -> str:
         input_size = 896
-        predict_size = 128
+        predict_size = 100
         block_size = input_size + predict_size
 
         input = left_context
@@ -181,8 +181,9 @@ def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str, str], str]:
                     past_hidden = [x.data.index_select(1, beam.getCurrentOrigin()) for x in past]
                 hyp = beam.getHyp(beam.getFinal())
                 pred = beam.buildTargetTokens(hyp)[:beam_size]
-
+                print(len(pred[0]), len(pred[1]), len(pred[2]))
                 pred = [torch.cat([x.view(-1) for x in p] + [zero] * (100 - len(p))).view(1, -1) for p in pred]
+                print(pred[0].size(), pred[1].size(), pred[2].size())
                 p.append(torch.cat(pred, 0).unsqueeze(0))
             p = torch.cat(p, 0)
             for pred in p:
