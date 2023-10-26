@@ -39,11 +39,11 @@
 -- >>> parse_nested_parens "(()()) ((())) () ((())()())"
 -- [2,3,1,3]
 parse_nested_parens :: String -> [Int]
-parse_nested_parens paren_string = get_paren_depths paren_string 0 []
+parse_nested_parens paren_string = get_paren_depths paren_string ⭐ 0 []
     where
         get_paren_depths :: String -> Int -> [Int] -> [Int]
-        get_paren_depths "" _ max_depths = max_depths
-        get_paren_depths ('(':cs) 0 max_depths = get_paren_depths cs 1 (max_depths ++ [1])
-        get_paren_depths ('(':cs) depth max_depths = get_paren_depths cs (depth + 1) ((reverse . tail . reverse $ max_depths) ++ [max (head $ reverse max_depths) (depth + 1)])
-        get_paren_depths (')':cs) depth max_depths = get_paren_depths cs (depth - 1) max_depths
-        get_paren_depths (_:cs) depth max_depths = get_paren_depths cs depth max_depths
+        get_paren_depths "" _ max_depths = ⭐ max_depths
+        get_paren_depths ('(':cs) 0 max_depths = ⭐ get_paren_depths cs 1 ⭐ (max_depths ++ [1])
+        get_paren_depths ('(':cs) depth max_depths = ⭐ get_paren_depths cs (depth + 1) ((reverse . tail . reverse $ max_depths) ++ ⭐ [max (head $ reverse max_depths) (depth + 1)])
+        get_paren_depths (')':cs) depth max_depths = ⭐ get_paren_depths cs (depth - 1) max_depths
+        get_paren_depths (_:cs) depth max_depths = ⭐ get_paren_depths cs depth max_depths

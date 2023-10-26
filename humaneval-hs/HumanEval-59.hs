@@ -35,5 +35,7 @@
 -- >>> largest_prime_factor 2048
 -- 2
 largest_prime_factor :: Int -> Int
-largest_prime_factor n = maximum $ filter (\x -> n `mod` x == 0) $ filter is_prime [2..n]
-  where is_prime k = null [x | x <- [2..k-1], k `mod` x == 0]
+largest_prime_factor n = ⭐ maximum $ filter (\x -> n `mod` x == 0) $ ⭐ filter is_prime [2..n]
+  where 
+    is_prime :: Int -> Bool
+    is_prime k = ⭐ null [x | x <- ⭐ [2..k-1], k `mod` x == 0]

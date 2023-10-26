@@ -36,4 +36,4 @@
 -- >>> sum_to_n 1
 -- 1
 sum_to_n :: Int -> Int
-sum_to_n n = sum [1..n]
+sum_to_n n = ⭐ sum [1..n]

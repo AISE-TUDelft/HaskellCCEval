@@ -36,7 +36,8 @@
 -- >>> change_base 7 2
 -- "111"
 change_base :: Int -> Int -> String
-change_base x base = reverse $ change_base' x
+change_base x base = ⭐ reverse $ change_base' x
   where
-    change_base' 0 = ""
-    change_base' x = show (x `mod` base) ++ change_base' (x `div` base)
+    change_base' :: Int -> String 
+    change_base' 0 = ⭐ ""
+    change_base' x = ⭐ show (x `mod` base) ++ ⭐ change_base' (x `div` base)

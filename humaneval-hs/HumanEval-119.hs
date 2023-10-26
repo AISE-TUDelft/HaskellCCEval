@@ -51,11 +51,13 @@
 -- match_parens ["()(", ")"] == "Yes"
 -- match_parens [")", ")"] == "No"
 match_parens :: [String] -> String
-match_parens [s1, s2] = if check (s1 ++ s2) || check (s2 ++ s1) then "Yes" else "No"
+match_parens [s1, s2] = if ⭐ check (s1 ++ s2) || ⭐ check (s2 ++ s1) ⭐ then "Yes" ⭐ else "No"
   where
+    check :: String -> Bool
     check s = go s 0
-    go [] n = n == 0
-    go ('(':xs) n = go xs (n+1)
-    go (')':xs) n = n > 0 && go xs (n-1)
-    go (_:xs) n = go xs n
-matchParens _ = "No"
+    go :: String -> Int -> Bool
+    go [] n = ⭐ n == 0
+    go ('(':xs) n = ⭐ go xs (n+1)
+    go (')':xs) n = ⭐ n > 0 && ⭐ go xs (n-1)
+    go (_:xs) n = ⭐ go xs n
+matchParens _ = ⭐ "No"

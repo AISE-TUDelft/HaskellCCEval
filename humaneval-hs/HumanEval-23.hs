@@ -20,4 +20,4 @@
 
 -- Return length of given string
 strlen :: String -> Int
-strlen string = length string
+strlen string = ⭐ length ⭐ string

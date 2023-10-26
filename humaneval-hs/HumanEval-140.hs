@@ -46,22 +46,23 @@
 -- >>> fix_spaces "Example"
 -- "Example"
 -- >>> fix_spaces " Example 2"
--- "Example_1"
+-- "_Example_2"
 -- >>> fix_spaces " Example 2"
 -- "_Example_2"
 -- >>> fix_spaces " Example   3"
 -- "_Example-3"
 fix_spaces :: String -> String
-fix_spaces [] = []
+fix_spaces [] = ⭐ []
 fix_spaces string = fix_spaces' string 0 ""
   where
+    fix_spaces' :: String -> Int -> String -> String
     fix_spaces' (x : xs) count res
-      | xs == [] && count == 0 && x == ' ' = res ++ "_"
-      | xs == [] && count > 0 && x == ' ' = res ++ "-"
-      | xs == [] && count == 0 && x /= ' ' = res ++ [x]
-      | xs == [] && count == 1 && x /= ' ' = res ++ "_" ++ [x]
-      | xs == [] && count > 1 && x /= ' ' = res ++ "-" ++ [x]
-      | x == ' ' = fix_spaces' xs (count + 1) res
-      | x /= ' ' && count > 1 = fix_spaces' xs 0 (res ++ "-" ++ [x])
-      | x /= ' ' && count == 1 = fix_spaces' xs 0 (res ++ "_" ++ [x])
-      | otherwise = fix_spaces' xs 0 (res ++ [x])
+      | xs == [] && count == 0 && x == ' ' = ⭐ res ++ "_"
+      | xs == [] && count > 0 && x == ' ' = ⭐ res ++ "-"
+      | xs == [] && count == 0 && x /= ' ' = ⭐ res ++ [x]
+      | xs == [] && count == 1 && x /= ' ' = ⭐ res ++ "_" ++ [x]
+      | xs == [] && count > 1 && x /= ' ' = ⭐ res ++ "-" ++ [x]
+      | x == ' ' = ⭐ fix_spaces' xs (count + 1) res
+      | x /= ' ' && count > 1 = ⭐ fix_spaces' xs 0 (res ++ "-" ++ [x])
+      | x /= ' ' && count == 1 = ⭐ fix_spaces' xs 0 (res ++ "_" ++ [x])
+      | otherwise = ⭐ fix_spaces' xs 0 (res ++ [x])

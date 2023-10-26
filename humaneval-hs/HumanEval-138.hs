@@ -25,4 +25,4 @@
 -- >>> is_equal_to_sum_even 8
 -- True
 is_equal_to_sum_even :: Int -> Bool
-is_equal_to_sum_even n = n `mod` 2 == 0 && n >= 8
+is_equal_to_sum_even n = ⭐ n `mod` 2 == 0 && ⭐ n >= 8

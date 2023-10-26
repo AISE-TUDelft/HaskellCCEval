@@ -36,4 +36,4 @@
 -- >>> is_palindrome "zbcd"
 -- False
 is_palindrome :: String -> Bool
-is_palindrome = (==) <*> reverse
+is_palindrome = ⭐ (==) <*> reverse

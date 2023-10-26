@@ -59,7 +59,8 @@ import Data.List (sort)
 get_odd_collatz :: Int -> [Int]
 get_odd_collatz n = sort $ filter odd $ collatz n
   where
-    collatz 1 = [1]
+    collatz :: Int -> [Int]
+    collatz 1 = ⭐ [1]
     collatz x
-      | even x = x : collatz (x `div` 2)
-      | otherwise = x : collatz (x * 3 + 1)
+      | even x = ⭐ x : collatz ⭐ (x `div` 2)
+      | otherwise = ⭐ x : collatz ⭐ (x * 3 + ⭐ 1)

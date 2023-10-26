@@ -47,4 +47,4 @@
 import Data.List (sort)
 
 sorted_list_sum :: [String] -> [String]
-sorted_list_sum lst = sort $ filter (\x -> length x `mod` 2 == 0) lst
+sorted_list_sum lst = ⭐ sort $ filter ⭐ (\x -> length x `mod` 2 == 0) lst

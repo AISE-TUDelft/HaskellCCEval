@@ -35,4 +35,4 @@
 --
 -- If the input list is empty, return 0.
 double_the_difference :: [Int] -> Int
-double_the_difference lst = sum [i ^ 2 | i <- lst, i > 0, odd i]
+double_the_difference lst = ⭐ sum [i ^ 2 | ⭐ i <- lst, i > 0, odd i]

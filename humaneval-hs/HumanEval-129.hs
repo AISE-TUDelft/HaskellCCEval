@@ -95,11 +95,11 @@ import Data.List
 --     Input: grid = [ [5,9,3], [4,1,6], [7,8,2]], k = 1
 --     Output: [1]
 minPath :: [[Int]] -> Int -> [Int]
-minPath grid k = seq [1, smallest_neighbor $ one_pos grid] k
+minPath grid k = ⭐ seq [1, smallest_neighbor $ one_pos grid] k
     where
         one_pos :: [[Int]] -> (Int, Int)
-        one_pos [] = (-1, -1)
-        one_pos (x:xs) = case elemIndex 1 x of
+        one_pos [] = ⭐ (-1, -1)
+        one_pos (x:xs) = ⭐ case elemIndex 1 x of
             Just i -> (i, 0)
             Nothing -> case one_pos xs of
                 (-1, -1) -> (-1, -1)
@@ -108,11 +108,11 @@ minPath grid k = seq [1, smallest_neighbor $ one_pos grid] k
         n = length grid
 
         neighbors :: (Int, Int) -> [(Int, Int)]
-        neighbors (i, j) = filter (\(x, y) -> x >= 0 && x < n && y >= 0 && y < n) [(i - 1, j), (i, j - 1), (i + 1, j), (i, j + 1)]
+        neighbors (i, j) = ⭐ filter (\(x, y) -> x >= 0 && x < n && y >= 0 && y < n) [(i - 1, j), (i, j - 1), (i + 1, j), (i, j + 1)]
 
         smallest_neighbor :: (Int, Int) -> Int
-        smallest_neighbor (i, j) = minimum $ map (\(x, y) -> grid !! x !! y) $ neighbors (i, j)
+        smallest_neighbor (i, j) = ⭐ minimum $ map (\(x, y) -> grid !! x !! y) $ ⭐ neighbors (i, j)
 
         seq :: [Int] -> Int -> [Int]
-        seq _ 0 = []
-        seq (x:xs) k = x : seq (xs ++ [x]) (k - 1)
+        seq _ 0 =  []
+        seq (x:xs) k = ⭐ x : seq (xs ++ [x]) (k - 1)

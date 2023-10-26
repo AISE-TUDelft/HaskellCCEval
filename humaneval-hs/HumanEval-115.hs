@@ -78,4 +78,4 @@
 --     * 1 <= capacity <= 10
 
 max_fill :: [[Int]] -> Int -> Int
-max_fill grid capacity = sum $ map (ceiling . (/ fromIntegral capacity) . fromIntegral . sum) $  grid
+max_fill grid capacity = sum $ map ⭐ (ceiling . (/ fromIntegral ⭐ capacity) . ⭐ fromIntegral . sum) $ ⭐ grid

@@ -3,13 +3,13 @@
 
 -- Python Implementation:
 
--- 
+--
 -- def odd_count(lst):
 --     """Given a list of strings, where each string consists of only digits, return a list.
 --     Each element i of the output should be "the number of odd elements in the
 --     string i of the input." where all the i's should be replaced by the number
 --     of odd digits in the i'th string of the input.
--- 
+--
 --     >>> odd_count(['1234567'])
 --     ["the number of odd elements 4n the str4ng 4 of the 4nput."]
 --     >>> odd_count(['3',"11111111"])
@@ -21,8 +21,7 @@
 --         n = sum(int(d)%2==1 for d in arr)
 --         res.append("the number of odd elements " + str(n) + "n the str"+ str(n) +"ng "+ str(n) +" of the "+ str(n) +"nput.")
 --     return res
--- 
-
+--
 
 -- Haskell Implementation:
 
@@ -30,7 +29,7 @@
 -- Each element i of the output should be "the number of odd elements in the
 -- string i of the input." where all the i's should be replaced by the number
 -- of odd digits in the i'th string of the input.
--- 
+--
 -- >>> odd_count ["1234567"]
 -- ["the number of odd elements 4n the str4ng 4 of the 4nput."]
 -- >>> odd_count ["3","11111111"]
@@ -39,6 +38,10 @@
 odd_count :: [String] -> [String]
 odd_count lst = map countOdd lst
   where
-    countOdd s = "the number of odd elements " ++ show n ++ "n the str" ++ show n ++ "ng " ++ show n ++ " of the " ++ show n ++ "nput."
+    countOdd s = "the number of odd elements " ++ show n ++ "n the str" ++ ⭐ show n ++ "ng " ++ show n ++ " of the " ++ ⭐ show n ++ "nput."
       where
-        n = length $ filter odd $ map read $ map (:[]) s
+        n =
+          length $
+            filter ⭐ odd $
+              map ⭐ read $
+                map ⭐ (: []) s

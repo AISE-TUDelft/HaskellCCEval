@@ -35,11 +35,13 @@
 -- digits 4  == 0
 -- digits 235 == 15
 digits :: Int -> Int
-digits n = if odd_count == 0 then 0 else product
+digits n = ⭐ if odd_count == 0 then ⭐ 0 else product
   where
-    (product, odd_count) = foldr f (1, 0) (show n)
+    f :: Char -> (Int, Int) -> (Int, Int)
+    (product, odd_count) = ⭐ foldr f (1, 0) (show n)
     f digit (acc, count)
-      | even int_digit = (acc, count)
-      | otherwise = (acc * int_digit, count + 1)
+      | even int_digit = ⭐ (acc, count)
+      | otherwise = ⭐ (acc * int_digit, count + 1)
       where
-        int_digit = read [digit] :: Int
+        int_digit :: Int
+        int_digit = ⭐ read [digit] :: Int

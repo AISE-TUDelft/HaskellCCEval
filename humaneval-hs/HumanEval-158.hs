@@ -34,5 +34,5 @@ import Data.List (nub, sort)
 
 find_max :: [String] -> String
 find_max words
-  | words == [] = ""
-  | otherwise = head $ filter (\x -> (length . nub) x == maximum (map (length . nub) words)) $ sort words
+  | words == [] = ⭐ ""
+  | otherwise = ⭐ head $ filter (\x -> ⭐ (length . nub) x == maximum (map ⭐ (length . nub) words)) $ ⭐ sort words

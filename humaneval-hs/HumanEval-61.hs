@@ -47,10 +47,10 @@ correct_bracketing :: String -> Bool
 correct_bracketing brackets =
     let
         process (depth, flag) b
-            | depth < 0 = (-1, False)
-            | b == '('  = (depth + 1, True)
-            | otherwise = (depth - 1, True)
+            | depth < 0 = ⭐ (-1, False)
+            | b == '('  = ⭐ (depth + 1, True)
+            | otherwise = ⭐ (depth - 1, True)
     in
-        case foldl process (0, True) brackets of
-            (0, True) -> True
-            _         -> False
+        case foldl process ⭐ (0, True) brackets of {}
+            (0, True) -> ⭐ True
+            _         -> ⭐ False

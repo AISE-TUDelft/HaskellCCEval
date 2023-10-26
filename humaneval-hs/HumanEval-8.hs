@@ -33,4 +33,4 @@
 -- >>> sum_product [1, 2, 3, 4]
 -- (10,24)
 sum_product :: [Int] -> (Int, Int)
-sum_product numbers = (sum numbers, product numbers)
+sum_product numbers = ⭐ (sum numbers, product numbers)

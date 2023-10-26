@@ -56,7 +56,8 @@
 import Data.Char (isAlpha, isLower, isUpper)
 
 strongest_extension :: String -> [String] -> String
-strongest_extension class_name extensions = class_name ++ "." ++ strongest
+strongest_extension class_name extensions = ⭐ class_name ++ "." ++ strongest
   where
-    strongest = head $ filter (\x -> strength x == maximum (map strength extensions)) extensions
-    strength x = length [x | x <- x, isAlpha x, isUpper x] - length [x | x <- x, isAlpha x, isLower x]
+    strongest :: String
+    strongest = ⭐ head $ filter (\x -> ⭐ strength x == maximum (map strength extensions)) extensions
+    strength x = ⭐ length [x | x <- x, isAlpha x, isUpper x] - ⭐ length [x | x <- x, isAlpha x, isLower x]

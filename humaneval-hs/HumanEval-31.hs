@@ -49,4 +49,4 @@
 -- >>> is_prime 1
 -- False
 is_prime :: Int -> Bool
-is_prime n = n > 1 && all (\k -> n `mod` k /= 0) [2..n-1]
+is_prime n = ⭐ n > 1 && ⭐ all (\k -> ⭐ n `mod` k /= 0) ⭐ [2..n-1]

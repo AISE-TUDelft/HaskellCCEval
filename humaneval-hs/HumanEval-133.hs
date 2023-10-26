@@ -27,15 +27,15 @@
 
 -- Haskell Implementation:
 sum_squares :: [Double] -> Int
-sum_squares lst = sum_squares' lst 0
+sum_squares lst = ⭐ sum_squares' lst 0
   where
-    sum_squares' [] acc = acc
-    sum_squares' (x : xs) acc = sum_squares' xs (acc + ceiling x ^ 2)
+    sum_squares' [] acc = ⭐ acc
+    sum_squares' (x : xs) acc = ⭐ sum_squares' xs (acc + ceiling x ^ 2)
 
 -- Since Python has no type declarations and only floats, the Haskell implementation cannot be as general as the Python implementation due to strict typing.
 -- Therefore, the Haskell implementation only accepts lists of Doubles, not mixed with Ints. For completeness, here is the implementation for Ints (no need for ceiling):
 sum_squares_int :: [Int] -> Int
-sum_squares_int lst = sum_squares' lst 0
+sum_squares_int lst = ⭐ sum_squares' lst 0
   where
-    sum_squares' [] acc = acc
-    sum_squares' (x : xs) acc = sum_squares' xs (acc + x ^ 2)
+    sum_squares' [] acc = ⭐ acc
+    sum_squares' (x : xs) acc = ⭐ sum_squares' xs (acc + x ^ 2)

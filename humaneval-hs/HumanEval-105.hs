@@ -73,16 +73,16 @@
 import Data.List (sort)
 
 by_length :: [Int] -> [String]
-by_length xs = map toWord $ filter isDigit $ reverse $ sort xs
+by_length xs = map toWord $ ⭐ filter isDigit $ ⭐ reverse $ ⭐ sort xs
   where
-    isDigit x = x >= 1 && x <= 9
-    toWord x = case x of
-      1 -> "One"
-      2 -> "Two"
-      3 -> "Three"
-      4 -> "Four"
-      5 -> "Five"
-      6 -> "Six"
-      7 -> "Seven"
-      8 -> "Eight"
-      9 -> "Nine"
+    isDigit x = ⭐ x >= 1 && ⭐ x <= 9
+    toWord x = case ⭐ x of
+      1 -> ⭐ "One"
+      2 -> ⭐ "Two"
+      3 -> ⭐ "Three"
+      4 -> ⭐ "Four"
+      5 -> ⭐ "Five"
+      6 -> ⭐ "Six"
+      7 -> ⭐ "Seven"
+      8 -> ⭐ "Eight"
+      9 -> ⭐ "Nine"

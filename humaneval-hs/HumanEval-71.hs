@@ -36,7 +36,8 @@
 -- triangle_area 1 2 10 == -1
 
 triangle_area :: Double -> Double -> Double -> Double
-triangle_area a b c = if a + b <= c || a + c <= b || b + c <= a then -1 else round' (sqrt (s * (s - a) * (s - b) * (s - c))) 2
-                      where s = (a + b + c) / 2
-                            round' x n = (fromInteger $ round $ x * (10^n)) / (10.0^^n)
-                            
+triangle_area a b c = ⭐ if a + b <= c || a + c <= b || b + c <= a then -1 else ⭐ round' (sqrt (s * (s - a) * (s - b) * (s - c))) 2
+                      where 
+                        s :: Double
+                        s = ⭐ (a + b + c) / 2
+                        round' x n = ⭐ (fromInteger $ round $ x * (10^n)) / (10.0^^n)

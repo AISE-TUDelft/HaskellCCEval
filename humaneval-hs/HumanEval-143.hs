@@ -60,7 +60,7 @@
 -- * sentence contains only letters
 
 words_in_sentence :: String -> String
-words_in_sentence sentence = unwords $ filter (\x -> isPrime (length x)) (words sentence)
+words_in_sentence sentence = ⭐ unwords $ ⭐ filter (\x -> ⭐ isPrime (length x)) (words sentence)
   where
     isPrime :: Int -> Bool
-    isPrime n = n > 1 && all (\x -> n `mod` x /= 0) [2 .. n - 1]
+    isPrime n = ⭐ n > 1 && ⭐ all (\x -> n `mod` x /= 0) [2 .. n - 1]

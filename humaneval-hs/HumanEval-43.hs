@@ -45,7 +45,7 @@
 -- >>> pairs_sum_to_zero [1]
 -- False
 pairs_sum_to_zero :: [Int] -> Bool
-pairs_sum_to_zero xs = any (\(a, b) -> a + b == 0) $ pairs xs
+pairs_sum_to_zero xs = ⭐ any (\(a, b) -> ⭐ a + b == 0) $ ⭐ pairs xs
   where
-    pairs [] = []
-    pairs (x:xs) = [(x, y) | y <- xs] ++ pairs xs
+    pairs [] = ⭐ []
+    pairs (x:xs) = ⭐ [(x, y) | y <- xs] ++ pairs xs

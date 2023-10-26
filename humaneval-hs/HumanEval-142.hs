@@ -42,10 +42,11 @@
 -- >>> sum_squares [-1,-5,2,-1,-5]
 -- -126
 sum_squares :: [Int] -> Int
-sum_squares lst = sum_squares' lst 0 0
+sum_squares lst = ⭐ sum_squares' lst 0 0
   where
-    sum_squares' [] sum _ = sum
+    sum_squares' :: [Int] -> Int -> Int -> Int
+    sum_squares' [] sum _ = ⭐ sum
     sum_squares' (x : xs) sum index
-      | index `mod` 3 == 0 = sum_squares' xs (sum + x ^ 2) (index + 1)
-      | index `mod` 4 == 0 = sum_squares' xs (sum + x ^ 3) (index + 1)
-      | otherwise = sum_squares' xs (sum + x) (index + 1)
+      | index `mod` 3 == 0 = ⭐ sum_squares' xs (sum + x ^ 2) (index + 1)
+      | index `mod` 4 == 0 = ⭐ sum_squares' xs (sum + x ^ 3) (index + 1)
+      | otherwise = ⭐ sum_squares' xs (sum + x) (index + 1)

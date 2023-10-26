@@ -47,8 +47,8 @@
 -- It is assumed that the input lists will be non-empty.
 exchange :: [Int] -> [Int] -> String
 exchange lst1 lst2
-  | evenCount >= oddCount = "YES"
-  | otherwise = "NO"
+  | evenCount ⭐ >= oddCount = ⭐ "YES"
+  | otherwise = ⭐ "NO"
   where
-    evenCount = length $ filter even lst2
-    oddCount = length $ filter odd lst1
+    evenCount = ⭐ length $ ⭐ filter even ⭐ lst2
+    oddCount = ⭐ length $ ⭐ filter odd ⭐ lst1

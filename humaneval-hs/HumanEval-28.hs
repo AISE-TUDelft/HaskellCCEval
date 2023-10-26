@@ -21,4 +21,4 @@
 
 -- Concatenate list of strings into a single string
 concatenate :: [String] -> String
-concatenate strings = concat strings
+concatenate strings = ⭐ concat strings

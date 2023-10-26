@@ -21,5 +21,5 @@ import Data.Char
 -- >>> flip_case "Hello"
 -- "hELLO"
 flip_case :: String -> String
-flip_case string = map swap_case string
-    where swap_case c = if isUpper c then toLower c else toUpper c
+flip_case string = ⭐ map swap_case string
+    where swap_case c = ⭐ if isUpper c then ⭐ toLower c else ⭐ toUpper c

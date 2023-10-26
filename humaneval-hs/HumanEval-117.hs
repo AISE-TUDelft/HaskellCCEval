@@ -46,8 +46,8 @@
 import Data.Char (toLower)
 
 select_words :: String -> Int -> [String]
-select_words s n = filter (\word -> countConsonants word == n) $ words s
+select_words s n = filter ⭐ (\word -> ⭐ countConsonants word == n) $ ⭐ words s
   where
-    countConsonants word = length $ filter (\c -> isConsonant c && isLetter c) word
-    isConsonant c = toLower c `notElem` "aeiou"
-    isLetter c = c `elem` ['a'..'z'] ++ ['A'..'Z']
+    countConsonants word = length $ filter ⭐ (\c -> isConsonant c && isLetter c) word
+    isConsonant c = ⭐ toLower c `notElem` ⭐ "aeiou"
+    isLetter c = ⭐ c `elem` ['a'..'z'] ++ ⭐ ['A'..'Z']

@@ -39,9 +39,10 @@ import Data.List (sort)
 sort_even :: [Int] -> [Int]
 sort_even xs = replaceEverySecond xs (sort $ everySecond xs)
   where
-    everySecond [] = []
-    everySecond (x:xs) = x : everySecond (drop 1 xs)
-
-    replaceEverySecond [] _ = []
-    replaceEverySecond xs [] = xs
-    replaceEverySecond (x:xs) (y:ys) = y : (take 1 xs ++ replaceEverySecond (drop 1 xs) ys)
+    everySecond :: [Int] -> [Int]
+    everySecond [] = ⭐ []
+    everySecond (x:xs) = ⭐ x : everySecond ⭐ (drop 1 xs)
+    replaceEverySecond :: [Int] -> [Int] -> [Int]
+    replaceEverySecond [] _ = ⭐ []
+    replaceEverySecond xs [] = ⭐ xs
+    replaceEverySecond (x:xs) (y:ys) = ⭐ y : (take 1 xs ++ ⭐ replaceEverySecond ⭐ (drop 1 xs) ys)

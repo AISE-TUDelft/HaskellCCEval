@@ -3,7 +3,7 @@
 
 -- Python Implementation:
 
--- 
+--
 -- def f(n):
 --     """ Implement the function f that takes n as a parameter,
 --     and returns a list of size n, such that the value of the element at index i is the factorial of i if i is even
@@ -24,8 +24,7 @@
 --             for j in range(1,i+1): x += j
 --             ret += [x]
 --     return ret
--- 
-
+--
 
 -- Haskell Implementation:
 
@@ -37,4 +36,9 @@
 -- Example:
 -- f 5 == [1,2,6,24,15]
 f :: Int -> [Int]
-f n = [if even i then product [1..i] else sum [1..i] | i <- [1..n]]
+f n =
+  [ if ⭐ even i
+      then ⭐ product [1 .. i]
+      else ⭐ sum [1 .. i]
+    | i <- ⭐ [1 .. n]
+  ]

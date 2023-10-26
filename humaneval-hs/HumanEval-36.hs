@@ -36,4 +36,4 @@
 -- >>> fizz_buzz 79
 -- 3
 fizz_buzz :: Int -> Int
-fizz_buzz = length . filter (== '7') . concatMap show . filter (\x -> x `mod` 11 == 0 || x `mod` 13 == 0) . enumFromTo 0 . pred
+fizz_buzz = ⭐ length . filter ⭐ (== '7') . concatMap show . filter (\x -> ⭐ x `mod` 11 == 0 || ⭐ x `mod` 13 == 0) . ⭐ enumFromTo 0 . pred

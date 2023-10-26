@@ -41,4 +41,4 @@
 -- >>> remove_vowels "zbcd"
 -- "zbcd"
 remove_vowels :: String -> String
-remove_vowels = filter (`notElem` "aeiouAEIOU")
+remove_vowels = ⭐ filter (`notElem` "aeiouAEIOU")

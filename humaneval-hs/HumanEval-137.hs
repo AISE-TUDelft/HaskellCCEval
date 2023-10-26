@@ -41,11 +41,13 @@
 data Either3 a b c = IntNumber a | FloatNumber b | StringNumber c deriving (Show, Eq)
 
 compare_one :: Either3 Int Float String -> Either3 Int Float String -> Maybe (Either3 Int Float String)
-compare_one x y = if xf == yf then Nothing else Just (if xf > yf then x else y)
+compare_one x y = ⭐ if xf == yf then ⭐ Nothing else Just ⭐ (if xf > yf then x else y)
   where
     to_float :: Either3 Int Float String -> Float
-    to_float (IntNumber x) = fromIntegral x
-    to_float (FloatNumber x) = x
-    to_float (StringNumber x) = read (map (\c -> if c == ',' then '.' else c) x) :: Float
-    xf = to_float x
-    yf = to_float y
+    to_float (IntNumber x) = ⭐ fromIntegral x
+    to_float (FloatNumber x) = ⭐ x
+    to_float (StringNumber x) = ⭐ read (map (\c -> if c == ',' then ⭐ '.' else c) x) :: Float
+    xf :: Float
+    xf = ⭐ to_float x
+    yf :: Float
+    yf = ⭐ to_float y

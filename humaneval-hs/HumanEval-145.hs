@@ -40,9 +40,9 @@ import Data.List (sortBy)
 
 -- Remember that if the number is negative, you need to not parse the first '-' and multiply the first number of the sum by -1
 order_by_points :: [Int] -> [Int]
-order_by_points nums = sortBy (\x y -> compare (digits_sum x) (digits_sum y)) nums
+order_by_points nums = ⭐ sortBy (\x y -> ⭐ compare (digits_sum x) (digits_sum y)) nums
 
 digits_sum :: Int -> Int
 digits_sum n
-  | n < 0 = sum $ ((read [(show n) !! 1] :: Int) * (-1)) : map (\x -> read [x] :: Int) (drop 2 (show n))
-  | otherwise = sum $ map (\x -> read [x] :: Int) (show n)
+  | n < 0 = ⭐ sum $ ((read [(show n) !! 1] :: Int) * (-1)) : map (\x -> ⭐ read [x] :: Int) (drop 2 (show n))
+  | otherwise = ⭐ sum $ map (\x -> ⭐ read [x] :: Int) (show n)

@@ -28,4 +28,4 @@
 -- >>> max_element [5,3,-5,2,-3,3,9,0,123,1,-10]
 -- 123
 max_element :: [Int] -> Int
-max_element = maximum
+max_element = ⭐ maximum

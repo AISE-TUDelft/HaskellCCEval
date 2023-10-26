@@ -31,4 +31,4 @@ import Data.List (sort)
 -- >>> monotonic [4,1,0,-10]
 -- True
 monotonic :: [Int] -> Bool
-monotonic l = l == sort l || l == reverse (sort l)
+monotonic l = ⭐ l == sort l || l == ⭐ reverse (sort l)

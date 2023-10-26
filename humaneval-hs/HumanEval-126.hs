@@ -52,4 +52,4 @@
 import Data.List (nub)
 
 is_sorted :: [Int] -> Bool
-is_sorted lst = length (nub lst) == length lst && all (uncurry (<=)) (zip lst (tail lst))
+is_sorted lst = ⭐ length (nub lst) == length lst && ⭐ all (uncurry (<=)) (zip lst (tail lst))

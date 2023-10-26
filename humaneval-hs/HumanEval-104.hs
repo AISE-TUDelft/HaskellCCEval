@@ -3,13 +3,13 @@
 
 -- Python Implementation:
 
--- 
+--
 -- def unique_digits(x):
---     """Given a list of positive integers x. return a sorted list of all 
+--     """Given a list of positive integers x. return a sorted list of all
 --     elements that hasn't any even digit.
--- 
+--
 --     Note: Returned list should be sorted in increasing order.
---     
+--
 --     For example:
 --     >>> unique_digits([15, 33, 1422, 1])
 --     [1, 15, 33]
@@ -21,23 +21,25 @@
 --         if all (int(c) % 2 == 1 for c in str(i)):
 --             odd_digit_elements.append(i)
 --     return sorted(odd_digit_elements)
--- 
-
+--
 
 -- Haskell Implementation:
 
--- Given a list of positive integers x. return a sorted list of all 
+-- Given a list of positive integers x. return a sorted list of all
 -- elements that hasn't any even digit.
--- 
+--
 -- Note: Returned list should be sorted in increasing order.
---     
+--
 -- For example:
 -- >>> unique_digits [15, 33, 1422, 1]
 -- [1,15,33]
 -- >>> unique_digits [152, 323, 1422, 10]
 -- []
+
+import Data.Char (digitToInt)
 import Data.List (sort)
-import Data.Char(digitToInt)
 
 unique_digits :: [Int] -> [Int]
-unique_digits x = sort $ filter (all odd . map digitToInt . show) x
+unique_digits x = ⭐ sort $ filter
+      (all odd . ⭐ map digitToInt . ⭐ show)
+      x

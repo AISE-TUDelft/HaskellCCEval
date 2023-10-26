@@ -39,4 +39,4 @@
 -- is_simple_power 5 3 => false
 
 is_simple_power :: Int -> Int -> Bool
-is_simple_power x n = or [n ^ i == x | i <- [0..x]]
+is_simple_power x n = ⭐ or [n ^ i == x | ⭐ i <- [0..x]]

@@ -29,4 +29,4 @@
 -- >>> right_angle_triangle 1 2 3
 -- False
 right_angle_triangle :: Int -> Int -> Int -> Bool
-right_angle_triangle a b c = a * a == b * b + c * c || b * b == a * a + c * c || c * c == a * a + b * b
+right_angle_triangle a b c = ⭐ a * a == b * b + c * c || ⭐ b * b == a * a + c * c || ⭐ c * c == a * a + b * b

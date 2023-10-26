@@ -28,4 +28,4 @@
 -- >>> derivative [1,2,3]
 -- [2,6]
 derivative :: [Int] -> [Int]
-derivative xs = [i * x | (i, x) <- zip [1..] (tail xs)]
+derivative xs = ⭐ [i * x | (i, x) <- ⭐ zip [1..] (tail xs)]

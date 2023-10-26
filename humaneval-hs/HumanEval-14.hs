@@ -25,4 +25,4 @@
 -- >>> all_prefixes "abc"
 -- ["a","ab","abc"]
 all_prefixes :: String  -> [String]
-all_prefixes string = [take (i+1) string | i <- [0..length string - 1]]
+all_prefixes string = ⭐ [take (i+1) string | ⭐ i <- ⭐ [0..length string - 1]]
