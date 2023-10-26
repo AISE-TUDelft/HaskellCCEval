@@ -19,6 +19,7 @@ model.eval()
 
 
 def generate(left_context: str) -> str:
+    left_context = left_context.replace("<EOL>", "</s>")
     max_length = 896
 
     tokens = tokenizer.tokenize(left_context)

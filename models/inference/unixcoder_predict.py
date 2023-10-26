@@ -7,6 +7,7 @@ model.to(device)
 
 
 def generate(left_context: str) -> str:
+    left_context = left_context.replace("<EOL>", "</s>")
     tokens_ids = model.tokenize([left_context], max_length=896, mode="<decoder-only>")
     if len(tokens_ids[0]) == 896:
         # raise Exception("Left context has 896 tokens -> increase max length")

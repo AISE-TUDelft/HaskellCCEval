@@ -7,6 +7,7 @@ import re
 from collections import defaultdict
 from fuzzywuzzy import fuzz
 
+
 def main():
     parser = ArgumentParser()
     parser.add_argument('-m', '--models', required=True, nargs="+")
@@ -47,6 +48,12 @@ def main():
         print("-" * 10)
 
 
+def preprocess(text: str) -> str:
+    text = text.strip()
+    text = " ".join(text.split())
+    return text
+
+
 class Metric:
     @staticmethod
     def em(prediction: str, ground_truth: str) -> float:
@@ -56,23 +63,22 @@ class Metric:
     def es(prediction: str, ground_truth: str) -> float:
         return fuzz.ratio(prediction, ground_truth) / 100
 
-
-def get_static_methods(clazz):
-    static_methods = []
-    for name, method in inspect.getmembers(clazz):
-        if inspect.ismethod(method) and getattr(method, "__self__", None) is None:
-            static_methods.append((name, method))
-    return static_methods
+    @staticmethod
+    def empty(prediction: str, ground_truth: str) -> float:
+        return float(prediction == '')
 
 
 def compute_metrics(predictions: list[str], targets: list[str]):
-    metrics = get_static_methods(Metric)
+    metrics = ["em", "es", "empty"]
 
     values = defaultdict(list)
 
     for prediction, target in zip(predictions, targets):
-        for name, metric in metrics:
-            values[name].append(metric(prediction, target))
+        prediction = preprocess(prediction)
+        target = preprocess(target)
+        for metric in metrics:
+            metric_fn = getattr(Metric, metric)
+            values[metric].append(metric_fn(prediction, target))
 
     return values
 
