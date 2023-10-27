@@ -53,11 +53,11 @@ def main():
                 "if/then/else": ["all", "if", "then", "else"],
                 "generators": ["complete", "body"],
                 "guards (= |)": ["complete", "body"],
-                "functions": ["complete", "parameter(s)", "argument(s)" "body"],
-                "lists": ["++", ":", "!!", "list comprehension"],
+                "functions": ["complete", "parameter(s)", "argument(s)", "body"],
+                "lists": ["++", ":", "!!", "list comprehension", "range"],
                 "logical operators": ["all", "&&", "||", "==", ">", "<", ">=", "<=", "/=", "not"],
                 "arithmetic operators": ["all", "+", "-", "*", "/", "^", "mod"],
-                "case expressions": ["complete", "parameter(s), argument(s)"],
+                "case expressions": ["complete", "parameter(s)", "argument(s)"],
                 "other": ["variable name", "wrong type", "wrong value"],
             }
             headers.append("")
