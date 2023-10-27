@@ -54,21 +54,33 @@ def main():
             for category in categories:
                 headers.append(category + "\n\n"
                                + "\n".join(categories[category]))
-
+            headers.append("")
+            headers.append("other comments")
             ws.append(headers)
 
             # Make header titles bold and bigger font and wrap text and align center horizontally and vertically
             for cell in ws["1:1"]:
                 cell.font = openpyxl.styles.Font(bold=True, size=14)
-                cell.fill = openpyxl.styles.fills.PatternFill(
-                    patternType='solid', fgColor="DDDDDD")
                 cell.alignment = openpyxl.styles.Alignment(
                     wrap_text=True, horizontal="center", vertical="center")
+                cell.fill = openpyxl.styles.fills.PatternFill(
+                    patternType='solid', fgColor="DDDDDD")
 
             # Make width of columns G to O as wide as the longest categories[category] string
             for i in range(7, 16):
                 ws.column_dimensions[openpyxl.utils.get_column_letter(
                     i)].width = 20
+
+            # Make F1 background white
+            ws["F1"].fill = openpyxl.styles.fills.PatternFill(
+                patternType='solid', fgColor="FFFFFF")
+            ws["P1"].fill = openpyxl.styles.fills.PatternFill(
+                patternType='solid', fgColor="FFFFFF")
+
+            # Light green and width of 100
+            ws["Q1"].fill = openpyxl.styles.fills.PatternFill(
+                patternType='solid', fgColor="DDFFDD")
+            ws.column_dimensions["Q"].width = 100
 
             # Freeze the first row while scrolling
             ws.freeze_panes = "A2"
