@@ -99,8 +99,8 @@ def main():
             for line in lines:
 
                 # Calculate EM and ES
-                em = "True" if line["prediction"] == line["gt"] else "False"
-                es = fuzz.ratio(line["prediction"], line["gt"]) / 100
+                em = "True" if line["prediction"].strip() == line["gt"].strip() else "False"
+                es = fuzz.ratio(line["prediction"].strip(), line["gt"].strip()) / 100
 
                 ws.append([
                     readable_json_value(line["input"]),
