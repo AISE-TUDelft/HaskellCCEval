@@ -25,8 +25,12 @@ def create_predict_fn(checkpoint_path: Optional[str]) -> Callable[[str], str]:
     model.eval()
 
     def generate(left_context: str) -> str:
-        # the models were trained with this replacement, so we need to do it here as well
-        left_context = left_context.replace("<EOL>", "</s>")
+        if checkpoint_path is not None:
+            # the model were trained with this replacement, so we need to do it here as well
+            left_context = left_context.replace("<EOL>", "</s>")
+        else:
+            # the pretrained model does not use EOL
+            left_context = left_context.replace(" <EOL> ", "\n")
 
         tokens = tokenizer.tokenize(left_context)
         tokens = tokens[-(max_input_length - 3):]
