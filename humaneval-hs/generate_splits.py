@@ -64,8 +64,8 @@ def extract_haskell_implementation(file_content: str):
 
 
 def add_special_tokens(file_content: str):
-    file_content = "<s>" + file_content + "</s>"
-    file_content = re.sub(r"\n+", "<EOL>", file_content)
+    file_content = "<s> " + file_content +  "</s>"
+    file_content = re.sub(r"\n+", " <EOL> ", file_content)
     return file_content
 
 
@@ -80,8 +80,8 @@ def remove_split_symbols(text: str, split_symbol: str = "⭐"):
 
 
 def read_to_eol(text: str):
-    line = text.split("</s>")[0]
-    line = line.split("<EOL>")[0]
+    line = text.split("</s>")[0].rstrip()
+    line = line.split("<EOL>")[0].rstrip()
     return line
 
 
