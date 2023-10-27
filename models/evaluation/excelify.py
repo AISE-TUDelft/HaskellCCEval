@@ -4,15 +4,25 @@ Convert a .json file with the following format for each line:
 
 to an Excel file with the following format for each line:
 input | gt | prediction
+
+Example usage from root directory:
+python3 models/evaluation/excelify.py -f ./models/evaluation/data/codegpt_base-test-humaneval.json ./models/evaluation/data/codegpt_finetuned-test-humaneval.json ./models/evaluation/data/unixcoder_base-test-humaneval.json ./models/evaluation/data/unixcoder_finetuned-test-humaneval.json -o ./models/evaluation/output
 """
 import json
 import os
-import openpyxl
 from argparse import ArgumentParser
+
+import openpyxl
 from fuzzywuzzy import fuzz
 
 
 def main():
+    """
+    Generates Excel file(s).
+
+    Raises:
+        ValueError: files to convert do not exist.
+    """
     parser = ArgumentParser()
     parser.add_argument('-f', '--file', required=True, nargs="+")
     parser.add_argument('-o', '--output-folder', required=True)
@@ -131,6 +141,12 @@ def main():
 def readable_json_value(input: str) -> str:
     """
     Improve readability of the JSON input by removing EOL tokens and <s> and </s> tokens.
+
+    Args:
+        input (str): raw JSON input.
+
+    Returns:
+        str: formatted JSON input.
     """
     return input.replace("<EOL>", "\n").replace("<s>", "").replace("</s>", "")
 
