@@ -43,11 +43,11 @@ def main():
                 "if/then/else": ["all", "if", "then", "else"],
                 "generators": ["complete", "body"],
                 "guards (= |)": ["complete", "body"],
-                "functions": ["complete", "argument(s)", "body"],
+                "functions": ["complete", "parameter(s)", "argument(s)" "body"],
                 "lists": ["++", ":", "!!", "list comprehension"],
                 "logical operators": ["all", "&&", "||", "==", ">", "<", ">=", "<=", "/=", "not"],
                 "arithmetic operators": ["all", "+", "-", "*", "/", "^", "mod"],
-                "case expressions": ["complete", "argument(s)"],
+                "case expressions": ["complete", "parameter(s), argument(s)"],
                 "other": ["variable name", "wrong type", "wrong value"],
             }
             headers.append("")
