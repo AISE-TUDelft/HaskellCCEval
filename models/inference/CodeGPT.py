@@ -122,7 +122,7 @@ m = torch.nn.LogSoftmax(dim=-1).to(device)
 zero = torch.cuda.LongTensor(1).fill_(0).to(device)
 
 
-def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str, str], str]:
+def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str], str]:
     tokenizer = GPT2Tokenizer.from_pretrained(checkpoint_path_or_url, do_lower_case=False, sep_token='<EOL>',
                                               bos_token='<s>', eos_token='</s>', pad_token='<pad>',
                                               unk_token='<|UNKNOWN|>')
@@ -154,6 +154,7 @@ def create_predict_fn(checkpoint_path_or_url: str) -> Callable[[str, str], str]:
         input_size = 896
         predict_size = 128
         block_size = input_size + predict_size
+        assert block_size <= 1024
 
         input = left_context
 
