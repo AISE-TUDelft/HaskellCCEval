@@ -36,14 +36,42 @@ def main():
             lines = [json.loads(line) for line in f]
 
             # Write the header
-            ws.append(["Input", "Ground Truth", "Prediction",
-                      "EM", "ES"])
+            headers = ["Input", "Ground Truth", "Prediction",
+                       "EM", "ES"]
 
-            # Make header titles bold and bigger font
+            categories = {
+                "if/then/else": ["all", "if", "then", "else"],
+                "generators": ["complete", "body"],
+                "guards (= |)": ["complete", "body"],
+                "functions": ["complete", "argument(s)", "body"],
+                "lists": ["++", ":", "!!", "list comprehension"],
+                "logical operators": ["all", "&&", "||", "==", ">", "<", ">=", "<=", "/=", "not"],
+                "arithmetic operators": ["all", "+", "-", "*", "/", "^", "mod"],
+                "case expressions": ["complete", "argument(s)"],
+                "other": ["variable name", "wrong type", "wrong value"],
+            }
+            headers.append("")
+            for category in categories:
+                headers.append(category + "\n\n"
+                               + "\n".join(categories[category]))
+
+            ws.append(headers)
+
+            # Make header titles bold and bigger font and wrap text and align center horizontally and vertically
             for cell in ws["1:1"]:
                 cell.font = openpyxl.styles.Font(bold=True, size=14)
                 cell.fill = openpyxl.styles.fills.PatternFill(
                     patternType='solid', fgColor="DDDDDD")
+                cell.alignment = openpyxl.styles.Alignment(
+                    wrap_text=True, horizontal="center", vertical="center")
+
+            # Make width of columns G to O as wide as the longest categories[category] string
+            for i in range(7, 16):
+                ws.column_dimensions[openpyxl.utils.get_column_letter(
+                    i)].width = 20
+
+            # Freeze the first row while scrolling
+            ws.freeze_panes = "A2"
 
             # Write the data
             for line in lines:
