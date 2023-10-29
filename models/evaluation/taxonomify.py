@@ -42,9 +42,13 @@ def main():
     for file in args.file:
         df = get_excel_as_dataframe(file)
         taxonomy = get_taxonomy(df)
-        print(json.dumps(taxonomy, indent=4))
 
         # TODO: Do something with the taxonomy for the analysis of common pitfalls
+        # Currently, playground:
+
+        # print(json.dumps(_get_em_or_valid_taxonomy_counts(taxonomy), indent=4))
+        # print(json.dumps(get_cumulative_scores(
+        #     _get_em_or_valid_taxonomy_counts(taxonomy)), indent=4))
 
 
 def get_excel_as_dataframe(filename: str) -> pd.DataFrame:
@@ -110,18 +114,16 @@ def get_taxonomy(df: pd.DataFrame) -> dict:
                             taxonomy["_undefined"][column].append(
                                 (row + sheet_offset, value.strip(), get_scores_of_row(df, row + sheet_offset)))
 
-        else:
-            print(f"Column {column} not in categories.")
-
     return taxonomy
 
 
-def get_taxonomy_counts(taxonomy: dict) -> dict:
+def get_taxonomy_counts(taxonomy: dict, include=lambda x: True) -> dict:
     """
     Returns the number of annotations in each category.
 
     Args:
         taxonomy (dict): The taxonomy.
+        include (lambda, optional): A filter to include only certain annotations. Defaults to including all annotations.
 
     Returns:
         dict: The number of annotations in each category.
@@ -129,14 +131,85 @@ def get_taxonomy_counts(taxonomy: dict) -> dict:
     counts = {}
     for category in taxonomy:
         counts[category] = {}
+
+        if category == "_undefined":
+            counts[category] = len(taxonomy[category])
+            continue
+
         for subcategory in taxonomy[category]:
-            counts[category][subcategory] = len(
-                taxonomy[category][subcategory])
+            values = [value for value in taxonomy[category]
+                      [subcategory] if include(value[2])]  # value[2] is the tuple (EM, ES, if 'valid' in 'other comments')
+            counts[category][subcategory] = len(values)
+
     return counts
 
 
+"""
+Predefined filters for get_taxonomy_counts.
+"""
+
+
+def _get_valid_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: x[2])
+
+
+def _get_invalid_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: not x[2])
+
+
+def _get_em_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: x[0])
+
+
+def _get_no_em_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: not x[0])
+
+
+def _get_no_em_but_valid_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: not x[0] and x[2])
+
+
+def _get_em_or_valid_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: x[0] or x[2])
+
+
+def _get_no_em_and_invalid_taxonomy_counts(taxonomy: dict) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: not x[0] and not x[2])
+
+
+def _get_es_above_x_taxonomy_counts(taxonomy: dict, x: float) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: x[1] >= x)
+
+
+def _get_es_below_x_taxonomy_counts(taxonomy: dict, x: float) -> dict:
+    return get_taxonomy_counts(taxonomy, include=lambda x: x[1] < x)
+
+
+def get_cumulative_scores(taxonomy_counts: dict) -> dict:
+    """
+    Returns the cumulative scores of the taxonomy.
+
+    Args:
+        taxonomy_counts (dict): The taxonomy counts.
+
+    Returns:
+        dict: The cumulative scores of the taxonomy.
+    """
+    cumulative_scores = {}
+    for category in taxonomy_counts:
+        cumulative_scores[category] = 0
+        if category == "_undefined":
+            cumulative_scores[category] = taxonomy_counts[category]
+            continue
+        for subcategory in taxonomy_counts[category]:
+            cumulative_scores[category] += taxonomy_counts[category][subcategory]
+
+    return cumulative_scores
+
+
 def get_scores_of_row(df: pd.DataFrame, row: int) -> (bool, float, bool):
-    """_summary_
+    """
+    Returns the scores of a row in the Excel file in the form of a tuple (EM, ES, if 'valid' in 'other comments').
 
     Args:
         df (pd.DataFrame): the dataframe
@@ -152,7 +225,7 @@ def get_scores_of_row(df: pd.DataFrame, row: int) -> (bool, float, bool):
     em = df.iloc[row]["EM"]
     es = df.iloc[row]["ES"]
     other_comments = df.iloc[row]["other comments"]
-    return (False if em is None or em == 'False' else True, es, False if other_comments is None else "valid" in other_comments)
+    return (False if em is None or em == 'False' else True, float(es), False if other_comments is None else "valid" in other_comments)
 
 
 if __name__ == "__main__":
