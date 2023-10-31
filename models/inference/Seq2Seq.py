@@ -1,32 +1,20 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT license.
 
-import torch
 import torch.nn as nn
 import torch
-from torch.autograd import Variable
-import copy
+
+from transformers import PreTrainedModel, RobertaConfig, RobertaModel, RobertaTokenizer
 
 
-class Seq2Seq(nn.Module):
-    """
-        Build Seqence-to-Sequence.
+class Seq2Seq(PreTrainedModel):
+    config_class = RobertaConfig
 
-        Parameters:
-
-        * `encoder`- encoder of seq2seq model. e.g. roberta
-        * `decoder`- decoder of seq2seq model. e.g. transformer
-        * `config`- configuration of encoder model.
-        * `beam_size`- beam size for beam search.
-        * `max_length`- max length of target for beam search.
-        * `sos_id`- start of symbol ids in target for beam search.
-        * `eos_id`- end of symbol ids in target for beam search.
-    """
-
-    def __init__(self, encoder, decoder, config, beam_size=None, max_length=None, sos_id=None, eos_id=None):
-        super(Seq2Seq, self).__init__()
-        self.encoder = encoder
-        self.decoder = decoder
+    def __init__(self, config, max_length=128, beam_size=3):
+        super(Seq2Seq, self).__init__(config)
+        tokenizer = RobertaTokenizer.from_pretrained("microsoft/unixcoder-base")
+        self.encoder = RobertaModel.from_pretrained("microsoft/unixcoder-base", config=config)
+        self.decoder = self.encoder
         self.config = config
         self.register_buffer(
             "bias", torch.tril(torch.ones((1024, 1024), dtype=torch.uint8)).view(1, 1024, 1024)
@@ -37,8 +25,8 @@ class Seq2Seq(nn.Module):
 
         self.beam_size = beam_size
         self.max_length = max_length
-        self.sos_id = sos_id
-        self.eos_id = eos_id
+        self.sos_id = tokenizer.cls_token_id
+        self.eos_id = [tokenizer.sep_token_id]
 
     def tie_weights(self):
         """ Make sure we are sharing the input and output embeddings.
