@@ -43,9 +43,11 @@ def main():
             raise ValueError(f"File {file} does not exist.")
 
     for file in args.file:
-        df = get_excel_as_dataframe(file).head(row_limit)
+        t = Taxonomy(file)
+        df = t.df
 
-        taxonomy = get_taxonomy(df)
+        taxonomy = get_taxonomy(df, include=lambda x: not x[0] and not x[2])
+        print([x[0] for x in taxonomy["other"]["wrong type"]])
 
         # TODO: Do something with the taxonomy for the analysis of common pitfalls
         # Currently, playground:
@@ -65,10 +67,20 @@ def main():
         # print("Unique rows:", _get_unique_rows_taxonomy_counts(
         #     get_taxonomy(df, include=lambda x: x[0] or x[2]), debug=False))
 
-        print(json.dumps(get_filtered_taxonomy_percentages(
-            df, include=lambda x: not x[0] and x[2], debug=True), indent=4))
+        # print(json.dumps(get_filtered_taxonomy_percentages(
+        #     df, include=lambda x: not x[0] and not x[2], debug=True), indent=4))
 
         # __debug_check_last_row(df)
+
+
+class Taxonomy:
+    def __init__(self, filename: str, depth: int = row_limit):
+        self.filename = filename
+        self.depth = depth
+        self.df = get_excel_as_dataframe(filename).head(depth)
+
+    def _reload_df(self):
+        self.df = get_excel_as_dataframe(self.filename).head(self.depth)
 
 
 def get_excel_as_dataframe(filename: str) -> pd.DataFrame:
