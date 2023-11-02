@@ -164,7 +164,7 @@ def main():
             print(
                 f"{left_name} & {right_name} & {values['percentage']:.2f}\\% ({values['count_overlap']}/{values['count_total']}) \t \\\\")
 
-    if True:  # UniXcoder vs UniXcoder:
+    if False:  # UniXcoder vs UniXcoder:
 
         for name, values in read_cross_overlaps(
             filename="cross_overlaps-UniXcoder_vs_UniXcoder.json",
@@ -180,6 +180,9 @@ def main():
 
             print(
                 f"{left_name} & {right_name} & {values['percentage']:.2f}\\% ({values['count_overlap']}/{values['count_total']}) \t \\\\")
+
+    if True:  # Distribution of extra comments and analysis
+        distribution_of_extra_comments(codegpt)
 
 
 def plot_distribution_annotations(t1: TaxonomyPlotObject, t2: TaxonomyPlotObject, figure_name: str = "distribution_annotations.png", plot_title: str = "Distribution of Annotations for Each Category"):
@@ -323,6 +326,54 @@ def read_cross_overlaps(filename: str, filter_func=lambda item: item["percentage
             filtered[key] = value
 
     return sorted(filtered.items(), key=lambda item: item[1]["percentage"], reverse=True)
+
+
+def distribution_of_extra_comments(taxonomy: Taxonomy):
+    """
+    Plots the distribution of extra comments for each category.
+    """
+    # Get the counts for each category
+    t = get_taxonomy(taxonomy.df)
+
+    extra_comment_count = {}
+    for category in categories:
+        for subcategory in categories[category]:
+            extra_comment_count[f"{category}, {subcategory}"] = 0
+            for _, annotation, _ in t[category][subcategory]:
+                if "extra comment" in annotation:
+                    extra_comment_count[f"{category}, {subcategory}"] += 1
+
+    # Remove all extra_comment counts that are 0
+    extra_comment_count_filtered = {k: v for k,
+                                    v in extra_comment_count.items() if v > 0}
+
+    # Make a barplot of the distribution of extra comments for each subcategory
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    # ! Harcoded length of extra comments
+    fig.suptitle(
+        "Distribution of CodeGPT's (Sub)Categories annotated with \"extra comment\"")
+
+    fig.tight_layout()
+
+    sns.barplot(x=[label.replace("other comments, ", "").replace("arithmetic logic", "arithmetic\nlogic").replace("exra comment", "extra\ncomment") for label in list(extra_comment_count_filtered.keys())],
+                y=list(extra_comment_count_filtered.values()), ax=ax)
+
+    for j in ax.containers:
+        ax.bar_label(j, label_type="edge",
+                     color="dimgrey", weight="bold")
+
+    ax.set_xlabel("(Sub)category")
+    ax.set_ylabel("Annotations")
+    ax.set_ylim(0, max(extra_comment_count_filtered.values()) +
+                0.2 * max(extra_comment_count_filtered.values()))
+
+    # Save the plot
+    plt.plot()
+    plt.savefig(os.path.join(output_dir, "distribution_extra_comments.png"))
+    print(f"Saved plot distribution_extra_comments.png")
+
+    return extra_comment_count
 
 
 if __name__ == "__main__":
