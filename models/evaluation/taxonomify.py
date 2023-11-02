@@ -26,7 +26,7 @@ categories = {
 sheet_offset = 2  # One for the header, one for the fact that Excel starts at 1
 
 # The maximum number of rows to process (- 1 since the first Excel row for reference is the header)
-row_limit = 302 - 1
+row_limit = 2 * 302 - 1
 
 
 def main():
@@ -47,7 +47,9 @@ def main():
         df = t.df
 
         taxonomy = get_taxonomy(df, include=lambda x: not x[0] and not x[2])
-        print([x[0] for x in taxonomy["other"]["wrong type"]])
+        # print([x[0] for x in taxonomy["other"]["wrong type"]])
+
+        print(json.dumps(taxonomy["_undefined"], indent=4))
 
         # TODO: Do something with the taxonomy for the analysis of common pitfalls
         # Currently, playground:
