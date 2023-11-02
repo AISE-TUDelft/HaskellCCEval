@@ -49,7 +49,7 @@ def main():
         taxonomy = get_taxonomy(df, include=lambda x: not x[0] and not x[2])
         # print([x[0] for x in taxonomy["other"]["wrong type"]])
 
-        print(json.dumps(taxonomy["_undefined"], indent=4))
+        # print(json.dumps(taxonomy["_undefined"], indent=4))
 
         # TODO: Do something with the taxonomy for the analysis of common pitfalls
         # Currently, playground:
@@ -73,6 +73,8 @@ def main():
         #     df, include=lambda x: not x[0] and not x[2], debug=True), indent=4))
 
         # __debug_check_last_row(df)
+
+        get_all_extra_comments(df)
 
 
 class Taxonomy:
@@ -369,6 +371,27 @@ def __debug_check_last_row(df: pd.DataFrame) -> None:
 
     last_row = df.iloc[-1:]
     print("Last row:", last_row)
+
+
+def get_all_extra_comments(df: pd.DataFrame) -> [str]:
+    """
+    Gets all the input of the extra comments.
+
+    Args:
+        df (pd.DataFrame): the dataframe
+
+    Returns:
+        [str]: all the input of the extra comments
+    """
+
+    # Get all Prediction values that contain "-- |"
+    all_prediction_values = df["Prediction"].tolist()
+    all_prediction_values = [value.split(
+        "--")[1].strip() for value in all_prediction_values if value is not None and "--" in value]
+
+    # Count duplicates and print in JSON format
+    from collections import Counter
+    print(json.dumps(Counter(all_prediction_values), indent=4))
 
 
 if __name__ == "__main__":

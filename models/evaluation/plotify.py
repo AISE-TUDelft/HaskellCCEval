@@ -350,11 +350,13 @@ def distribution_of_extra_comments(taxonomy: Taxonomy):
     # Make a barplot of the distribution of extra comments for each subcategory
     fig, ax = plt.subplots(figsize=(10, 8))
 
-    # ! Harcoded length of extra comments
-    fig.suptitle(
-        "Distribution of CodeGPT's (Sub)Categories annotated with \"extra comment\"")
+    # fig.suptitle(
+    #     "Distribution of CodeGPT's (Sub)Categories annotated with \"extra comment\"")
 
-    fig.tight_layout()
+    # Increase font size
+    plt.rcParams.update({'font.size': 16})
+    plt.rc('xtick', labelsize=20)
+    plt.rc('ytick', labelsize=20)
 
     sns.barplot(x=[label.replace("other comments, ", "").replace("arithmetic logic", "arithmetic\nlogic").replace("exra comment", "extra\ncomment") for label in list(extra_comment_count_filtered.keys())],
                 y=list(extra_comment_count_filtered.values()), ax=ax)
@@ -364,7 +366,7 @@ def distribution_of_extra_comments(taxonomy: Taxonomy):
                      color="dimgrey", weight="bold")
 
     ax.set_xlabel("(Sub)category")
-    ax.set_ylabel("Annotations")
+    ax.set_ylabel("Number of annotations")
     ax.set_ylim(0, max(extra_comment_count_filtered.values()) +
                 0.2 * max(extra_comment_count_filtered.values()))
 
