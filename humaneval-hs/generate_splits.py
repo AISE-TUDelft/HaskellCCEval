@@ -52,8 +52,7 @@ def get_file_input_outputs(haskell_file_path: str, split_symbol: str, max_splits
         haskell_file_content = f_in.read()
 
     haskell_file_content = extract_haskell_implementation(haskell_file_content)
-    if special_tokens:
-        haskell_file_content = add_special_tokens(haskell_file_content)
+    haskell_file_content = add_special_tokens(haskell_file_content)
 
     split_indices = [i for i in range(len(haskell_file_content)) if
                      haskell_file_content.startswith(split_symbol, i)]
@@ -69,6 +68,9 @@ def get_file_input_outputs(haskell_file_path: str, split_symbol: str, max_splits
 
         left, right = remove_split_symbols(left), remove_split_symbols(right)
 
+        if not special_tokens:
+            left, right = remove_special_tokens(left), remove_special_tokens(right)
+
         obj = {"input": left, "gt": right}
         result.append(obj)
 
@@ -82,6 +84,13 @@ def extract_haskell_implementation(file_content: str):
 def add_special_tokens(file_content: str):
     file_content = "<s> " + file_content +  "</s>"
     file_content = re.sub(r"\n+", " <EOL> ", file_content)
+    return file_content
+
+
+def remove_special_tokens(file_content: str):
+    file_content = file_content.replace("<s> ", "")
+    file_content = file_content.replace(" </s>", "")
+    file_content = file_content.replace(" <EOL> ", "\n")
     return file_content
 
 
