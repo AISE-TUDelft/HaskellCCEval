@@ -28,7 +28,7 @@ Haskell Code Completion
 
 ## Project Status
 
-[![Status](https://img.shields.io/badge/Status-Work_In_Progress-orange)](https://img.shields.io/badge/Status-Work_In_Progress-orange)
+[![Status](https://img.shields.io/badge/Status-Final:_V2-green)](https://img.shields.io/badge/Status-Final-green)
 
 ## Installation
 
@@ -38,26 +38,42 @@ Clone the repository:
 git clone https://github.com/ML4SE2023/G7-UniXcoder.git
 ```
 
-Download [Poetry](https://python-poetry.org):
-
-```sh
-curl -sSL https://install.python-poetry.org | python3 -
-```
-
-Set up the virtual environment (Python 3.8):
-
-```sh
-poetry env use python3.8
-```
-
 Install the dependencies:
 
-```sh
-poetry install
-```
+* Either using `pip` and the provided `requirements.txt` files within the repository:
+    
+    ```sh
+    pip install -r requirements.txt
+    ```
 
-> Note: for details, please refer to `pyproject.toml`.
+* Or using [Poetry](https://python-poetry.org):
 
-Full instructions will follow later.
+
+    ```sh
+    curl -sSL https://install.python-poetry.org | python3 -
+
+    poetry env use python3.8
+    poetry install
+    ```
+
+    > Note: for details, please refer to `pyproject.toml`. In case of missing dependencies, use `poetry add <name>`.
+
+## Usage
+
+Any code surrounding the considered models (i.e. UniXcoder and CodeGPT) can be found in `/models`. Within this folder, there are subfolders for:
+* `/finetuning`: contains the code and scripts to finetune both the models (see `blue-finetune.sh` for our final finetuning script)
+* `/inference`: contains the code to run inference on both models
+* `/evaluation`: contains the code for the evaluation of both models
+Furthermore, this folder contains `create_model_inputs.py` for the splitting of the data for the models into train and test sets.
+
+The HumanEval code can be found in `/humaneval-hs`. Each problem has been annotated manually with splits for the manual evaluation. The annotation of the results can be found [here](https://drive.google.com/drive/folders/1Ev8e4YjH7jumaS_HIWqm3Vosv3DiFVlt?usp=share_link).
+
+In case you want to do manual evaluation on your own inference results, you can generate an Excel for annotation using `excelify.py` in `/models/evaluation` and plot the results of your annotations using `plotify.py` in the same folder.
+
+Each file has been documented with comments to explain the code and if applicable, the arguments that can be passed to the script.
+
+## Results
+
+For the results, please refer to our submitted paper or [check Overleaf](https://www.overleaf.com/8565466463jjcnnzzngxdr).
 
 
