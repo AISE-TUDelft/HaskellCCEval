@@ -8,9 +8,10 @@ import os
 import random
 from argparse import ArgumentParser
 import re
+from typing import Optional
 
 
-def main(split_symbol: str = "⭐"):
+def main():
     parser = ArgumentParser()
     parser.add_argument("--split_symbol", type=str, default="⭐")
     parser.add_argument("-i", "--input_dir", type=str, default=".")
@@ -37,26 +38,41 @@ def main(split_symbol: str = "⭐"):
         for haskell_file_name in haskell_file_names:
             haskell_file_path = os.path.join(args.input_dir, haskell_file_name)
 
-            with open(haskell_file_path) as f_in:
-                haskell_file_content = f_in.read()
+            samples = get_file_input_outputs(haskell_file_path, args.split_symbol, args.max_splits)
 
-            haskell_file_content = extract_haskell_implementation(haskell_file_content)
-            haskell_file_content = add_special_tokens(haskell_file_content)
-
-            split_indices = [i for i in range(len(haskell_file_content)) if haskell_file_content.startswith(split_symbol, i)]
-            split_indices = random.sample(split_indices, min(args.max_splits, len(split_indices)))
-
-            for split_index in split_indices:
-                left = haskell_file_content[:split_index].rstrip()
-                right = haskell_file_content[split_index + len(split_symbol):].lstrip()
-
-                right = read_to_eol(right)
-
-                left, right = remove_split_symbols(left), remove_split_symbols(right)
-
-                obj = {"input": left, "gt": right}
+            for obj in samples:
                 json.dump(obj, f_out)
                 f_out.write("\n")
+
+
+def get_file_input_outputs(haskell_file_path: str, split_symbol: str, max_splits: Optional[int], special_tokens: bool = True):
+    result = []
+
+    with open(haskell_file_path) as f_in:
+        haskell_file_content = f_in.read()
+
+    haskell_file_content = extract_haskell_implementation(haskell_file_content)
+    if special_tokens:
+        haskell_file_content = add_special_tokens(haskell_file_content)
+
+    split_indices = [i for i in range(len(haskell_file_content)) if
+                     haskell_file_content.startswith(split_symbol, i)]
+
+    if max_splits is not None:
+        split_indices = random.sample(split_indices, min(max_splits, len(split_indices)))
+
+    for split_index in split_indices:
+        left = haskell_file_content[:split_index].rstrip()
+        right = haskell_file_content[split_index + len(split_symbol):].lstrip()
+
+        right = read_to_eol(right)
+
+        left, right = remove_split_symbols(left), remove_split_symbols(right)
+
+        obj = {"input": left, "gt": right}
+        result.append(obj)
+
+    return result
 
 
 def extract_haskell_implementation(file_content: str):

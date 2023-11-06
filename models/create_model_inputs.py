@@ -3,12 +3,10 @@ import os
 import random
 import re
 from argparse import ArgumentParser
-from typing import Tuple, Union, List
+from typing import Tuple, Union, List, Optional
 from itertools import takewhile
 from datasets import Dataset, DatasetDict, load_dataset
 from tqdm import tqdm
-from nltk.translate.bleu_score import sentence_bleu, SmoothingFunction
-from fuzzywuzzy import fuzz
 
 __DIRNAME = os.path.dirname(__file__)
 
@@ -20,6 +18,7 @@ def main():
     parser = ArgumentParser()
     parser.add_argument('-s', '--seed', type=int, default=42)
     parser.add_argument('-t', '--test-ratio', type=float, default=0.2)
+    parser.add_argument('-hp', '--huggingface-path', required=False, help='An optional path to store the dataset in the HuggingFace Hub. Requires you to be logged in')
     args = parser.parse_args()
 
     random.seed(args.seed)
@@ -36,7 +35,7 @@ def main():
     deduplicated_dataset_size = len(haskell_dataset)
     print(f"Removed {filtered_dataset_size - deduplicated_dataset_size} duplicates")
 
-    train, test = split_data(haskell_dataset, args.seed, args.test_ratio)
+    train, test = split_data(haskell_dataset, args.seed, args.test_ratio, args.huggingface_path)
 
     create_train(train)
     create_test(test)
@@ -121,7 +120,7 @@ def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[D
     return haskell_dataset.filter(sample_filter, with_indices=True, desc="Filtering out duplicates")
 
 
-def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
+def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float, huggingface_path: Optional[str]) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
     """
     Splits the given dataset into training and testing sets based on the given test ratio and seed.
 
@@ -134,6 +133,10 @@ def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_rat
     - A tuple containing the training and testing sets respectively.
     """
     dataset = haskell_dataset.train_test_split(test_size=test_ratio, seed=seed)
+
+    if huggingface_path is not None:
+        dataset.push_to_hub(huggingface_path)
+
     return dataset['train'], dataset['test']
 
 
