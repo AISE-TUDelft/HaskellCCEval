@@ -28,7 +28,7 @@ Haskell Code Completion
 
 ## Project Status
 
-[![Status](https://img.shields.io/badge/Status-Work_In_Progress-orange)](https://img.shields.io/badge/Status-Work_In_Progress-orange)
+[![Status](https://img.shields.io/badge/Status-Final:_V2-green)](https://img.shields.io/badge/Status-Final-green)
 
 ## Installation
 
