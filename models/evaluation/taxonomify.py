@@ -49,7 +49,7 @@ def main():
         taxonomy = get_taxonomy(df, include=lambda x: not x[0] and not x[2])
         # print([x[0] for x in taxonomy["other"]["wrong type"]])
 
-        # print(json.dumps(taxonomy["_undefined"], indent=4))
+        print(json.dumps(taxonomy["_undefined"], indent=4))
 
         # TODO: Do something with the taxonomy for the analysis of common pitfalls
         # Currently, playground:
@@ -74,7 +74,9 @@ def main():
 
         # __debug_check_last_row(df)
 
-        get_all_extra_comments(df)
+        # get_all_extra_comments(df)
+
+        # get_EM_or_valid_count(df)
 
 
 class Taxonomy:
@@ -392,6 +394,41 @@ def get_all_extra_comments(df: pd.DataFrame) -> [str]:
     # Count duplicates and print in JSON format
     from collections import Counter
     print(json.dumps(Counter(all_prediction_values), indent=4))
+
+
+def get_EM_or_valid_count(df: pd.DataFrame) -> (int, int, int, int):
+    """
+    Gets the number of EM and valid annotations.
+
+    Args:
+        df (pd.DataFrame): the dataframe
+
+    Returns:
+        (int, int): (EM, valid, total_correct, total_rows)
+    """
+    EM_count = 0
+    valid_count = 0
+    total_correct = 0
+    for row in range(len(df)):
+
+        # Get EM and other comments
+        em = df.iloc[row]["EM"]
+        other_comments = df.iloc[row]["other comments"]
+
+        em_correct = False if em is None or em == 'False' else True
+        if em_correct:
+            EM_count += 1
+
+        valid_correct = False if other_comments is None else "valid" in other_comments
+        if valid_correct:
+            valid_count += 1
+
+        if em_correct or valid_correct:
+            total_correct += 1
+
+    print(f"EM: {EM_count}, valid: {valid_count}, total correct: {total_correct}, total rows: {len(df)}, percentage: {total_correct / float(len(df)) * 100}%")
+
+    return (EM_count, valid_count, total_correct, len(df))
 
 
 if __name__ == "__main__":
