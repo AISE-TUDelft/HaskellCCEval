@@ -72,6 +72,8 @@ In case you want to do manual evaluation on your own inference results, you can 
 
 Each file has been documented with comments to explain the code and if applicable, the arguments that can be passed to the script.
 
+## Results
 
+For the results, please refer to our submitted paper or [check Overleaf](https://www.overleaf.com/8565466463jjcnnzzngxdr).
 
 
