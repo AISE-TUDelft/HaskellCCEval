@@ -3,9 +3,9 @@ import os
 import random
 import re
 from argparse import ArgumentParser
-from typing import Tuple, Union, List, Optional
+from typing import Tuple, Optional
 from itertools import takewhile
-from datasets import Dataset, DatasetDict, load_dataset
+from datasets import Dataset, load_dataset, DatasetDict
 from tqdm import tqdm
 
 __DIRNAME = os.path.dirname(__file__)
@@ -23,7 +23,7 @@ def main():
 
     random.seed(args.seed)
 
-    haskell_dataset: Union[Dataset, DatasetDict] = load_dataset("blastwind/github-code-haskell-function", split="train")
+    haskell_dataset: Dataset = load_dataset("blastwind/github-code-haskell-function", split="train")
     original_dataset_size = len(haskell_dataset)
     print(f"Loaded {original_dataset_size} samples")
 
@@ -35,13 +35,14 @@ def main():
     deduplicated_dataset_size = len(haskell_dataset)
     print(f"Removed {filtered_dataset_size - deduplicated_dataset_size} duplicates")
 
-    train, test = split_data(haskell_dataset, args.seed, args.test_ratio, args.huggingface_path)
+    train, test = split_data(haskell_dataset, args.test_ratio, args.huggingface_path)
+    print(f"Split into train and test sets ({len(train)} / {len(train) / (len(train) + len(test)) * 100:.2f}%, {len(test)} / {len(test) / (len(train) + len(test)) * 100:.2f}%)")
 
     create_train(train)
     create_test(test)
 
 
-def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
+def filter_dataset(haskell_dataset: Dataset) -> Dataset:
     """
     Filters the given dataset using numerous criteria to ensure the data is of high quality.
 
@@ -83,7 +84,7 @@ def filter_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Datase
     return haskell_dataset.filter(sample_filter, desc="Filtering out low-quality samples")
 
 
-def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[Dataset, DatasetDict]:
+def deduplicate_dataset(haskell_dataset: Dataset) -> Dataset:
     """
     Deduplicates the given dataset by removing any duplicate entries.
     Tokenizes every sample's 'full code' field and uses the resulting tokens to determine duplicates.
@@ -120,9 +121,10 @@ def deduplicate_dataset(haskell_dataset: Union[Dataset, DatasetDict]) -> Union[D
     return haskell_dataset.filter(sample_filter, with_indices=True, desc="Filtering out duplicates")
 
 
-def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_ratio: float, huggingface_path: Optional[str]) -> Tuple[Union[Dataset, DatasetDict], Union[Dataset, DatasetDict]]:
+def split_data(haskell_dataset: Dataset, test_ratio: float, huggingface_path: Optional[str]) -> Tuple[Dataset, Dataset]:
     """
     Splits the given dataset into training and testing sets based on the given test ratio and seed.
+    Ensures that the same repository is always in the same split.
 
     Args:
     - haskell_dataset: A Dataset or DatasetDict object containing the dataset to be split.
@@ -132,7 +134,14 @@ def split_data(haskell_dataset: Union[Dataset, DatasetDict], seed: int, test_rat
     Returns:
     - A tuple containing the training and testing sets respectively.
     """
-    dataset = haskell_dataset.train_test_split(test_size=test_ratio, seed=seed)
+
+    repo_names = set(haskell_dataset['repo_name'])
+    test_repos = set(repo_name for repo_name in repo_names if random.random() < test_ratio)
+
+    dataset = DatasetDict({
+        "train": haskell_dataset.filter(lambda sample: sample["repo_name"] not in test_repos, desc="Creating train split"),
+        "test": haskell_dataset.filter(lambda sample: sample["repo_name"] in test_repos, desc="Creating test split")
+    })
 
     if huggingface_path is not None:
         dataset.push_to_hub(huggingface_path)
@@ -159,13 +168,13 @@ def preprocess_input(text: str) -> str:
     return text
 
 
-def create_train(train) -> None:
+def create_train(train: Dataset) -> None:
     """
     The models use <EOL> instead of newline (max 1), start sequences with <s> and end them with </s>.
     All the inputs should be saved in a text file with one input per line.
 
     Args:
-        train (list): A list of training samples based on 'full code' field entries.
+        train (Dataset): A list of training samples.
 
     Returns:
         None
@@ -176,12 +185,12 @@ def create_train(train) -> None:
             f.write(full_code + '\n')
 
 
-def create_test(test) -> None:
+def create_test(test: Dataset) -> None:
     """
     We create a test.txt that is used to compute loss, and a test.json that has some test cases for computing the accuracy.
 
     Args:
-        train (list): A list of test samples based on 'full code' field entries.
+        test (Dataset): A dataset of test samples.
 
     Returns:
         None
