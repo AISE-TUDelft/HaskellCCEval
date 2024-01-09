@@ -41,13 +41,28 @@ def main():
         wb = openpyxl.Workbook()
         ws = wb.active
 
+        overlap_file = None
+        overlaps_folder = os.path.join(os.path.dirname(
+            os.path.abspath(__file__)), "overlap-check")
+        if "unixcoder" in file:
+            overlap_file = os.path.join(
+                overlaps_folder, "overlapping-unixcoder_finetuned-test-humaneval.json")
+        elif "codegpt" in file:
+            overlap_file = os.path.join(
+                overlaps_folder, "overlapping-codegpt_finetuned-test-humaneval.json")
+
+        overlap_data = None
+        if overlap_file is not None:
+            with open(overlap_file, 'r') as of:
+                overlap_data = json.load(of)
+
         # Get the data from the .json file and convert it into Excel format
         with open(file) as f:
             lines = [json.loads(line) for line in f]
 
             # Write the header
             headers = ["Input", "Ground Truth", "Prediction",
-                       "EM", "ES"]
+                       "EM", "ES", "OL"]  # EM = Exact Match, ES = Exact Similarity, OL = Overlap
 
             categories = {
                 "if/then/else": ["all", "if", "then", "else"],
@@ -77,20 +92,20 @@ def main():
                     patternType='solid', fgColor="DDDDDD")
 
             # Make width of columns G to O as wide as the longest categories[category] string
-            for i in range(7, 16):
+            for i in range(8, 17):
                 ws.column_dimensions[openpyxl.utils.get_column_letter(
                     i)].width = 20
 
-            # Make F1 background white
-            ws["F1"].fill = openpyxl.styles.fills.PatternFill(
+            # Make G1 background white
+            ws["G1"].fill = openpyxl.styles.fills.PatternFill(
                 patternType='solid', fgColor="FFFFFF")
-            ws["P1"].fill = openpyxl.styles.fills.PatternFill(
+            ws["Q1"].fill = openpyxl.styles.fills.PatternFill(
                 patternType='solid', fgColor="FFFFFF")
 
             # Light green and width of 100
             ws["Q1"].fill = openpyxl.styles.fills.PatternFill(
                 patternType='solid', fgColor="DDFFDD")
-            ws.column_dimensions["Q"].width = 100
+            ws.column_dimensions["R"].width = 100
 
             # Freeze the first row while scrolling
             ws.freeze_panes = "A2"
@@ -99,14 +114,22 @@ def main():
             for line in lines:
 
                 # Calculate EM and ES
-                em = "True" if line["prediction"].strip() == line["gt"].strip() else "False"
-                es = fuzz.ratio(line["prediction"].strip(), line["gt"].strip()) / 100
+                em = "True" if line["prediction"].strip(
+                ) == line["gt"].strip() else "False"
+                es = fuzz.ratio(line["prediction"].strip(),
+                                line["gt"].strip()) / 100
+                ol = "False"
+                if overlap_data is not None:
+                    for overlap_line in overlap_data:
+                        if overlap_line["input"].strip() == line["input"].strip() and overlap_line["prediction"].strip() == line["prediction"].strip():
+                            ol = "True"
+                            break
 
                 ws.append([
                     readable_json_value(line["input"]),
                     readable_json_value(line["gt"]),
                     readable_json_value(line["prediction"]),
-                    em, es])
+                    em, es, ol])
 
             # Adjust the column widths and wrap text
             ws.column_dimensions["A"].width = 125
@@ -117,7 +140,7 @@ def main():
                     cell.alignment = openpyxl.styles.Alignment(wrap_text=True)
 
             # Center the text in the cells of columns EM and ES
-            for row in ws.iter_rows(min_row=2, min_col=4, max_col=5):
+            for row in ws.iter_rows(min_row=2, min_col=4, max_col=6):
                 for cell in row:
                     cell.alignment = openpyxl.styles.Alignment(
                         horizontal="center")
@@ -126,6 +149,14 @@ def main():
             green = openpyxl.styles.colors.Color(rgb='00FF00')
             red = openpyxl.styles.colors.Color(rgb='FF0000')
             for row in ws.iter_rows(min_row=2, min_col=4, max_col=4):
+                for cell in row:
+                    if cell.value == "True":
+                        cell.fill = openpyxl.styles.fills.PatternFill(
+                            patternType='solid', fgColor=green)
+                    else:
+                        cell.fill = openpyxl.styles.fills.PatternFill(
+                            patternType='solid', fgColor=red)
+            for row in ws.iter_rows(min_row=2, min_col=6, max_col=6):
                 for cell in row:
                     if cell.value == "True":
                         cell.fill = openpyxl.styles.fills.PatternFill(
