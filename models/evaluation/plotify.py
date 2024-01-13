@@ -62,6 +62,8 @@ def main():
 
         codegpt_total = TaxonomyPlotObject(
             codegpt, "Total", include=lambda x: True)
+        codegpt_total_other_descr = TaxonomyPlotObject(
+            codegpt, "CodeGPT Total", include=lambda x: True)
 
         plot_distribution_annotations(
             t1=codegpt_not_exact_match_nor_valid_other_descr,
@@ -75,6 +77,8 @@ def main():
             unixcoder, "Not EM and Not Valid", include=lambda x: not x[0] and not x[2])
         unixcoder_total = TaxonomyPlotObject(
             unixcoder, "Total", include=lambda x: True)
+        unixcoder_total_other_descr = TaxonomyPlotObject(
+            unixcoder, "UniXcoder Total", include=lambda x: True)
 
         plot_distribution_annotations(
             t1=unixcoder_not_exact_match_nor_valid_other_descr,
@@ -103,6 +107,14 @@ def main():
             t2=unixcoder_total,
             figure_name="distribution_annotations-unixcoder_EM_or_valid-vs-unixcoder_total.png",
             plot_title="Distribution of Annotations for Each Category - UniXcoder: EM or Valid vs. Total"
+        )
+
+        # UniXcoder vs CodeGPT: Plot the distribution of annotations for each category, total vs. total
+        plot_distribution_annotations(
+            t1=codegpt_total_other_descr,
+            t2=unixcoder_total_other_descr,
+            figure_name="distribution_annotations-codegpt_total-vs-unixcoder_total.png",
+            plot_title="Distribution of Annotations for Each Category - UniXcoder Total vs. CodeGPT Total"
         )
 
     if False:  # Cross-overlaps - Data
@@ -181,7 +193,7 @@ def main():
             print(
                 f"{left_name} & {right_name} & {values['percentage']:.2f}\\% ({values['count_overlap']}/{values['count_total']}) \t \\\\")
 
-    if True:  # Distribution of extra comments and analysis
+    if False:  # Distribution of extra comments and analysis
         distribution_of_extra_comments(codegpt)
 
 
@@ -215,11 +227,21 @@ def plot_distribution_annotations(t1: TaxonomyPlotObject, t2: TaxonomyPlotObject
         subcounts = []
         model = []
         for subcategory in categories[category]:
-            subcategories.append(subcategory)
+            if subcategory == "arithmetic logic":
+                subcategories.append("arithmetic\nlogic")
+            elif subcategory == "variable definition":
+                subcategories.append("variable\ndefinition")
+            else:
+                subcategories.append(subcategory)
             subcounts.append(codegpt_count[subcategory])
             model.append(t1.name)
 
-            subcategories.append(subcategory)
+            if subcategory == "arithmetic logic":
+                subcategories.append("arithmetic\nlogic")
+            elif subcategory == "variable definition":
+                subcategories.append("variable\ndefinition")
+            else:
+                subcategories.append(subcategory)
             subcounts.append(unixcoder_count[subcategory])
             model.append(t2.name)
 
@@ -354,7 +376,7 @@ def distribution_of_extra_comments(taxonomy: Taxonomy):
     #     "Distribution of CodeGPT's (Sub)Categories annotated with \"extra comment\"")
 
     # Increase font size
-    plt.rcParams.update({'font.size': 16})
+    plt.rcParams.update({'font.size': 20})
     plt.rc('xtick', labelsize=20)
     plt.rc('ytick', labelsize=20)
 
@@ -365,8 +387,8 @@ def distribution_of_extra_comments(taxonomy: Taxonomy):
         ax.bar_label(j, label_type="edge",
                      color="dimgrey", weight="bold")
 
-    ax.set_xlabel("(Sub)category")
-    ax.set_ylabel("Number of annotations")
+    ax.set_xlabel("(Sub)category", fontsize=16)
+    ax.set_ylabel("Number of annotations", fontsize=16)
     ax.set_ylim(0, max(extra_comment_count_filtered.values()) +
                 0.2 * max(extra_comment_count_filtered.values()))
 

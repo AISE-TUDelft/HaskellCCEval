@@ -19,7 +19,19 @@ categories = {
     "arithmetic operators": ["all", "+", "-", "*", "/", "^", "mod"],
     "case expressions": ["complete", "parameter(s)", "argument(s)", "body"],
     "other": ["variable name", "wrong type", "wrong value", "wrong function"],
-    "other comments": ["empty", "extra comment", "valid", "incomplete", "variable definition", "arithmetic logic", "wrong syntax", "import", "complex", "not exhaustive", "undefined"]
+    "other comments": ["empty",
+                       "extra comment",
+                       "valid",
+                       "incomplete",
+                       "variable definition",
+                       "arithmetic logic",
+                       "wrong syntax",
+                       "import",
+                       "complex",
+                       "not exhaustive",
+                       "undefined",
+                       "logic"
+                       ]
 }
 
 # The offset needed to match the indices of the first annotation in the Excel file
